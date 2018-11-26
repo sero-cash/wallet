@@ -6,17 +6,17 @@ you can simply run the executeable after download.
 For updating simply download the new version and copy it over the old one (keep a backup of the old one if you want to be sure).
 
 #### Config folder
-The data folder for Mist is stored in other places:
+The data folder for Wallet is stored in other places:
 
-- Windows `%APPDATA%\Mist`
-- macOS `~/Library/Application\ Support/Mist`
-- Linux `~/.config/Mist`
+- Windows `%APPDATA%\Wallet`
+- macOS `~/Library/Application\ Support/Wallet`
+- Linux `~/.config/Wallet`
 
 
 ## Development
 
 For development, a Meteor server will need to be started to assist with live reload and CSS injection.
-Once a Mist version is released the Meteor frontend part is bundled using the `meteor-build-client` npm package to create pure static files.
+Once a Wallet version is released the Meteor frontend part is bundled using the `meteor-build-client` npm package to create pure static files.
 
 ### Dependencies
 
@@ -59,7 +59,7 @@ Start the wallet app for development, *in a separate terminal window:*
 
     $ cd my/path/meteor-dapp-wallet/app && meteor --port 3050
 
-In the original window you can then start Mist using wallet mode:
+In the original window you can then start Wallet using wallet mode:
 
     $ cd wallet
     $ yarn dev:electron --mode wallet
@@ -84,7 +84,7 @@ the command-line invocation:
 $ yarn dev:electron --mode wallet --node-rpcport 19343 --node-networkid 2
 ```
 
-The `--rpc` Mist option is a special case. If you set this to an IPC socket file
+The `--rpc` Wallet option is a special case. If you set this to an IPC socket file
 path then the `--ipcpath` option automatically gets set, i.e.:
 
 ```bash
@@ -117,7 +117,7 @@ _NOTE: since `ipcpath` is also a Wallet option you do not need to also include a
 `--node-ipcpath` option._
 
 You can also launch `gero` separately with the same options prior starting
-Mist.
+Wallet.
 
 
 ### Deployment
@@ -140,7 +140,7 @@ Furthermore cross-platform builds require additional [`electron-builder` depende
 
 #### Generate packages
 
-To generate the binaries for Mist run:
+To generate the binaries for Wallet run:
 
     $ gulp
     $ gulp --wallet
