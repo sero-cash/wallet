@@ -1,0 +1,8 @@
+<template name="elements_account_link">
+    {{#with getAccount}}
+        <span class="address dapp-shorten-text {{ensClass}}">
+            {{> dapp_identicon identity=address class="dapp-tiny"}}
+            <a href="{{pathFor route='account' address=address}}">{{displayName}}</a>
+        </span>
+    {{/with}}
+</template>

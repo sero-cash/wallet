@@ -1,0 +1,15 @@
+.idea
+.DS_Store
+interface/public/
+interface/yarn.lock
+node_modules/
+interface_build/
+dist_wallet/
+dist_mist/
+nodes/geth/
+mist.log
+npm-debug.log
+/yarn.lock
+tests/
+package-lock.json
+yarn-error.log

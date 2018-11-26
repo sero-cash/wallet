@@ -1,0 +1,18 @@
+<head>
+    <meta charset="utf-8">
+    <!-- title is set in index.js -->
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+
+<body>
+    <div class="drag-bar"></div>
+
+    {{> Template.dynamic template=renderApp}}
+
+    {{> GlobalNotifications}}
+
+    <!-- Form Helper iFrame -->
+    <iframe id="dapp-form-helper-iframe" name="dapp-form-helper-iframe" src="javascript:false;"></iframe>
+</body>
+

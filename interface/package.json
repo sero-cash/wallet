@@ -1,0 +1,27 @@
+{
+  "name": "Mist-Interface",
+  "version": "0.1.0",
+  "description": "Mist interface application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sero-cash/wallet.git"
+  },
+  "keywords": [
+    "sero",
+    "wallet",
+    "web3"
+  ],
+  "author": "tomdurrent <tomdurrent@sero.vip>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/sero-cash/wallet/issues"
+  },
+  "homepage": "https://github.com/sero-cash/wallet#readme",
+  "dependencies": {
+    "babel-runtime": "^6.18.0"
+  }
+}

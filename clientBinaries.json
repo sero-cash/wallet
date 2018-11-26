@@ -1,0 +1,73 @@
+{
+    "clients": {
+        "SERO": {
+            "version": "v0.3.0-beta.1",
+            "platforms": {
+                "linux": {
+                    "x64": {
+                        "download": {
+                            "url": "https://github.com/sero-cash/go-sero/releases/download/v0.3.0-beta.1/gero-v0.3.0-beta.1-for-ubuntu18.tar.gz",
+                            "type": "tar",
+                            "md5": "fd8eff6b92dc3f0b4274bef2cb965ca1",
+                            "bin": "geropkg/bin/gero"
+                        },
+                        "bin": "gero",
+                        "commands": {
+                            "sanity": {
+                                "args": [
+                                    "version"
+                                ],
+                                "output": [
+                                    "gero",
+                                    "v0.3.0-beta.1"
+                                ]
+                            }
+                        }
+                    },
+                    "ia32": {
+                        "download": {
+                            "url": "https://github.com/sero-cash/go-sero/releases/download/v0.3.0-beta.1/gero-v0.3.0-beta.1-for-ubuntu18.tar.gz",
+                            "type": "tar",
+                            "md5": "fd8eff6b92dc3f0b4274bef2cb965ca1",
+                            "bin": "geropkg/bin/gero"
+                        },
+                        "bin": "gero",
+                        "commands": {
+                            "sanity": {
+                                "args": [
+                                    "version"
+                                ],
+                                "output": [
+                                    "gero",
+                                    "v0.3.0-beta.1"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "mac": {
+                    "x64": {
+                        "download": {
+                            "url": "https://github.com/sero-cash/go-sero/releases/download/v0.3.0-beta.1/gero-v0.3.0-beta.1-for-ubuntu18.tar.gz",
+                            "type": "tar",
+                            "md5": "fd8eff6b92dc3f0b4274bef2cb965ca1",
+                            "bin": "geropkg/bin/gero"
+                        },
+                        "bin": "gero",
+                        "commands": {
+                            "sanity": {
+                                "args": [
+                                    "version"
+                                ],
+                                "output": [
+                                    "gero",
+                                    "v0.3.0-beta.1"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

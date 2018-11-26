@@ -1,0 +1,9 @@
+<template name="elements_otherBalance">
+    <p class="account-balance" style="margin:0">
+        {{#each convertedBalance}}
+          {{bal}}<span>{{name}}</span>
+        {{/each}}
+        {{! getBalance is necessary to make the count up/down animation work}}
+        {{otherbalance}}
+    </p>
+</template>

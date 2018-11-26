@@ -1,0 +1,3 @@
+app/browser
+app/packages/*
+app/public/i18n/*.json
