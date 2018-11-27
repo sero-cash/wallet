@@ -53,7 +53,7 @@ To update Wallet in the future, run:
 
 Start the wallet app for development, *in a separate terminal window:*
 
-    $ cd wallet/interface && meteor --no-release-check
+    $ cd wallet/interface && meteor --no-release-checkFS
 
     // and in another terminal
 
@@ -110,7 +110,7 @@ To run a private network you will need to set the IPC path, network id and data
 folder:
 
 ```bash
-$ yarn dev:electron --rpc ~/Library/Sero/gero.ipc --node-networkid 1234 --node-datadir ~/Library/Sero/privatenet
+$ yarn dev:electron --rpc ~/Library/SERO/gero.ipc --node-networkid 1234 --node-datadir ~/Library/SERO/privatenet
 ```
 
 _NOTE: since `ipcpath` is also a Wallet option you do not need to also include a

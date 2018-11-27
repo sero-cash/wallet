@@ -82,7 +82,7 @@
             "help": {
                 "label": "Help",
                 "mistWiki": "Troubleshooting and Help",
-                "gitter": "Mist channel on Gitter",
+                "gitter": "Wallet channel on Gitter",
                 "reportBug": "Report an issue on Github"
             }
         },

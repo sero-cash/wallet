@@ -13,7 +13,7 @@ const version = require('../package.json').version;
 
 
 const type = options.type;
-const applicationName = (options.wallet) ? "Sero Wallet" : "Mist";
+const applicationName = (options.wallet) ? 'Sero Wallet' : 'Mist';
 
 
 gulp.task('clean-dist', (cb) => {
@@ -209,19 +209,16 @@ gulp.task('release-dist', (done) => {
 
     const distPath = path.join(__dirname, `../dist_${type}`, 'dist');
     const releasePath = path.join(__dirname, `../dist_${type}`, 'release');
-    console.info('releasePath:::',releasePath);
     shell.rm('-rf', releasePath);
     shell.mkdir('-p', releasePath);
 
     const appNameHypen = applicationName.replace(/\s/, '-');
     const appNameNoSpace = applicationName.replace(/\s/, '');
     const versionDashed = version.replace(/\./g, '-');
-    console.info(appNameHypen,appNameNoSpace,versionDashed);
 
     const cp = (inputPath, outputPath) => {
         console.info(`Copying from ${path.join(distPath, inputPath)} to ${path.join(releasePath, outputPath)}`);
         shell.cp(path.join(distPath, inputPath), path.join(releasePath, outputPath));
-        console.info("copy completed,inputPath",inputPath,outputPath);
     };
 
     _.each(options.activePlatforms, (platform) => {

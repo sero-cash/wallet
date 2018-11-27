@@ -154,7 +154,7 @@ app.on('ready', () => {
     // if using HTTP RPC then inform user
     if (Settings.rpcMode === 'http') {
         dialog.showErrorBox('Insecure RPC connection', `
-WARNING: You are connecting to an Sero node via: ${Settings.rpcHttpPath}
+WARNING: You are connecting to an SERO node via: ${Settings.rpcHttpPath}
 
 This is less secure than using local IPC - your passwords will be sent over the wire in plaintext.
 

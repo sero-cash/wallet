@@ -35,7 +35,7 @@ class NodeSync extends EventEmitter {
 
         this._syncPromise = Q.try(() => {
             if (!seroNode.isIpcConnected) {
-                throw new Error('Cannot sync - Sero node not yet connected');
+                throw new Error('Cannot sync - SERO node not yet connected');
             }
 
             return new Q((resolve, reject) => {
