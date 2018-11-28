@@ -37,7 +37,7 @@
                 }
             },
             "error": {
-                "wrongChain": "Кажется вы не в той цепочке, перезапустите Sero Wallet App!"
+                "wrongChain": "Кажется вы не в той цепочке, перезапустите SERO Wallet App!"
             },
             "warnings": {
                 "txOriginVulnerabilityWallet": "Этот умный контракт кошелек имеет устаревший код и подлежит фишинга.",

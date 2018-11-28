@@ -37,7 +37,7 @@
                 }
             },
             "error": {
-                "wrongChain": "間違ったチェーン上にいます。Sero Wallet App を再起動して下さい。"
+                "wrongChain": "間違ったチェーン上にいます。SERO Wallet App を再起動して下さい。"
             },
             "warnings": {
                 "txOriginVulnerabilityWallet": "このスマート契約財布は、古いコードを持っており、フィッシング攻撃の対象となります。",

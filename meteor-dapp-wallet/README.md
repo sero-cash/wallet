@@ -1,6 +1,6 @@
-# Sero Wallet Ðapp
+# SERO Wallet Ðapp
 
-The Sero Wallet.
+The SERO Wallet.
 
 [![Build Status](https://travis-ci.org/ethereum/meteor-dapp-wallet.svg?branch=master)](https://travis-ci.org/ethereum/meteor-dapp-wallet)
 

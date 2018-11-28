@@ -10,7 +10,7 @@ const CONNECT_TIMEOUT_MS = 3000;
 
 
 /**
- * Socket connecting to Sero Node.
+ * Socket connecting to SERO Node.
  */
 class Socket extends EventEmitter {
     constructor(socketMgr, id) {

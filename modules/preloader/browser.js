@@ -56,11 +56,11 @@ window.addEventListener('message', function message(event) {
     }
 
 
-    // SeroProvider: connect
+    // SEROProvider: connect
     if (data.type === 'create') {
         ipcRenderer.send('ipcProvider-create');
 
-    // SeroProvider: write
+    // SEROProvider: write
     } else if (data.type === 'write') {
         let messageIsArray = _.isArray(data.message);
 

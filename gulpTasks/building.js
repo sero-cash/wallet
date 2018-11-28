@@ -13,7 +13,7 @@ const version = require('../package.json').version;
 
 
 const type = options.type;
-const applicationName = (options.wallet) ? 'Sero Wallet' : 'Mist';
+const applicationName = (options.wallet) ? 'SERO Wallet' : 'Mist';
 
 
 gulp.task('clean-dist', (cb) => {

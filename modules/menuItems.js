@@ -6,7 +6,7 @@ const Settings = require('./settings');
 const log = require('./utils/logger').create('menuItems');
 const updateChecker = require('./updateChecker');
 const seroNode = require('./seroNode.js');
-const swarmNode = require('./swarmNode.js');
+// const swarmNode = require('./swarmNode.js');
 const ClientBinaryManager = require('./clientBinaryManager');
 
 
@@ -57,6 +57,14 @@ const startMining = (webviews) => {
             if (ret.result === null) {
                 global.mining = true;
                 createMenu(webviews);
+            } else {
+                Windows.createPopup('mining', {
+                    electronOptions: {
+                        width: 420,
+                        height: 230,
+                        alwaysOnTop: true,
+                    },
+                });
             }
         })
         .catch((err) => {
@@ -108,19 +116,21 @@ let menuTempl = function (webviews) {
                 click() {
                     updateChecker.runVisibly();
                 },
-            }, {
-                label: i18n.t('mist.applicationMenu.app.checkForNodeUpdates'),
-                click() {
-                    // remove skipVersion
-                    fs.writeFileSync(
-                        path.join(Settings.userDataPath, 'skippedNodeVersion.json'),
-                        '' // write no version
-                    );
-
-                    // true = will restart after updating and user consent
-                    ClientBinaryManager.init(true);
-                },
-            }, {
+            },
+            // {
+            //     label: i18n.t('mist.applicationMenu.app.checkForNodeUpdates'),
+            //     click() {
+            //         // remove skipVersion
+            //         fs.writeFileSync(
+            //             path.join(Settings.userDataPath, 'skippedNodeVersion.json'),
+            //             '' // write no version
+            //         );
+            //
+            //         // true = will restart after updating and user consent
+            //         ClientBinaryManager.init(true);
+            //     },
+            // },
+            {
                 type: 'separator',
             },
             {
@@ -238,34 +248,35 @@ let menuTempl = function (webviews) {
             {
                 type: 'separator',
             },
-            {
-                label: i18n.t('mist.applicationMenu.file.swarmUpload'),
-                accelerator: 'Shift+CommandOrControl+U',
-                click() {
-                    const focusedWindow = BrowserWindow.getFocusedWindow();
-                    const paths = dialog.showOpenDialog(focusedWindow, {
-                        properties: ['openFile', 'openDirectory']
-                    });
-                    if (paths && paths.length === 1) {
-                        const isDir = fs.lstatSync(paths[0]).isDirectory();
-                        const defaultPath = path.join(paths[0], 'index.html');
-                        const uploadConfig = {
-                            path: paths[0],
-                            kind: isDir ? 'directory' : 'file',
-                            defaultFile: fs.existsSync(defaultPath) ? '/index.html' : null
-                        };
-                        swarmNode.upload(uploadConfig).then((hash) => {
-                            focusedWindow.webContents.executeJavaScript(`
-                              Tabs.update('browser', {$set: {
-                                  url: 'bzz://${hash}',
-                                  redirect: 'bzz://${hash}'
-                              }});
-                              LocalStore.set('selectedTab', 'browser');
-                            `);
-                        }).catch(e => console.log(e));
-                    }
-                }
-            }]
+            // {
+            //     label: i18n.t('mist.applicationMenu.file.swarmUpload'),
+            //     accelerator: 'Shift+CommandOrControl+U',
+            //     click() {
+            //         const focusedWindow = BrowserWindow.getFocusedWindow();
+            //         const paths = dialog.showOpenDialog(focusedWindow, {
+            //             properties: ['openFile', 'openDirectory']
+            //         });
+            //         if (paths && paths.length === 1) {
+            //             const isDir = fs.lstatSync(paths[0]).isDirectory();
+            //             const defaultPath = path.join(paths[0], 'index.html');
+            //             const uploadConfig = {
+            //                 path: paths[0],
+            //                 kind: isDir ? 'directory' : 'file',
+            //                 defaultFile: fs.existsSync(defaultPath) ? '/index.html' : null
+            //             };
+            //             swarmNode.upload(uploadConfig).then((hash) => {
+            //                 focusedWindow.webContents.executeJavaScript(`
+            //                   Tabs.update('browser', {$set: {
+            //                       url: 'bzz://${hash}',
+            //                       redirect: 'bzz://${hash}'
+            //                   }});
+            //                   LocalStore.set('selectedTab', 'browser');
+            //                 `);
+            //             }).catch(e => console.log(e));
+            //         }
+            //     }
+            // }
+            ]
     });
 
     // EDIT

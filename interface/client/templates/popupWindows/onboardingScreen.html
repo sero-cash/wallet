@@ -10,10 +10,10 @@
                   <button class="goto-import-account"> {{i18n "mist.popupWindows.onboarding.gotoMainnet"}} </button>
                   {{i18n "mist.popupWindows.onboarding.gotoMainnetDescription"}}
                 </p>
-                <p>
-                    <button class="start-testnet"> {{i18n "mist.popupWindows.onboarding.goToTestnet"}} </button>
-                    {{i18n "mist.popupWindows.onboarding.goToTestnetDescription"}}
-                </p>
+                <!--<p>-->
+                    <!--<button class="start-testnet"> {{i18n "mist.popupWindows.onboarding.goToTestnet"}} </button>-->
+                    <!--{{i18n "mist.popupWindows.onboarding.goToTestnetDescription"}}-->
+                <!--</p>-->
             </div>
 
             <div class="onboarding-section onboarding-import-account row">
@@ -41,12 +41,10 @@
                 {{/if}}
 
                 <div class="col col-6 col-left">
-                    <p>
-                        {{i18n "mist.popupWindows.onboarding.seroDescription"}}
-                    </p>
+                    {{{i18n "mist.popupWindows.onboarding.seroDescription"}}}
 
                     {{#if TemplateVar.get "testnet"}}
-                        <p>{{{i18n "mist.popupWindows.onboarding.faucetDescription"}}}</p>
+                        <!--<p>{{{i18n "mist.popupWindows.onboarding.faucetDescription"}}}</p>-->
                     {{else}}
                         <!--<p>{{{i18n "mist.popupWindows.onboarding.loadItDescription"}}}</p>-->
                     {{/if}}
@@ -168,7 +166,7 @@
     <h1> {{i18n "mist.popupWindows.onboarding.protectTitle"}} </h1>
     <form action="about:blank" target="dapp-form-helper-iframe">
         <div class="col col-6 col-left">
-            <p> {{i18n "mist.popupWindows.onboarding.protectDescription"}} </p>
+            <p> {{{i18n "mist.popupWindows.onboarding.protectDescription"}}} </p>
         </div>
         <div class="col col-6">
             {{#if TemplateVar.get "creatingPassword"}}

@@ -144,7 +144,7 @@ class IpcProviderBackend {
                                     if (seroNode.STATES.CONNECTED === newState) {
                                         seroNode.removeListener('state', onStateChange);
 
-                                        log.debug(`Sero node connected, resume connecting socket ${ownerId}`);
+                                        log.debug(`SERO node connected, resume connecting socket ${ownerId}`);
 
                                         resolve();
                                     }
@@ -199,7 +199,7 @@ class IpcProviderBackend {
 
 
     /**
-     * Handler for when Sero node state changes.
+     * Handler for when SERO node state changes.
      *
      * Auto-reconnect sockets when sero node state changes
      *
@@ -209,7 +209,7 @@ class IpcProviderBackend {
         switch (state) {  // eslint-disable-line default-case
             // stop syncing when node about to be stopped
         case seroNode.STATES.STOPPING:
-            log.info('Sero node stopping, disconnecting sockets');
+            log.info('SERO node stopping, disconnecting sockets');
 
             Q.all(_.map(this._connections, (item) => {
                 if (item.socket.isConnected) {

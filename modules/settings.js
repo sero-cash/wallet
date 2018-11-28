@@ -204,7 +204,7 @@ class Settings {
     }
 
     get appName() {
-        return (this.uiMode === 'wallet') ? 'Sero Wallet':'Wallet';
+        return (this.uiMode === 'wallet') ? 'SERO Wallet':'Wallet';
     }
 
     get appLicense() {

@@ -2,8 +2,8 @@ const _ = global._;
 const Windows = require('./windows');
 const Settings = require('./settings');
 const log = require('./utils/logger').create('updateChecker');
-// const got = require('got');
-// const semver = require('semver');
+const got = require('got');
+const semver = require('semver');
 
 
 /**
@@ -24,41 +24,41 @@ const check = exports.check = () => {
         break;
     }
 
-    // return got('https://api.github.com/repos/ethereum/mist/releases', {
-    //     timeout: 3000,
-    //     json: true,
-    // })
-    // .then((res) => {
-    //     const releases = _.filter(res.body, (release) => {
-    //         return (
-    //             !_.get(release, 'draft')
-    //             && _.get(release, 'name', '').toLowerCase().indexOf(str) >= 0
-    //         );
-    //     });
-    //
-    //     if (!releases.length) {
-    //         log.debug('No releases available to check against.');
-    //
-    //         return;
-    //     }
-    //
-    //     const latest = releases[0];
-    //
-    //     if (semver.gt(latest.tag_name, Settings.appVersion)) {
-    //         log.info(`App (${Settings.appVersion}) is out of date. New ${latest.tag_name} found.`);
-    //
-    //         return {
-    //             name: latest.name,
-    //             version: latest.tag_name,
-    //             url: latest.html_url,
-    //         };
-    //     }
-    //
-    //     log.info('App is up-to-date.');
-    // })
-    // .catch((err) => {
-    //     log.error('Error checking for update', err);
-    // });
+    return got('https://api.github.com/repos/sero-cash/wallet/releases', {
+        timeout: 3000,
+        json: true,
+    })
+    .then((res) => {
+        const releases = _.filter(res.body, (release) => {
+            return (
+                !_.get(release, 'draft')
+                && _.get(release, 'name', '').toLowerCase().indexOf(str) >= 0
+            );
+        });
+
+        if (!releases.length) {
+            log.debug('No releases available to check against.');
+
+            return;
+        }
+
+        const latest = releases[0];
+
+        if (semver.gt(latest.tag_name, Settings.appVersion)) {
+            log.info(`App (${Settings.appVersion}) is out of date. New ${latest.tag_name} found.`);
+
+            return {
+                name: latest.name,
+                version: latest.tag_name,
+                url: latest.html_url,
+            };
+        }
+
+        log.info('App is up-to-date.');
+    })
+    .catch((err) => {
+        log.error('Error checking for update', err);
+    });
 };
 
 
@@ -79,17 +79,17 @@ function showWindow(options) {
 
 
 exports.run = () => {
-    // check().then((update) => {
-    //     if (update) {
-    //         showWindow({
-    //             sendData: {
-    //                 uiAction_checkUpdateDone: update,
-    //             },
-    //         });
-    //     }
-    // }).catch(x(err) => {
-    //     log.error(err);
-    // });
+    check().then((update) => {
+        if (update) {
+            showWindow({
+                sendData: {
+                    uiAction_checkUpdateDone: update,
+                },
+            });
+        }
+    }).catch((err) => {
+        log.error(err);
+    });
 };
 
 

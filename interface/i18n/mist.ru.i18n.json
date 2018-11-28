@@ -5,7 +5,7 @@
                 "label": "__app__",
                 "about": "О __app__",
                 "checkForUpdates": "Проверить обновления...",
-                "checkForNodeUpdates": "Check for Sero node updates...",
+                "checkForNodeUpdates": "Check for SERO node updates...",
                 "services": "Сервисы",
                 "hide": "Скрыть __app__",
                 "hideOthers": "Скрыть прочие",
@@ -141,7 +141,7 @@
                 "downloading": "Downloading new node...",
                 "loadConfig": "Loading client config...",
                 "filtering": "Filtering client binaries...",
-                "done": "Sero node up-to-date...",
+                "done": "SERO node up-to-date...",
                 "error": "Error running downloaded binary."
             }
         },

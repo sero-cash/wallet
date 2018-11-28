@@ -5,7 +5,7 @@
                 "label": "__app__",
                 "about": "About __app__",
                 "checkForUpdates": "Check for updates...",
-                "checkForNodeUpdates": "Check for Sero node updates...",
+                "checkForNodeUpdates": "Check for SERO node updates...",
                 "services": "Services",
                 "hide": "Hide __app__",
                 "hideOthers": "Hide Others",
@@ -44,7 +44,7 @@
                 "runTests": "Run tests",
                 "logFiles": "Show log file",
                 "externalNode": "using external node",
-                "seroNode": "Sero Node",
+                "seroNode": "SERO Node",
                 "network": "Network",
                 "mainNetwork": "Beta Network",
                 "startMining": "⛏ Start Mining",
@@ -70,7 +70,7 @@
             "nodeStartup": "It seems like the node couldn't be started, do you already have one running? Is it upgrading the database right now?",
             "timeSync": {
                 "title": "Your computer's clock is not synced.",
-                "description": "To successfully synchronize with the Sero network you need to sync your computer's clock with a time sync server.",
+                "description": "To successfully synchronize with the SERO network you need to sync your computer's clock with a time sync server.",
                 "win32": "Go to your Internet Time Settings in your system preferences and check the box. See this guide for details: http://www.guidingtech.com/3119/windows-clock-sync/",
                 "linux": "To enable a time sync server install \"ntp\" via \"apt-get install ntp\".",
                 "darwin": "To enable time sync, open the time preferences and check \"Set the time and date automatically\"."
@@ -81,7 +81,7 @@
             },
             "legacyChain": {
                 "title": "Legacy chain detected",
-                "description": "Your node is currently on the unsupported Sero Classic chain. To use this chain use tools provided by the Sero Classic project at\nhttps://seroclassic.github.io.\n\nTo revert to the main sero chain follow the tutorial here:\nhttps://github.com/sero/mist/releases/0.8.2"
+                "description": "Your node is currently on the unsupported SERO Classic chain. To use this chain use tools provided by the SERO Classic project at\nhttps://seroclassic.github.io.\n\nTo revert to the main sero chain follow the tutorial here:\nhttps://github.com/sero/mist/releases/0.8.2"
             }
         },
         "rightClick": {
@@ -98,7 +98,7 @@
             "mainNetwork": "Beta-net",
             "testNetwork": "Alpha-net",
             "privateNetwork": "Develop-net",
-            "mainnetExplain": "You are on the main Sero global network",
+            "mainnetExplain": "You are on the main SERO global network",
             "testnetExplain": "You are on the testnet, DO NOT SEND any real Sero to these addresses",
             "privatenetExplain": "You are on a private net, DO NOT SEND any real Sero to these addresses",
             "unknownnetExplain": "Unable to determine which network you are on",
@@ -116,20 +116,20 @@
             }
         },
         "startScreen": {
-            "runningNodeFound": "Found running Sero node!",
-            "startingNode": "Starting Sero node...",
-            "stoppingNode": "Stopping Sero node...",
+            "runningNodeFound": "Found running SERO node!",
+            "startingNode": "Starting SERO node...",
+            "stoppingNode": "Stopping SERO node...",
             "startedNode": "Starting application...",
-            "nodeConnectionTimeout": "Couldn't start Sero node!<br><small>If you <a href='https://github.com/sero-cash/go-sero/releases' class='button' target='_blank'>installed Geth</a>, use this command to run it: <br> <code>geth --ipcpath __path__</code></small><br> <small><a href='https://github.com/sero/mist/issues' class='button' target='_blank'> Or report an issue </a></small>",
-            "nodeBinaryNotFound": "No Sero node binary found!<br><small> <a href='https://github.com/sero-cash/go-sero/releases' class='button' target='_blank'> Please start one manually before. </a> </small>",
-            "nodeStarting": "Sero node starting up...",
-            "nodeStarted": "Sero node started",
-            "nodeConnected": "Sero node connected",
-            "nodeStopping": "Sero node stopping...",
-            "nodeStopped": "Sero node stopped",
-            "nodeError": "Sero node connection error :'(",
-            "unableToBindPort": "Sero node cannot run. Is another instance already running?",
-            "nodeSyncing": "Sero node needs to sync, please wait...",
+            "nodeConnectionTimeout": "Couldn't start SERO node!<br><small>If you <a href='https://github.com/sero-cash/go-sero/releases' class='button' target='_blank'>installed Geth</a>, use this command to run it: <br> <code>geth --ipcpath __path__</code></small><br> <small><a href='https://github.com/sero/mist/issues' class='button' target='_blank'> Or report an issue </a></small>",
+            "nodeBinaryNotFound": "No SERO node binary found!<br><small> <a href='https://github.com/sero-cash/go-sero/releases' class='button' target='_blank'> Please start one manually before. </a> </small>",
+            "nodeStarting": "SERO node starting up...",
+            "nodeStarted": "SERO node started",
+            "nodeConnected": "SERO node connected",
+            "nodeStopping": "SERO node stopping...",
+            "nodeStopped": "SERO node stopped",
+            "nodeError": "SERO node connection error :'(",
+            "unableToBindPort": "SERO node cannot run. Is another instance already running?",
+            "nodeSyncing": "SERO node needs to sync, please wait...",
             "nodeSyncInfo": "Downloading block __displayBlock__ of __highestBlock__",
             "nodeSyncInfoStates": "Downloading block __displayBlock__ of __highestBlock__, <br> Downloading chain structure __displayState__ of __displayKnownStates__",
             "nodeSyncConnecting": "Looking for peers...",
@@ -141,7 +141,7 @@
                 "downloading": "Downloading new node...",
                 "loadConfig": "Loading client config...",
                 "filtering": "Filtering client binaries...",
-                "done": "Sero node up-to-date...",
+                "done": "SERO node up-to-date...",
                 "error": "Error running downloaded binary."
             }
         },
@@ -160,8 +160,8 @@
             },
             "requestAccount": {
                 "title": "Create account",
-                "enterPassword": "Enter password",
-                "repeatPassword": "Repeat password",
+                "enterPassword": "Enter password(At least 8 chars)",
+                "repeatPassword": "Repeat password(At least 8 chars)",
                 "creating": "Generating account...",
                 "errors": {
                     "passwordMismatch": "Your passwords don't match.",

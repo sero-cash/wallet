@@ -38,7 +38,7 @@
                 }
             },
             "error": {
-                "wrongChain": "You seem to be on a different chain.  Please restart the Sero Wallet App!"
+                "wrongChain": "You seem to be on a different chain.  Please restart the SERO Wallet App!"
             },
             "warnings": {
                 "txOriginVulnerabilityWallet": "This smart contract wallet has outdated code and is subject to phishing attacks. ",

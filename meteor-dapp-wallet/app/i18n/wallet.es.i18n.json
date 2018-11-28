@@ -37,7 +37,7 @@
                 }
             },
             "error": {
-                "wrongChain": "You seem on a different chain, please restart the Sero Wallet App!"
+                "wrongChain": "You seem on a different chain, please restart the SERO Wallet App!"
             },
             "warnings": {
                 "txOriginVulnerabilityWallet": "Esta cartera tiene contrato inteligente código obsoleto y está sujeto a ataques de phishing. ",

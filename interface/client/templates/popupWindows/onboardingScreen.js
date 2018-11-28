@@ -279,25 +279,25 @@ Template['popupWindows_onboardingScreen_importAccount'].events({
                 switch (type) {
                 case 'license':
                     console.log(`Imported ${type}`);
-                    GlobalNotification.success({
-                        content: 'Import SUCCESS!',
-                        duration: 4
+                    GlobalNotification.info({
+                        content: TAPi18n.__('mist.popupWindows.onboarding.importSuccess'),
+                        duration: 5
                     });
-                    // setTimeout(function () {
-                    //     ipc.send('backendAction_closePopupWindow');
-                    // }, 750);
+                    setTimeout(function () {
+                        ipc.send('backendAction_closePopupWindow');
+                    }, 3000);
                     break;
                 case 'web3':
                     console.log(`Imported ${type} account`);
                     TemplateVar.set(template, 'filePath', files[0].path);
                     TemplateVar.set(template, 'importing', true);
-                    GlobalNotification.success({
-                        content: 'Import SUCCESS!',
-                        duration: 4
+                    GlobalNotification.info({
+                        content: TAPi18n.__('mist.popupWindows.onboarding.importSuccess'),
+                        duration: 5
                     });
-                    // setTimeout(function () {
-                    //     ipc.send('backendAction_closePopupWindow');
-                    // }, 750);
+                    setTimeout(function () {
+                        ipc.send('backendAction_closePopupWindow');
+                    }, 3000);
                     break;
                 default:
                     GlobalNotification.warning({

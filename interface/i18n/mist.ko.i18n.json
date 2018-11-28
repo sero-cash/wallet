@@ -141,7 +141,7 @@
                 "downloading": "새로운 노드 다운로드중...",
                 "loadConfig": "클라이언트 설정 로딩중...",
                 "filtering": "클라이언트 바이너리 필터링중...",
-                "done": "Sero node up-to-date...",
+                "done": "SERO node up-to-date...",
                 "error": "다운로드 된 바이너리 실행 중 오류."
             }
         },

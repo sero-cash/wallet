@@ -5,7 +5,7 @@
                 "label": "__app__",
                 "about": "Om __app__",
                 "checkForUpdates": "Se etter oppdateringer...",
-                "checkForNodeUpdates": "Check for Sero node updates...",
+                "checkForNodeUpdates": "Check for SERO node updates...",
                 "services": "Tjenester",
                 "hide": "Skjul __app__",
                 "hideOthers": "Skjul Andre",
@@ -43,7 +43,7 @@
                 "devToolsWebview": "__webview__",
                 "runTests": "Kjør tester",
                 "logFiles": "Vis loggfil",
-                "seroNode": "Sero Node",
+                "seroNode": "SERO Node",
                 "network": "Nettverk",
                 "mainNetwork": "Hovednettverk",
                 "startMining": "⛏ Start Mining",
@@ -70,7 +70,7 @@
             "nodeStartup": "Det virker som noden ikke kunne startes, har du allerede en som kjører? Oppgraderer den databasen akkurat nå?",
             "timeSync": {
                 "title": "Datamaskinens klokke er ikke synkronisert.",
-                "description": "For å kunne synkronisere med Sero-nettverket trenger du å synkronisere datamaskinens klokke med en tidssynkroniseringsserver.",
+                "description": "For å kunne synkronisere med SERO-nettverket trenger du å synkronisere datamaskinens klokke med en tidssynkroniseringsserver.",
                 "win32": "Gå til tidsinnstillinger for internett i systeminnstillinger og kryss av i boksen. Se denne guiden for detaljer: http://www.guidingtech.com/3119/windows-clock-sync/",
                 "linux": "For å aktivere en tidssynkroniseringsserver installer \"ntp\" via \"apt-get install ntp\".",
                 "darwin": "For å aktivere tidssynkronisering, åpne tidsinnstillinger og velg \"Angi klokkeslett og dato automatisk\"."
@@ -81,7 +81,7 @@
             },
             "legacyChain": {
                 "title": "Legacy chain detected",
-                "description": "Your node is currently on the unsupported Sero Classic chain. To use this chain use tools provided by the sero classic project at\nhttps://seroclassic.github.io.\n\nTo revert to the main sero chain follow the tutorial here:\nhttps://github.com/sero/mist/releases/0.8.2"
+                "description": "Your node is currently on the unsupported SERO Classic chain. To use this chain use tools provided by the sero classic project at\nhttps://seroclassic.github.io.\n\nTo revert to the main sero chain follow the tutorial here:\nhttps://github.com/sero/mist/releases/0.8.2"
             }
         },
         "rightClick": {
@@ -98,7 +98,7 @@
             "mainNetwork": "Hovednett",
             "testNetwork": "Testnet",
             "privateNetwork": "Privatnett",
-            "mainnetExplain": "Du er på det globale Sero hovednettverket",
+            "mainnetExplain": "Du er på det globale SERO hovednettverket",
             "testnetExplain": "Du er på testnettet, IKKE SEND noen ekte sero til disse adressene",
             "privatenetExplain": "Du er på et privatnett, IKKE SEND noen ekte sero til disse adressene",
             "unknownnetExplain": "Kan ikke fastslå hvilket nettverk du er på",
@@ -116,20 +116,20 @@
             }
         },
         "startScreen": {
-            "runningNodeFound": "Fant kjørende Sero-node!",
-            "startingNode": "Starter Sero-node...",
-            "stoppingNode": "Stopper Sero-node...",
+            "runningNodeFound": "Fant kjørende SERO-node!",
+            "startingNode": "Starter SERO-node...",
+            "stoppingNode": "Stopper SERO-node...",
             "startedNode": "Starter applikasjonen...",
-            "nodeConnectionTimeout": "Kunne ikke starte Sero-node!<br><small>Hvis du <a href='https://github.com/sero-cash/go-sero/releases' class='button' target='_blank'>installerte Gero</a>, bruk denne kommandoen for å kjøre det: <br> <code>geth --ipcpath __path__</code></small><br> <small><a href='https://github.com/sero/mist/issues' class='button' target='_blank'> Eller rapporter et problem </a></small>",
-            "nodeBinaryNotFound": "Ingen Sero-node kilde funnet!<br><small> <a href='https://sero.cash' class='button' target='_blank'> Vennligst start en manuelt først. </a> </small>",
-            "nodeStarting": "Sero-node starter opp...",
-            "nodeStarted": "Sero-node startet",
-            "nodeConnected": "Sero-node tilkoblet",
-            "nodeStopping": "Sero-node stopper...",
-            "nodeStopped": "Sero-node stoppet",
-            "nodeError": "Sero-node tilkoblingsfeil :'(",
-            "unableToBindPort": "Sero-node kan ikke kjøre. Kjører det en allerede?",
-            "nodeSyncing": "Sero-node trenger å synkroniseres, vennligst vent...",
+            "nodeConnectionTimeout": "Kunne ikke starte SERO-node!<br><small>Hvis du <a href='https://github.com/sero-cash/go-sero/releases' class='button' target='_blank'>installerte Gero</a>, bruk denne kommandoen for å kjøre det: <br> <code>geth --ipcpath __path__</code></small><br> <small><a href='https://github.com/sero/mist/issues' class='button' target='_blank'> Eller rapporter et problem </a></small>",
+            "nodeBinaryNotFound": "Ingen SERO-node kilde funnet!<br><small> <a href='https://sero.cash' class='button' target='_blank'> Vennligst start en manuelt først. </a> </small>",
+            "nodeStarting": "SERO-node starter opp...",
+            "nodeStarted": "SERO-node startet",
+            "nodeConnected": "SERO-node tilkoblet",
+            "nodeStopping": "SERO-node stopper...",
+            "nodeStopped": "SERO-node stoppet",
+            "nodeError": "SERO-node tilkoblingsfeil :'(",
+            "unableToBindPort": "SERO-node kan ikke kjøre. Kjører det en allerede?",
+            "nodeSyncing": "SERO-node trenger å synkroniseres, vennligst vent...",
             "nodeSyncInfo": "Laster ned blokk __currentBlock__ av __highestBlock__.",
             "nodeSyncConnecting": "Leter etter peers...",
             "peerSearchTimeout": "Hopp over peer søk",
@@ -141,7 +141,7 @@
                 "downloading": "Downloading new node...",
                 "loadConfig": "Loading client config...",
                 "filtering": "Filtering client binaries...",
-                "done": "Sero node up-to-date...",
+                "done": "SERO node up-to-date...",
                 "error": "Error running downloaded binary."
             }
         },
@@ -202,13 +202,13 @@
                 "notEnoughGas": "Gas might not be enough to successfully finish this transaction.<br>Click here to increase the gas amount."
             },
             "onboarding": {
-                "description": "Sero er en desentralisert plattform for å bygge applikasjoner på en blokkjede: sabotasjesikker programvare som kan overføre verdi og eiendom, og som lever evig",
+                "description": "SERO er en desentralisert plattform for å bygge applikasjoner på en blokkjede: sabotasjesikker programvare som kan overføre verdi og eiendom, og som lever evig",
                 "goToTestnet": "Bruk testnettet (Alpha)",
                 "goToTestnetDescription": "Test teknologien fritt i en sandboks (testnett), uten å bruke ekte sero.",
                 "gotoMainnet": "Bruk hovednettverket",
                 "gotoMainnetDescription": " Du trenger noen sero for å skape og utføre kontrakter. Ikke bekymre deg, vi vil hjelpe deg å skaffe noen...",
                 "doYouHaveAWalletFile": "Har du en lommebok-fil?",
-                "walletFileDescription": "<p>Hvis du har deltatt på forhåndssalget av Sero i 2014, har du en fil med navnet <code>sero_wallet_backup.json</code>. Den ble lastet ned etter salget, og også sendt til din e-post</p>",
+                "walletFileDescription": "<p>Hvis du har deltatt på forhåndssalget av SERO i 2014, har du en fil med navnet <code>sero_wallet_backup.json</code>. Den ble lastet ned etter salget, og også sendt til din e-post</p>",
                 "dropFilesHere": "Slipp filen fra forhåndssalget",
                 "creating": "Lager...",
                 "importing": "Importerer...",
@@ -218,7 +218,7 @@
                 "protectDescription": "Velg et passord for den nye kontoen. Gjør det så sterkt som om det skulle beskyttet husnøklene dine!",
                 "accountTitle": "Fyll den opp!",
                 "accountTitleTestnet": "Mine noen!",
-                "seroDescription": "Sero-nettverket er basert på en enhet kalt \"sero\". Du trenger en liten mengde av den for å gjøre noe på Sero-nettverket.",
+                "seroDescription": "SERO-nettverket er basert på en enhet kalt \"sero\". Du trenger en liten mengde av den for å gjøre noe på SERO-nettverket.",
                 "loadItDescription": "Hvis du allerede eier bitcoin, eller hvilken som helst annen kryptovaluta, kan du enkelt konvertere den til sero via Shapeshift. <br><br> Vi anbefaler å fylle opp med mellom <strong>0.25 til 1 sero</strong>.",
                 "mineItDescription": "<strong>På testnettet kan du mine sero selv ved å gå til <em>Utvikle</em> menyvalget og velge <em>Start Mining</em>. </strong> <br> <strong> IKKE PRØV Å SENDE EKTE SERO TIL DENNE ADRESSEN </strong>",
                 "you": "DU",

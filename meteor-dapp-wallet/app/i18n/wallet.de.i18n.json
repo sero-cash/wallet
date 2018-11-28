@@ -37,7 +37,7 @@
                 }
             },
             "error": {
-                "wrongChain": "Sie folgen nicht der Hauptblockchain, bitte starten Sie die Sero Wallet App neu!"
+                "wrongChain": "Sie folgen nicht der Hauptblockchain, bitte starten Sie die SERO Wallet App neu!"
             },
             "warnings": {
                 "txOriginVulnerabilityWallet": "Diese intelligente Vertrag Geldbörse hat veraltete Code und unterliegt Phishing-Attacken. ",

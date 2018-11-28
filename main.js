@@ -274,24 +274,24 @@ onReady = () => {
     }
 
     // Checks time sync
-    if (!Settings.skiptimesynccheck) {
-        timesync.checkEnabled((err, enabled) => {
-            if (err) {
-                log.error('Couldn\'t infer if computer automatically syncs time.', err);
-                return;
-            }
-
-            if (!enabled) {
-                dialog.showMessageBox({
-                    type: 'warning',
-                    buttons: ['OK'],
-                    message: global.i18n.t('mist.errors.timeSync.title'),
-                    detail: `${global.i18n.t('mist.errors.timeSync.description')}\n\n${global.i18n.t(`mist.errors.timeSync.${process.platform}`)}`,
-                }, () => {
-                });
-            }
-        });
-    }
+    // if (!Settings.skiptimesynccheck) {
+    //     timesync.checkEnabled((err, enabled) => {
+    //         if (err) {
+    //             log.error('Couldn\'t infer if computer automatically syncs time.', err);
+    //             return;
+    //         }
+    //
+    //         if (!enabled) {
+    //             dialog.showMessageBox({
+    //                 type: 'warning',
+    //                 buttons: ['OK'],
+    //                 message: global.i18n.t('mist.errors.timeSync.title'),
+    //                 detail: `${global.i18n.t('mist.errors.timeSync.description')}\n\n${global.i18n.t(`mist.errors.timeSync.${process.platform}`)}`,
+    //             }, () => {
+    //             });
+    //         }
+    //     });
+    // }
 
     const kickStart = () => {
         // client binary stuff

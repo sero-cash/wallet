@@ -37,7 +37,7 @@
                 }
             },
             "error": {
-                "wrongChain": "Vous semblez être sur une chaine différente, veuillez redémarrer Sero Wallet App !"
+                "wrongChain": "Vous semblez être sur une chaine différente, veuillez redémarrer SERO Wallet App !"
             },
             "warnings": {
                 "txOriginVulnerabilityWallet": "Ce portefeuille de contrat à puce a le code obsolète et est soumis à des attaques de phishing. ",
