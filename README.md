@@ -8,9 +8,9 @@ For updating simply download the new version and copy it over the old one (keep 
 #### Config folder
 The data folder for Wallet is stored in other places:
 
-- Windows `%APPDATA%\Wallet`
-- macOS `~/Library/Application\ Support/Wallet`
-- Linux `~/.config/Wallet`
+- Windows `%APPDATA%\SERO Wallet`
+- macOS `~/Library/Application\ Support/SERO Wallet`
+- Linux `~/.config/SERO Wallet`
 
 
 ## Development
@@ -97,12 +97,6 @@ $ yarn dev:electron --rpc /my/gero.ipc
 ```bash
 $ yarn dev:electron --rpc /my/gero.ipc --node-ipcpath /my/gero.ipc
 ```
-
-### Creating a local private net
-
-See this guide to quickly set up a local private network on your computer:
-https://gist.github.com/evertonfraga/9d65a9f3ea399ac138b3e40641accf23
-
 
 ### Using Wallet with a privatenet
 
