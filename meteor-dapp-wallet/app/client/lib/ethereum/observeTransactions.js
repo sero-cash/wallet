@@ -298,7 +298,9 @@ observeTransactions = function(){
 
                     // stop if tx was removed
                     if(!tx) {
-                        filter.stopWatching();
+                        filter.stopWatching(function (result) {
+                            console.log(result);
+                        });
                         return;
                     }
 
@@ -350,7 +352,9 @@ observeTransactions = function(){
                                         });
 
                                         Transactions.remove(tx._id);
-                                        filter.stopWatching();
+                                        filter.stopWatching(function (result) {
+                                            console.log(result);
+                                        });
 
                                     } else if(transaction.blockNumber) {
 
@@ -375,7 +379,9 @@ observeTransactions = function(){
                                                     Transactions.remove(tx._id);
                                                 }
 
-                                                filter.stopWatching();
+                                                filter.stopWatching(function (result) {
+                                                    console.log(result);
+                                                });
                                             }
                                         });
 

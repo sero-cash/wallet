@@ -1,6 +1,6 @@
 {
   "name": "Wallet",
-  "version": "0.0.1",
+  "version": "0.0.2-beta",
   "license": "GPL-3.0",
   "author": "Tom Durrent <tomdurrent@sero.vip>",
   "repository": {
@@ -36,7 +36,7 @@
     "numeral": "^2.0.6",
     "oboe": "^2.1.3",
     "os-timesync": "^1.0.8",
-    "sero-web3": "0.2.6",
+    "sero-web3": "0.2.7",
     "semver": "^5.1.0",
     "solc": "^0.4.16",
     "swarm-js": "^0.1.21",

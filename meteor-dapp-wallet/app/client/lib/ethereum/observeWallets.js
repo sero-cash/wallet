@@ -546,12 +546,16 @@ observeWallets = function () {
                                 // check for wallet data
                                 } else {
                                     Wallets.remove(newDocument._id);
-                                    filter.stopWatching();
+                                    filter.stopWatching(function (result) {
+                                        console.log(result);
+                                    });
                                 }
                             }
                         });
                     } else if (confirmations > ethereumConfig.requiredConfirmations) {
-                        filter.stopWatching();
+                        filter.stopWatching(function (result) {
+                            console.log(result);
+                        });
                     }
                 }
             });
