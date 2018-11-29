@@ -653,7 +653,7 @@ let menuTempl = function (webviews) {
     }, {
         label: i18n.t('mist.applicationMenu.help.gitter'),
         click() {
-            shell.openExternal('https://gitter.im/sero-cash/miner');
+            shell.openExternal('https://gitter.im/sero-cash/wallet');
         },
     }, {
         label: i18n.t('mist.applicationMenu.help.reportBug'),
