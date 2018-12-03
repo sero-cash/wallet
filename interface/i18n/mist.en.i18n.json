@@ -257,7 +257,7 @@
                 "skip": "Skip this step",
                 "next": "Next",
                 "protectTitle": "Protect your account",
-                "protectDescription": "<p>Choose a password for your new account. Make it as strong as if it were to protect your house keys!<br><br>If you already created one account, we suggest you click “Next” directly, and you can create more accounts in the Main Screen in SERO wallet.</p>",
+                "protectDescription": "<p>Choose a password for your new account. Make it as strong as if it were to protect your house keys!<br><br>If you already created one account, we suggest you click “SKIP” directly, and you can create more accounts in the Main Screen in SERO wallet.</p>",
                 "accountTitle": "Load it up!",
                 "accountTitleTestnet": "Mine some!",
                 "seroDescription": "<p>Congratulations!<br/>Now you have main account in SERO wallet, all SERO coins you are mining will be stored in this account. The biggest difference between SERO wallet and other wallets is that SERO is using Zero-Knowledge Proofs which is the most secure solution to protect user’s Privacy information of accounts and transactions.Please keep waiting until all blocks download, then you will enter main screen of SERO wallet.</p>",
