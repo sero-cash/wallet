@@ -7,7 +7,7 @@
                     {{#if balance}}
                         - {{dapp_formatBalance balance "0,0.00 UNIT"}}
                         {{#if isNotSeroUnit}}
-                            ({{dapp_formatBalance balance "0,0.00 UNIT" "ether"}})
+                            ({{dapp_formatBalance balance "0,0.00 UNIT" "sero"}})
                         {{/if}}
                     {{/if}}
                 </option>
@@ -16,7 +16,7 @@
                 {{/each}}
 
             {{/each}}
-           
+
         </select>
         {{#if isAddress}}
         {{> dapp_identicon identity=(TemplateVar.get "value") class="dapp-small"}}
