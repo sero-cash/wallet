@@ -4,11 +4,11 @@ const fs = require('fs');
 const { app, dialog } = require('electron');
 const got = require('got');
 const path = require('path');
-const spawn = require('child_process').spawn;
 const Settings = require('./settings');
 const Windows = require('./windows');
 const ClientBinaryManager = require('./seroClientBinaries').Manager;
 const EventEmitter = require('events').EventEmitter;
+const spawn = require('child_process').spawn;
 
 const log = require('./utils/logger').create('ClientBinaryManager');
 
@@ -107,9 +107,11 @@ class Manager extends EventEmitter {
                 log.info('No "skippedNodeVersion.json" found.');
             }
 
+            console.log('process.getSystemMemoryInfo():::',process.getSystemMemoryInfo());
+
             // prepare node info
             const platform = process.platform.replace('darwin', 'mac').replace('win32', 'win').replace('freebsd', 'linux').replace('sunos', 'linux');
-            console.log('downloading binaries file ,platform:::',platform,process.platform);
+
 
             const binaryVersion = latestConfig.clients[nodeType].platforms[platform][process.arch];
             const checksums = _.pick(binaryVersion.download, 'sha256', 'md5');

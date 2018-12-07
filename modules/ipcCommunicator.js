@@ -121,7 +121,20 @@ ipc.on('backendAction_checkWalletFile', (e, path) => {
             console.log('path:::',path);
             if(path.lastIndexOf('BLIC.DATA')>-1){
                 console.log('imort mining license:::',path);
-                let licensePath = Settings.userDataPath + '/binaries/gero/unpacked/geropkg/czero/data/license/BLIC.DATA';
+                let licensePath = Settings.userHomePath;
+
+                if (process.platform === 'darwin') licensePath += '/Library/Sero/keystore/license/';
+                if (process.platform === 'freebsd' ||
+                    process.platform === 'linux' ||
+                    process.platform === 'sunos') licensePath += '/.Sero/keystore/license/';
+                if (process.platform === 'win32') licensePath = `${Settings.appDataPath}\\Sero\\keystore\\license\\`;
+
+                if (!fs.existsSync(licensePath)) {
+                    fs.mkdirSync(licensePath);
+                }
+
+                licensePath += 'BLIC.DATA';
+
                 console.log('licensePath:::',licensePath);
 
                 fs.writeFile(`${licensePath}`, data, (err) => {

@@ -423,12 +423,16 @@ class SeroNode extends EventEmitter {
 
                 if (binPath.indexOf('gero')>-1){
                     var dylb = binPath.substring(0,binPath.lastIndexOf('gero'))+'geropkg/czero/lib';
+                    var dylbwin = binPath.substring(0,binPath.lastIndexOf('gero'))+'geropkg\\czero\\lib';
                     runEnv =  {
                         env: {
                             'DYLD_LIBRARY_PATH': dylb,
-                            'LD_LIBRARY_PATH': dylb
+                            'LD_LIBRARY_PATH': dylb,
+                            'PATH': dylbwin
                         }
                     }
+                    log.info(`Node runEnv: ${runEnv}`);
+
                     console.log('runEnv:::',runEnv);
                 }
 

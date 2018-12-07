@@ -42,7 +42,11 @@ web3.sero.isSyncing(function(error, syncing) {
         if(syncing === true) {
             console.time('nodeRestarted')
             console.log('Node started syncing, stopping app operation');
-            web3.reset(true);
+            try{
+                web3.reset(true);
+            }catch (e){
+                console.error('web3.reset:::',e);
+            }
 
             // clear observers
             _.each(collectionObservers, function(observer) {

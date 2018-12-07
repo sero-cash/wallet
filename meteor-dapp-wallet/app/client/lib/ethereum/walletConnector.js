@@ -61,10 +61,10 @@ connectToNode = function(){
 
     SeroAccounts.init();
     SeroBlocks.init();
-    SeroTools.ticker.start({
-      extraParams: (typeof mist !== 'undefined') ? 'Mist-'+ mist.version : '',
-      currencies: ['BTC', 'USD', 'EUR', 'BRL', 'GBP']
-    });
+    //SeroTools.ticker.start({
+    //  extraParams: (typeof mist !== 'undefined') ? 'Mist-'+ mist.version : '',
+    // currencies: ['BTC', 'USD', 'EUR', 'BRL', 'GBP']
+    //});
 
     if (SeroAccounts.find().count() > 0) {
         checkForOriginalWallet();

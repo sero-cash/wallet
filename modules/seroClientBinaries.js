@@ -656,16 +656,19 @@ class Manager {
 
         if (cmd.indexOf('gero')>-1){
             var dylb = cmd.substring(0,cmd.lastIndexOf('gero'))+'geropkg/czero/lib';
+            var dylbwin = cmd.substring(0,cmd.lastIndexOf('gero'))+'geropkg\\czero\\lib';
             console.log(cmd, args,{
                 env: {
                     'DYLD_LIBRARY_PATH': dylb,
-                    'LD_LIBRARY_PATH': dylb
+                    'LD_LIBRARY_PATH': dylb,
+                    'PATH': dylbwin
                 }
             })
             return spawn(cmd, args,{
                 env: {
                     'DYLD_LIBRARY_PATH': dylb,
-                    'LD_LIBRARY_PATH': dylb
+                    'LD_LIBRARY_PATH': dylb,
+                    'PATH': dylbwin
                 }
             });
         }
