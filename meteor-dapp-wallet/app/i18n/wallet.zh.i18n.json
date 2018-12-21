@@ -280,7 +280,7 @@
             "title": "定制化 <strong>token</strong>",
             "subTitle": "新增 代币",
             "admin": "__name__ (管理页面)",
-            "description": "代币 是货币或者是其他基于超零平台的货币等价物。您需要添加代币地址到此列表，以便查看和发送代币 。您可以修改 <a href=\"https://sero.org/token#the-code\" target=\"_blank\">定制化代币的合约规范</a> 以创建定制化的代币，或者查看 <a href=\"https://remix.web.sero.cash\" target=\"_blank\">Sero Tokens</a> 进行深入学习。",
+            "description": "代币 是货币或者是其他基于超零平台的货币等价物。您需要添加代币地址到此列表，以便查看和发送代币 。您可以修改 <a href=\"https://remix.web.sero.cash\" target=\"_blank\">定制化代币的合约规范</a> 以创建定制化的代币，或者查看 <a href=\"https://remix.web.sero.cash\" target=\"_blank\">Sero Tokens</a> 进行深入学习。",
              "deleteToken": "您确定要从列表中移除 代币么 <strong>__token__</strong> ？",
             "addedToken": "添加 __token__ 至您的查看列表",
             "editedToken": "编辑 代币 __token__",
@@ -308,7 +308,7 @@
             "writeToContract": "写入合约",
             "pickContract": "选择合约",
             "pickFunction": "选择函数",
-            "noContract": "<p>在这里填入合约源码。您可以在下列连接中找到合约的范例 <a href=\"http://sero.org\" target=\"_blank\">sero.org</a>： </p> <ul><li><a href=\"http://sero.org/token#the-code\" target=\"_blank\">建立 代币</a></li><li><a href=\"http://sero.org/crowdsale#the-code\" target=\"_blank\">启动众筹</a></li><li><a href=\"http://sero.org/dao#the-code\" target=\"_blank\">创建区块链组织</a></li></ul>",
+            "noContract": "<p>在这里填入合约源码。您可以在下列连接中找到合约的范例 <a href=\"http://sero.org\" target=\"_blank\">remix.web.sero.cash</a>： </p> <ul><li><a href=\"https://remix.web.sero.cash\" target=\"_blank\">建立 代币</a></li><li><a href=\"https://remix.web.sero.cash\" target=\"_blank\">启动众筹</a></li><li><a href=\"https://remix.web.sero.cash\" target=\"_blank\">创建区块链组织</a></li></ul>",
             "buttons": {
                 "showContractInfo": "显示合约信息",
                 "hideContractInfo": "隐藏合约信息",
