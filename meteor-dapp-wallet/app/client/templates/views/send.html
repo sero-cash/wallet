@@ -166,7 +166,7 @@
 
                 {{#if selectedAccountIsWalletContract}}
                     <br>
-                    {{i18n "wallet.send.texts.ownerPaysGas"}} ({{dapp_formatBalance (TemplateVar.getFrom ".dapp-select-gas-price" "gasInWei") "0,0.00[0000000000000000] UNIT" "sero"}})
+                    {{i18n "wallet.send.texts.ownerPaysGas"}} ({{dapp_formatBalance (TemplateVar.getFrom ".dapp-select-gas-price" "gasInTa") "0,0.00[0000000000000000] UNIT" "sero"}})
                 {{/if}}
             </div>
 

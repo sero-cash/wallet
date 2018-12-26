@@ -18,8 +18,9 @@ Template['elements_compileContract'].onCreated(function() {
     var template = this;
 
     // set the defaults
-    // TemplateVar.set('txData', '');
-    localStorage.setItem('txData', '');
+    TemplateVar.set('txData', '');
+    // localStorage.setItem('txData', '');
+    // Session.set('txData', '');
     TemplateVar.set('constructorInputs', []);
     TemplateVar.set('selectedType', this.data.onlyByteCode ? 'byte-code' : 'source-code');
     TemplateVar.set('compiledContracts', JSON.parse(localStorage['compiledContracts'] || null));
@@ -74,8 +75,11 @@ Template['elements_compileContract'].onCreated(function() {
 
             var cb = function (result) {
 
+                console.log('result:::'+result);
                 localStorage.setItem('txData', result);
+
                 // TemplateVar.set(template,'txData', result);
+                // Session.set('txData', result);
             }
 
             constructorInputs.push(cb);
@@ -83,6 +87,7 @@ Template['elements_compileContract'].onCreated(function() {
             // TemplateVar.set('txData', );
             web3.sero.contract(selectedContract.jsonInterface).new.getData.apply(null, constructorInputs);
             // txData = selectedContract.bytecode
+
             TemplateVar.set('contract', selectedContract);
 
             // Save data to localstorage
@@ -98,6 +103,7 @@ Template['elements_compileContract'].onCreated(function() {
             }
             // TemplateVar.set("txData", txData);
             localStorage.setItem('txData', txData);
+            // Session.set('txData', txData);
         }
 
     });
@@ -326,6 +332,8 @@ Template['elements_compileContract'].events({
     */
     'change textarea.dapp-data-textarea': function(e){
         var value = e.currentTarget.value;
-        TemplateVar.set('txData', value);
+        // TemplateVar.set('txData', value);
+        localStorage.setItem('txData', value);
+        // Session.set('txData', value);
     }
 });

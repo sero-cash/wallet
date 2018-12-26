@@ -29,11 +29,12 @@
         // Wait for response messages
         window.addEventListener('message', function(event) {
             var data;
-            // console.log("event.data===="+event.data)
+
 
             try {
 
                data = JSON.parse(event.data);
+                // console.log("event.data====",data)
                 // data = JSON.parse('{"type":"uiAction_windowMessage","message":{"type":"requestAccount","error":null,"value":"2A5xmgrn8FxWT4U1WyJKf7PQYUQGthnjS9ZwVRpD93eNh8F4G6GuZWEsdNL4898ZSFsjBPHNYGPQzURAML9ut6C8"}}')
             } catch(e){
                 // console.log('event.data error:',e)

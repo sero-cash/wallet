@@ -168,9 +168,11 @@ Template['popupWindows_sendTransactionConfirmation'].onCreated(function () {
 
             // estimate gas usage
             var estimateData = _.clone(data);
-            estimateData.gas = defaultEstimateGas;
-            // delete estimateData.abi;
-            // delete estimateData.pairs;
+            // estimateData.gas = defaultEstimateGas;
+
+            // delete estimateData.gas;
+            // delete estimateData.gasPrice;
+
             console.log('Estimated estimateData: ', estimateData);
             web3.sero.estimateGas(estimateData, function (e, res) {
                 console.log('Estimated gas: ', res, e);

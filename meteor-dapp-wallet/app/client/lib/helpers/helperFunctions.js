@@ -308,6 +308,9 @@ Helpers.formatTransactionBalance = function(value, exchangeRates, unit) {
     var unit = unit || SeroTools.getUnit(),
         format = '0,0.00';
 
+    if( typeof value === "string" || typeof value === "number"){
+        return SeroTools.formatBalance(value, format + '[00000000000000]', 'sero');
+    }
     return SeroTools.formatBalance(value.sero, format + '[00000000000000]', 'sero');
 };
 

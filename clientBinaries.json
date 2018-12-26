@@ -1,14 +1,14 @@
 {
     "clients": {
-        "SERO": {
-            "version": "v0.3.0-beta.1",
+        "gero": {
+            "version": "0.3.0-beta.rc.5",
             "platforms": {
                 "linux": {
                     "x64": {
                         "download": {
-                            "url": "https://github.com/sero-cash/go-sero/releases/download/v0.3.0-beta.1/gero-v0.3.0-beta.1-for-ubuntu18.tar.gz",
+                            "url": "https://github.com/sero-cash/go-sero/releases/download/v0.3.1-beta.rc.5.hotfix.1/gero-v0.3.1-beta.rc.5.hotfix.1-linux-amd64-v4.tar.gz",
                             "type": "tar",
-                            "md5": "fd8eff6b92dc3f0b4274bef2cb965ca1",
+                            "md5": "da4a7236a22296be1fcee1662b09b6d3",
                             "bin": "geropkg/bin/gero"
                         },
                         "bin": "gero",
@@ -18,28 +18,7 @@
                                     "version"
                                 ],
                                 "output": [
-                                    "gero",
-                                    "v0.3.0-beta.1"
-                                ]
-                            }
-                        }
-                    },
-                    "ia32": {
-                        "download": {
-                            "url": "https://github.com/sero-cash/go-sero/releases/download/v0.3.0-beta.1/gero-v0.3.0-beta.1-for-ubuntu18.tar.gz",
-                            "type": "tar",
-                            "md5": "fd8eff6b92dc3f0b4274bef2cb965ca1",
-                            "bin": "geropkg/bin/gero"
-                        },
-                        "bin": "gero",
-                        "commands": {
-                            "sanity": {
-                                "args": [
-                                    "version"
-                                ],
-                                "output": [
-                                    "gero",
-                                    "v0.3.0-beta.1"
+                                    "0.3.0-beta.rc.5"
                                 ]
                             }
                         }
@@ -48,9 +27,9 @@
                 "mac": {
                     "x64": {
                         "download": {
-                            "url": "https://github.com/sero-cash/go-sero/releases/download/v0.3.0-beta.1/gero-v0.3.0-beta.1-for-ubuntu18.tar.gz",
+                            "url": "https://github.com/sero-cash/go-sero/releases/download/v0.3.1-beta.rc.5.hotfix.1/gero-v0.3.1-beta.rc.5.hotfix.1-darwin-amd64.tar.gz",
                             "type": "tar",
-                            "md5": "fd8eff6b92dc3f0b4274bef2cb965ca1",
+                            "md5": "1cb7007f20f0012d926a441d08e5c97f",
                             "bin": "geropkg/bin/gero"
                         },
                         "bin": "gero",
@@ -60,8 +39,47 @@
                                     "version"
                                 ],
                                 "output": [
-                                    "gero",
-                                    "v0.3.0-beta.1"
+                                    "0.3.0-beta.rc.5"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "win": {
+                    "x64": {
+                        "download": {
+                            "url": "https://github.com/sero-cash/go-sero/releases/download/v0.3.1-beta.rc.5.hotfix.1/gero-v0.3.1-beta.rc.5.hotfix.1-windows-amd64.zip",
+                            "type": "zip",
+                            "md5": "9865ea42945e09981ce6e34883b04cfd",
+                            "bin": "geropkg\\bin\\gero.exe"
+                        },
+                        "bin": "gero.exe",
+                        "commands": {
+                            "sanity": {
+                                "args": [
+                                    "version"
+                                ],
+                                "output": [
+                                    "0.3.0-beta.rc.5"
+                                ]
+                            }
+                        }
+                    },
+                    "ia32": {
+                        "download": {
+                            "url": "https://github.com/sero-cash/go-sero/releases/download/v0.3.1-beta.rc.5.hotfix.1/gero-v0.3.1-beta.rc.5.hotfix.1-windows-amd64.zip",
+                            "type": "zip",
+                            "md5": "9865ea42945e09981ce6e34883b04cfd",
+                            "bin": "geropkg\\bin\\gero.exe"
+                        },
+                        "bin": "gero.exe",
+                        "commands": {
+                            "sanity": {
+                                "args": [
+                                    "version"
+                                ],
+                                "output": [
+                                    "0.3.0-beta.rc.5"
                                 ]
                             }
                         }

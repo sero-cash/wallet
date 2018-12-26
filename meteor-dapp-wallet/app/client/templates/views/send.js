@@ -69,6 +69,7 @@ var getDataField = function(){
 
     // return TemplateVar.getFrom('.compile-contract', 'txData');
     return localStorage.getItem('txData')=='undefined'?'':localStorage.getItem('txData');
+    // return  Session.get('txData')=='undefined'?'':Session.get('txData');
 };
 
 
@@ -100,7 +101,7 @@ Template['views_send'].onCreated(function(){
 
     // SET THE DEFAULT VARIABLES
     TemplateVar.set('amount', '0');
-    TemplateVar.set('estimatedGas', 300000);
+    TemplateVar.set('estimatedGas', 1000000);
     TemplateVar.set('sendAll', false);
 
     // Deploy contract
@@ -310,14 +311,14 @@ Template['views_send'].helpers({
             return '0';
 
         // ether
-        var gasInWei = TemplateVar.getFrom('.dapp-select-gas-price', 'gasInWei') || '0';
+        var gasInTa = TemplateVar.getFrom('.dapp-select-gas-price', 'gasInTa') || '0';
 
         if (TemplateVar.get('selectedToken') === 'sero') {
             amount = (selectedAccount && selectedAccount.owners)
                 ? amount
-                : new BigNumber(amount, 10).plus(new BigNumber(gasInWei, 10));
+                : new BigNumber(amount, 10).plus(new BigNumber(gasInTa, 10));
         } else {
-            amount = new BigNumber(gasInWei, 10);
+            amount = new BigNumber(gasInTa, 10);
         }
         return amount;
     },
@@ -345,12 +346,12 @@ Template['views_send'].helpers({
         var amount = 0;
 
         if (TemplateVar.get('selectedToken') === 'sero') {
-            var gasInWei = TemplateVar.getFrom('.dapp-select-gas-price', 'gasInWei') || '0';
+            var gasInTa = TemplateVar.getFrom('.dapp-select-gas-price', 'gasInTa') || '0';
 
             // deduct fee if account, for contracts use full amount
             amount = (selectedAccount.owners)
                 ? selectedAccount.balance
-                : BigNumber.max(0, new BigNumber(selectedAccount.balance, 10).minus(new BigNumber(gasInWei, 10))).toString(10);
+                : BigNumber.max(0, new BigNumber(selectedAccount.balance, 10).minus(new BigNumber(gasInTa, 10))).toString(10);
         } else {
             var token = Tokens.findOne({address: TemplateVar.get('selectedToken')});
 
