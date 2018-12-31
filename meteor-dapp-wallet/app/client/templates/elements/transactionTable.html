@@ -42,10 +42,10 @@
         </td>
         <td class="account-name">
             <h2>{{transactionType}}</h2>
-            
+
             <p>
                 {{> elements_account_link address=from}}
-                <span class="arrow">→</span> 
+                <span class="arrow">→</span>
                 {{#if to}}
                     {{> elements_account_link address=to}}
                 {{else}}
@@ -82,10 +82,14 @@
         {{else}}
             {{#if incomingTx ../account}}
                 <td class="transaction-amount plus">
-                    {{#if tokenId}}
-                        {{tokenValue}}
+                    {{#if currency}}
+                        {{tknValue}} {{currency}}
                     {{else}}
-                        {{formatTransactionBalance value exchangeRates}}
+                        {{#if tokenId}}
+                            {{tokenValue}}
+                        {{else}}
+                            {{formatTransactionBalance value exchangeRates}}
+                        {{/if}}
                     {{/if}}
                 </td>
                 <td>
@@ -93,11 +97,15 @@
                 </td>
             {{else}}
                 <td class="transaction-amount minus">
+                {{#if currency}}
+                    {{tknValue}} {{currency}}
+                {{else}}
                     {{#if tokenId}}
                         -{{tokenValue}}
                     {{else}}
                         -{{formatTransactionBalance value exchangeRates}}
                     {{/if}}
+                {{/if}}
                 </td>
                 <td>
                     <i class="icon-arrow-right minus"></i>
@@ -109,7 +117,7 @@
                 <td colspan='2' class="button">
                     {{> spinner}}
                 </td>
-            {{else}}           
+            {{else}}
                 {{#if multipleOwnersApproved}}
                     {{#if approved}}
                     <td class="button">
@@ -139,11 +147,11 @@
                         </button>
                     </td>
                     {{else}}
-                    <td class="info" colspan="2"> 
+                    <td class="info" colspan="2">
                         <i class="icon-info"></i> {{i18n "wallet.transactions.noOwnerAccount"}}
                     </td>
                     {{/if}}
-                {{/if}}                                   
+                {{/if}}
             {{/if}}
         {{/if}}
     </tr>

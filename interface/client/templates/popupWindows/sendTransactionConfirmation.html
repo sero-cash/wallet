@@ -27,7 +27,8 @@
                     </div>
                     <div class="connection">
                         <div class="amount">
-                            {{{totalAmount}}} <span class="unit">SERO</span>
+                            <!--{{{totalAmount}}} <span class="unit">SERO</span>-->
+                            {{{totalAmount}}} <span class="unit">{{{unit}}}</span>
                         </div>
                         {{#if TemplateVar.get "executionFunction" }}
                             <div class='function-signature {{#if TemplateVar.get "hasSignature"}} has-signature {{/if}} '>

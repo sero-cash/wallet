@@ -35,15 +35,26 @@ Template['views_modals_transactionInfo'].helpers({
             ? SeroBlocks.latest.number + 1 - this.blockNumber : 0;
     },
     /**
-    Token value
+     Token value
 
-    @method (tokenValue)
-    */
+     @method (tokenValue)
+     */
     'tokenValue': function() {
         var token = Tokens.findOne(this.tokenId);
 
         return (token) ? Helpers.formatNumberByDecimals(this.value, token.decimals) +' '+ token.symbol : this.value;
     },
+
+    /**
+     Token value
+
+     @method (tokenValue)
+     */
+    'tknValue': function() {
+        return Helpers.formatNumberByDecimals(this.value, this.decimals) ;
+    },
+
+
     /**
     Gas Price per million
 

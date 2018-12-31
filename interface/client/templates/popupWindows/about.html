@@ -1,16 +1,17 @@
 <template name="popupWindows_about">
     <div class="row popup-windows about">
-        <div class="col col-4 ">
-            <img class="left-overlay {{mode}}" src="{{appIconPath}}" style="position: relative;top: -40px;left: -132%;width: 255%;">
-        </div>
-        <div class="col col-8 ">
+        <!--<div class="col col-2 ">-->
+            <!--<img class="left-overlay {{mode}}" src="{{appIconPath}}" style="position: relative;top: -40px;left: -132%;width: 255%;">-->
+        <!--</div>-->
+        <!--<div class="col">-->
             <h1>{{appName}}</h1>
             <p>
-                Version {{mist.version}}<br>
-                License {{mist.license}}<br>
-                GitHub <a href="https://github.com/sero-cash/wallet" target="_blank">github.com/sero-cash/wallet</a>
+                Wallet Version: {{mist.version}}<br>
+                Node Version: {{nodeVersion}}<br>
+                Wallet License: {{mist.license}}<br>
+                Wallet on GitHub: <a href="https://github.com/sero-cash/wallet" target="_blank">github.com/sero-cash/wallet</a>
             </p>
             <small>Copyright 2018 Sero Foundation</small>
-        </div>
+        <!--</div>-->
     </div>
 </template>

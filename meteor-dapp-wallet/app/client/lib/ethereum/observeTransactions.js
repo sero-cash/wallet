@@ -4,7 +4,7 @@ Add a pending transaction to the transaction list, after sending
 
 @method addTransactionAfterSend
 */
-addTransactionAfterSend = function(txHash, amount, from, to, gasPrice, estimatedGas, data, tokenId) {
+addTransactionAfterSend = function(txHash, amount, from, to, gasPrice, estimatedGas, data, tokenId,currency,decimals) {
     var jsonInterface = undefined,
         contractName = undefined,
         txId = Helpers.makeId('tx', txHash);
@@ -16,29 +16,31 @@ addTransactionAfterSend = function(txHash, amount, from, to, gasPrice, estimated
     }
 
     Transactions.upsert(txId, {$set: {
-        tokenId: tokenId,
-        value: amount,
-        from: from,
-        to: to,
-        timestamp: moment().unix(),
-        transactionHash: txHash,
-        gasPrice: gasPrice,
-        gasUsed: estimatedGas,
-        fee: String(gasPrice * estimatedGas),
-        data: data,
-        jsonInterface: jsonInterface,
-        contractName: contractName
-    }});
+            tokenId: tokenId,
+            value: amount,
+            from: from,
+            to: to,
+            timestamp: moment().unix(),
+            transactionHash: txHash,
+            gasPrice: gasPrice,
+            gasUsed: estimatedGas,
+            fee: String(gasPrice * estimatedGas),
+            data: data,
+            jsonInterface: jsonInterface,
+            contractName: contractName,
+            currency:currency,
+            decimals:decimals
+        }});
 
     // add from Account
     SeroAccounts.update({address: from}, {$addToSet: {
-        transactions: txId
-    }});
+            transactions: txId
+        }});
 
     // add to Account
     SeroAccounts.update({address: to}, {$addToSet: {
-        transactions: txId
-    }});
+            transactions: txId
+        }});
 };
 
 

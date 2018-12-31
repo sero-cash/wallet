@@ -86,13 +86,34 @@ Template['views_account'].onDestroyed(function(){
 
 Template['views_account'].helpers({
     /**
-    Get the current selected account
+     Get the current selected account
 
-    @method (account)
-    */
+     @method (account)
+     */
     'account': function() {
         return Helpers.getAccountByAddress(FlowRouter.getParam('address'));
     },
+
+    /**
+     Get the current selected account
+
+     @method (account)
+     */
+    'tkns': function() {
+        return Helpers.getAccountByAddress(FlowRouter.getParam('address')).tkns;
+    },
+
+    /**
+     Get the tokens balance
+
+     @method (formattedTokenBalance)
+     */
+    'formattedTknsBalance': function(e){
+        var account = Template.parentData(2);
+
+        return Helpers.formatNumberByDecimals(this.value, this.decimals) +' '+ this.currency;
+    },
+
     /**
     Get the current jsonInterface, or use the wallet jsonInterface
 

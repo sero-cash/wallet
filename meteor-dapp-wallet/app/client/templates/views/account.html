@@ -39,18 +39,17 @@
                     </h2>
                     <div class="clear"></div>
                     {{> elements_balance balance=balance changeUnit=true showAllDecimals=true}}
-                    {{> elements_otherBalance address=address changeUnit=true showAllDecimals=true}}
                 </header>
 
-
-                {{#with tokens}}
+                {{#with tkns}}
                     <table class="token-list dapp-zebra">
                         <tbody>
-                            {{#each this}}
+                        {{#each this}}
+                            {{#if $neq currency 'SERO'}}
                                 <tr>
                                     <td>{{> dapp_identicon identity=address class="dapp-tiny"}}
-                                    <strong>{{name}}</strong></td>
-                                    <td>{{formattedTokenBalance}}</td>
+                                        <strong>{{currency}}</strong></td>
+                                    <td>{{formattedTknsBalance}}</td>
                                     <td>
                                         <a href="{{pathFor route='sendToken' from=../../address token=address}}">
                                             <i class="icon-arrow-up"></i>
@@ -58,10 +57,32 @@
                                         </a>
                                     </td>
                                 </tr>
-                            {{/each}}
+                            {{/if}}
+                        {{/each}}
                         </tbody>
                     </table>
                 {{/with}}
+
+                {{#with tokens}}
+                    <table class="token-list dapp-zebra">
+                        <tbody>
+                        {{#each this}}
+                            <tr>
+                                <td>{{> dapp_identicon identity=address class="dapp-tiny"}}
+                                    <strong>{{name}}</strong></td>
+                                <td>{{formattedTokenBalance}}</td>
+                                <td>
+                                    <a href="{{pathFor route='sendToken' from=../../address token=address}}">
+                                        <i class="icon-arrow-up"></i>
+                                        {{i18n "wallet.app.buttons.send"}}
+                                    </a>
+                                </td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                {{/with}}
+
 
                 {{#with isVulnerable}}
                     {{#if vulnerabilities.txorigin}}

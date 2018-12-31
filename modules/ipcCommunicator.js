@@ -301,3 +301,30 @@ ipc.on('console_log', (event, id, logLevel, logItemsStr) => {
 ipc.on('backendAction_reloadSelectedTab', (event) => {
     event.sender.send('uiAction_reloadSelectedTab');
 });
+
+
+// one key repair
+ipc.on('backendAction_oneKeyRepair', (event) => {
+
+    let statePath = Settings.userHomePath;
+
+    if (process.platform === 'darwin') statePath += '/Library/Sero/state1';
+    if (process.platform === 'freebsd' ||
+        process.platform === 'linux' ||
+        process.platform === 'sunos') statePath += '/.Sero/state1';
+    if (process.platform === 'win32') statePath = `${Settings.appDataPath}\\Sero\\state1`;
+
+    var files = fs.readdirSync(statePath);
+    files.forEach(function(file){
+        var filetemp = statePath+'/'+file;
+        if (process.platform === 'win32'){
+            filetemp = statePath+'\\'+file;
+        }else{
+            filetemp = statePath+'/'+file;
+        }
+        console.log("delete file: ",filetemp)
+        fs.unlinkSync(filetemp);
+        console.log("delete file success: ",filetemp)
+    });
+    event.sender.send('uiAction_oneKeyRepair','One-key repair success!');
+});

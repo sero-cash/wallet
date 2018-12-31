@@ -69,14 +69,14 @@ gulp.task('default', ['buildQueue']);
 gulp.task('buildQueue', (cb) => {
     const skipTasks = options.skipTasks.split(',');
     let tasks = [
-        'clean-dist',
-        'copy-app-source-files',
-        'transpile-main',
-        'transpile-modules',
-        'copy-build-folder-files',
-        'switch-production',
-        'bundling-interface',
-        'copy-i18n',
+        // 'clean-dist',
+        // 'copy-app-source-files',
+        // 'transpile-main',
+        // 'transpile-modules',
+        // 'copy-build-folder-files',
+        // 'switch-production',
+        // 'bundling-interface',
+        // 'copy-i18n',
         'build-dist',
         'release-dist',
     ];

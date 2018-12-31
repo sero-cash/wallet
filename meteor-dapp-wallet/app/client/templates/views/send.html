@@ -101,6 +101,30 @@
                                 </li>
                             {{/if}}
                         {{/each}}
+
+                        {{#each selectedAccountTkn}}
+                            {{#if $neq currency 'SERO'}}
+                                <li>
+                                    <input type="radio" id="token-{{address}}" value="{{address}}"  name="choose-token" {{tokenSelectedAttr address}}>
+                                    <label for="token-{{address}}">
+                                        {{> dapp_identicon identity=address class="dapp-tiny"}}
+                                        <span class="token-name">{{currency}}</span>
+                                        <span class="balance">{{formatNumberByDecimals value decimals}}</span>
+                                    </label>
+                                </li>
+                            {{/if}}
+                        {{/each}}
+
+                        {{#each selectedAccountTkt}}
+                            <li>
+                                <input type="radio" id="token-{{address}}" value="tkt-{{address}}"  name="choose-token" {{tokenSelectedAttr category}}>
+                                <label for="token-{{category}}">
+                                    {{> dapp_identicon identity=category class="dapp-tiny"}}
+                                    <span class="token-name">{{category}}</span>
+                                    <span class="balance">{{hash}}</span>
+                                </label>
+                            </li>
+                        {{/each}}
                     </ul>
                 {{else}}
                     <div class="token-ether">
@@ -159,9 +183,15 @@
                         ({{dapp_formatBalance total "0,0.00[0000000000000000] UNIT" "sero"}})
                     {{/if}}
                 {{else}}
-                    <span class="amount">{{tokenTotal}}</span> {{selectedToken.symbol}}
-                    <br>
-                    {{i18n "wallet.send.estimatedFee"}}: {{dapp_formatBalance total "0,0.00[000000] UNIT" "sero"}}
+                    {{#if $eq (TemplateVar.get "selectedTkn") "tkn"}}
+                        <span class="amount">{{tokenTotal}} {{TemplateVar.get "selectedTknSymbol"}}</span>
+                        <br>
+                        {{i18n "wallet.send.estimatedFee"}}: {{dapp_formatBalance total "0,0.00[000000] UNIT" "sero"}}
+                    {{else}}
+                        <span class="amount">{{tokenTotal}}</span> {{selectedToken.symbol}}
+                        <br>
+                        {{i18n "wallet.send.estimatedFee"}}: {{dapp_formatBalance total "0,0.00[000000] UNIT" "sero"}}
+                    {{/if}}
                 {{/if}}
 
                 {{#if selectedAccountIsWalletContract}}

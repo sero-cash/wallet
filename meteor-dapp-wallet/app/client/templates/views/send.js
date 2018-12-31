@@ -21,6 +21,30 @@
  */
 var defaultEstimateGas = 50000000;
 
+var getTkn = function (selectedAccount) {
+    if (!selectedAccount){
+        return false;
+    }
+    var tknR;
+    if(selectedAccount.tkns.length >0){
+        var tkns = selectedAccount.tkns;
+        for(var i=0;i<tkns.length;i++){
+            var tkn =tkns[i];
+            if(tkn.address == TemplateVar.get('selectedToken')){
+                tknR = tkn;
+                break;
+            }
+        }
+    }
+    if(tknR){
+        TemplateVar.set('selectedTkn','tkn');
+        TemplateVar.set('selectedTknSymbol',tknR.currency);
+    }else{
+        TemplateVar.set('selectedTkn','');
+        TemplateVar.set('selectedTknSymbol','');
+    }
+    return tknR;
+}
 
 /**
  Check if the amount accounts daily limit  and sets the correct text.
@@ -48,25 +72,32 @@ var checkOverDailyLimit = function(address, wei, template){
 
  @method getDataField
  */
-var getDataField = function(){
+var getDataField = function(callback){
     // make reactive to the show/hide of the textarea
     TemplateVar.getFrom('.compile-contract','byteTextareaShown');
-
-
 
     // send tokens
     var selectedToken = TemplateVar.get('selectedToken');
 
-    if(selectedToken && selectedToken !== 'sero') {
-        var mainRecipient = TemplateVar.getFrom('div.dapp-address-input input.to', 'value');
-        var amount = TemplateVar.get('amount') || '0';
-        var token = Tokens.findOne({address: selectedToken});
-        var tokenInstance = TokenContract.at(selectedToken);
-        var txData = tokenInstance.transfer.getData( mainRecipient, amount,  {});
+    var selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value'));
 
-        return txData;
+
+    if(selectedToken && selectedToken !== 'sero' && !getTkn(selectedAccount)) {
+        var mainRecipient = TemplateVar.getFrom('div.dapp-address-input input.to', 'value');
+        if(mainRecipient){
+            var amount = TemplateVar.get('amount') || '0';
+            // var token = Tokens.findOne({address: selectedToken});
+            var tokenInstance = TokenContract.at(selectedToken);
+            // var txData = tokenInstance.transfer.getData( mainRecipient, amount,  {});
+            tokenInstance.transfer.getData( mainRecipient, amount,  {},function (result) {
+                console.log('result::::',result);
+                localStorage.setItem('txData',result);
+                // callback(result);
+            });
+        }
     }
 
+    console.log('txData::::',localStorage.getItem('txData'));
     // return TemplateVar.getFrom('.compile-contract', 'txData');
     return localStorage.getItem('txData')=='undefined'?'':localStorage.getItem('txData');
     // return  Session.get('txData')=='undefined'?'':Session.get('txData');
@@ -203,9 +234,10 @@ Template['views_send'].onRendered(function(){
         if(_.isString(address))
             address = address.toLowerCase();
 
+        var selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value'));
 
         // Sero tx estimation
-        if(tokenAddress === 'sero') {
+        if(tokenAddress === 'sero' || getTkn(selectedAccount)) {
 
             if(SeroAccounts.findOne({address: address}, {reactive: false})) {
                 web3.sero.estimateGas({
@@ -227,12 +259,13 @@ Template['views_send'].onRendered(function(){
             }
 
             // Custom coin estimation
-        } else {
-
-            TokenContract.at(tokenAddress).transfer.estimateGas(to, amount, {
-                from: address,
-                gas: defaultEstimateGas
-            }, estimationCallback.bind(template));
+        }else {
+            if(to){
+                TokenContract.at(tokenAddress).transfer.estimateGas(to, amount, {
+                    from: address,
+                    gas: defaultEstimateGas
+                }, estimationCallback.bind(template));
+            }
         }
     });
 });
@@ -247,6 +280,25 @@ Template['views_send'].helpers({
     'selectedAccount': function(){
         return Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value'));
     },
+
+    /**
+     Get the current selected account tkn
+
+     @method (selectedAccount)
+     */
+    'selectedAccountTkn': function(){
+        return Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value')).tkns;
+    },
+
+    /**
+     Get the current selected account tkt
+
+     @method (selectedAccount)
+     */
+    'selectedAccountTkt': function(){
+        return Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value')).tkts;
+    },
+
     /**
      Get the current selected token document
 
@@ -274,6 +326,7 @@ Template['views_send'].helpers({
         if(TemplateVar.get('selectedAction') === 'send-funds')
             return Tokens.find({},{sort: {name: 1}});
     },
+
     /**
      Checks if the current selected account has tokens
 
@@ -283,9 +336,15 @@ Template['views_send'].helpers({
         var selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value')),
             query = {};
 
-
         if(!selectedAccount)
             return;
+
+        if(selectedAccount.tkns.length>0){
+            return true;
+        }
+        if(selectedAccount.tkts.length>0){
+            return true;
+        }
 
         query['balances.'+ selectedAccount._id] = {$exists: true, $ne: '0'};
 
@@ -313,7 +372,7 @@ Template['views_send'].helpers({
         // ether
         var gasInTa = TemplateVar.getFrom('.dapp-select-gas-price', 'gasInTa') || '0';
 
-        if (TemplateVar.get('selectedToken') === 'sero') {
+        if (TemplateVar.get('selectedToken') === 'sero' ) {
             amount = (selectedAccount && selectedAccount.owners)
                 ? amount
                 : new BigNumber(amount, 10).plus(new BigNumber(gasInTa, 10));
@@ -328,13 +387,19 @@ Template['views_send'].helpers({
      @method (tokenTotal)
      */
     'tokenTotal': function(){
-        var amount = TemplateVar.get('amount'),
+        var amount = TemplateVar.get('amount');
+        var token;
+        var selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value'));
+        var tkn = getTkn(selectedAccount);
+        if(!tkn){
             token = Tokens.findOne({address: TemplateVar.get('selectedToken')});
+            if(!_.isFinite(amount) || !token)
+                return '0';
+            return Helpers.formatNumberByDecimals(amount, token.decimals);
+        }else{
+            return Helpers.formatNumberByDecimals(amount, tkn.decimals);
+        }
 
-        if(!_.isFinite(amount) || !token)
-            return '0';
-
-        return Helpers.formatNumberByDecimals(amount, token.decimals);
     },
     /**
      Returns the total amount - the fee paid to send all ether/coins out of the account
@@ -345,7 +410,7 @@ Template['views_send'].helpers({
         var selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value'));
         var amount = 0;
 
-        if (TemplateVar.get('selectedToken') === 'sero') {
+        if (TemplateVar.get('selectedToken') === 'sero' || getTkn(selectedAccount)) {
             var gasInTa = TemplateVar.getFrom('.dapp-select-gas-price', 'gasInTa') || '0';
 
             // deduct fee if account, for contracts use full amount
@@ -371,7 +436,12 @@ Template['views_send'].helpers({
      */
     'tokenDecimals': function(){
         var token = Tokens.findOne({address: TemplateVar.get('selectedToken')});
-        return token ? token.decimals : 0;
+
+        var selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value'));
+
+        var tkn = getTkn(selectedAccount);
+
+        return token ? token.decimals : (tkn?tkn.decimals:'0');
     },
     /**
      Returns the right time text for the "sendText".
@@ -393,14 +463,28 @@ Template['views_send'].helpers({
             selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value')),
             token = Tokens.findOne({address: TemplateVar.get('selectedToken')});
 
-        if(!token || !selectedAccount)
-            return;
+        // if((!token&&TemplateVar.get('selectedTkn') !== 'tkn') || !selectedAccount)
+        //     return;
 
-        return Spacebars.SafeString(TAPi18n.__('wallet.send.texts.sendToken', {
-            amount: Helpers.formatNumberByDecimals(amount, token.decimals),
-            name: token.name,
-            symbol: token.symbol
-        }));
+        var tkn = getTkn(selectedAccount);
+
+        var returnText;
+        if(token){
+            returnText = Spacebars.SafeString(TAPi18n.__('wallet.send.texts.sendToken', {
+                amount: Helpers.formatNumberByDecimals(amount, token.decimals),
+                name: token.name,
+                symbol: token.symbol
+            }));
+        }else if(tkn){
+            returnText = Spacebars.SafeString(TAPi18n.__('wallet.send.texts.sendToken', {
+                amount: Helpers.formatNumberByDecimals(amount, tkn.decimals),
+                name: tkn.currency,
+                symbol: tkn.currency
+            }));
+        }
+        console.log("returnText:::",returnText);
+        return returnText;
+
 
     },
     /**
@@ -415,6 +499,8 @@ Template['views_send'].helpers({
             ? Helpers.formatNumberByDecimals(this.balances[selectedAccount._id], this.decimals) +' '+ this.symbol
             : false;
     },
+
+
     /**
      Checks if the current selected account is a wallet contract
 
@@ -469,8 +555,9 @@ Template['views_send'].events({
         var value = e.currentTarget.value;
         TemplateVar.set('selectedToken', value);
 
-        if (value === 'sero')
+        if (value === 'sero'){
             TemplateVar.setTo('.dapp-data-textarea', 'value', '');
+        }
 
         // trigger amount box change
         template.$('input[name="amount"]').trigger('change');
@@ -481,6 +568,9 @@ Template['views_send'].events({
      @event keyup input[name="amount"], change input[name="amount"], input input[name="amount"]
      */
     'keyup input[name="amount"], change input[name="amount"], input input[name="amount"]': function(e, template){
+
+
+        var token = Tokens.findOne({address: TemplateVar.get('selectedToken')});
         // ether
         if(TemplateVar.get('selectedToken') === 'sero') {
             var wei = SeroTools.toTa(e.currentTarget.value.replace(',','.'));
@@ -489,15 +579,26 @@ Template['views_send'].events({
 
             checkOverDailyLimit(template.find('select[name="dapp-select-account"].send-from').value, wei, template);
 
-            // token
-        } else {
-
+            // tkn
+        }else if(token) {
             var token = Tokens.findOne({address: TemplateVar.get('selectedToken')}),
                 amount = e.currentTarget.value || '0';
 
             amount = new BigNumber(amount, 10).times(Math.pow(10, token.decimals || 0)).floor().toString(10);
 
             TemplateVar.set('amount', amount);
+            // token
+        }else {
+            var tkns = Helpers.getAccountByAddress(template.find('select[name="dapp-select-account"].send-from').value).tkns;
+            for ( var i = 0; i <tkns.length; i++){
+                tkn = tkns[i];
+                if(tkn.address === TemplateVar.get('selectedToken')){
+                    var amount = e.currentTarget.value || '0';
+                    amount = new BigNumber(amount, 10).times(Math.pow(10, tkn.decimals || 0)).floor().toString(10);
+                    TemplateVar.set('amount', amount);
+                    break;
+                }
+            }
         }
     },
     /**
@@ -550,7 +651,11 @@ Template['views_send'].events({
                     duration: 2
                 });
 
-            if(tokenAddress === 'sero') {
+
+            var tkn = getTkn(selectedAccount);
+
+
+            if(tokenAddress === 'sero' || tkn) {
 
                 if((_.isEmpty(amount) || amount === '0' || !_.isFinite(amount)) && !data)
                     return GlobalNotification.warning({
@@ -649,6 +754,18 @@ Template['views_send'].events({
                         gas: 4700000
                     };
 
+                    var currency, decimals;
+                    if(tkn){
+
+                        currency = tkn.currency;
+                        decimals = tkn.decimals;
+
+                        params['cy']=currency;
+                        params['decimalsAmount']=Helpers.formatNumberByDecimals(amount,decimals);
+
+                    }
+
+
                     // if (contract && typeof contract.jsonInterface!=='undefined' && contract.jsonInterface){
                     //     params['abi']=contract.jsonInterface
                     // }
@@ -675,7 +792,8 @@ Template['views_send'].events({
                                 ? {contract: contract, data: data}
                                 : data;
 
-                            addTransactionAfterSend(txHash, amount, selectedAccount.address, to, gasPrice, estimatedGas, data);
+
+                            addTransactionAfterSend(txHash, amount, selectedAccount.address, to, gasPrice, estimatedGas, data,'',currency,decimals);
 
                             localStorage.setItem('contractSource', Helpers.getDefaultContractExample());
                             localStorage.setItem('compiledContracts', null);
@@ -696,31 +814,39 @@ Template['views_send'].events({
             };
 
             // SHOW CONFIRMATION WINDOW when NOT MIST
-            if(typeof mist === 'undefined') {
+            // if(typeof mist === 'undefined') {
 
-                console.log('estimatedGas: ' + estimatedGas);
-
-                SeroElements.Modal.question({
-                    template: 'views_modals_sendTransactionInfo',
-                    data: {
-                        from: selectedAccount.address,
-                        to: to,
-                        amount: amount,
-                        gasPrice: gasPrice,
-                        estimatedGas: estimatedGas,
-                        estimatedGasPlusAddition: sendAll ? estimatedGas : estimatedGas + 100000, // increase the provided gas by 100k
-                        data: data
-                    },
-                    ok: sendTransaction,
-                    cancel: true
-                },{
-                    class: 'send-transaction-info'
-                });
+                // console.log('estimatedGas: ' + estimatedGas);
+                //
+                // var amountShow = amount;
+                // if (TemplateVar.get('selectedTkn') === 'tkn'){
+                //     amountShow =  Helpers.formatNumberByDecimals(amount,TemplateVar.get('selectedTknDecimals'));
+                // }
+                //
+                // SeroElements.Modal.question({
+                //     template: 'views_modals_sendTransactionInfo',
+                //     data: {
+                //         from: selectedAccount.address,
+                //         to: to,
+                //         amount: amountShow,
+                //         gasPrice: gasPrice,
+                //         estimatedGas: estimatedGas,
+                //         estimatedGasPlusAddition: sendAll ? estimatedGas : estimatedGas + 100000, // increase the provided gas by 100k
+                //         data: data
+                //     },
+                //     ok: sendTransaction,
+                //     cancel: true
+                // },{
+                //     class: 'send-transaction-info'
+                // });
 
                 // LET MIST HANDLE the CONFIRMATION
-            } else {
+            // } else {
                 sendTransaction(sendAll ? estimatedGas : estimatedGas + 100000);
-            }
+            // }
+
+
+
         }
     }
 });

@@ -266,14 +266,23 @@ Template['elements_transactions_row'].helpers({
         return Helpers.getAccounts({address: {$in: _.difference(account.owners, this.confirmedOwners)}});
     },
     /**
-    Token value
+     Token value
 
-    @method (tokenValue)
-    */
+     @method (tokenValue)
+     */
     'tokenValue': function() {
         var token = Tokens.findOne(this.tokenId);
 
         return (token) ? Helpers.formatNumberByDecimals(this.value, token.decimals) +' '+ token.symbol : this.value;
+    },
+
+    /**
+     Token value
+
+     @method (tokenValue)
+     */
+    'tknValue': function() {
+        return Helpers.formatNumberByDecimals(this.value, this.decimals) ;
     }
 });
 

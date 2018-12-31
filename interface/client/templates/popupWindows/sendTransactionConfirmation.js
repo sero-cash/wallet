@@ -170,8 +170,8 @@ Template['popupWindows_sendTransactionConfirmation'].onCreated(function () {
             var estimateData = _.clone(data);
             // estimateData.gas = defaultEstimateGas;
 
-            // delete estimateData.gas;
-            // delete estimateData.gasPrice;
+            delete estimateData.gas;
+            delete estimateData.gasPrice;
 
             console.log('Estimated estimateData: ', estimateData);
             web3.sero.estimateGas(estimateData, function (e, res) {
@@ -215,10 +215,24 @@ Template['popupWindows_sendTransactionConfirmation'].helpers({
     @method (totalAmount)
     */
     'totalAmount': function () {
-        var amount = SeroTools.formatBalance(this.value, '0,0.00[0000000000000000]', 'sero');
-        var dotPos = (~amount.indexOf('.')) ? amount.indexOf('.') + 3 : amount.indexOf(',') + 3;
+        console.log('this.cy:::',this.cy);
+        if(!this.cy){
+            var amount = SeroTools.formatBalance(this.value, '0,0.00[0000000000000000]', 'sero');
+            var dotPos = (~amount.indexOf('.')) ? amount.indexOf('.') + 3 : amount.indexOf(',') + 3;
 
-        return amount ? amount.substr(0, dotPos) + '<small style="font-size: 0.5em;">' + amount.substr(dotPos) + '</small>' : '0';
+            return amount ? amount.substr(0, dotPos) + '<small style="font-size: 0.5em;">' + amount.substr(dotPos) + '</small>' : '0';
+        }else{
+            return this.decimalsAmount;
+        }
+
+    },
+    'unit': function () {
+        console.log('this.cy:::',this.cy);
+        if(!this.cy){
+            return 'SERO'
+        }else{
+            return this.cy;
+        }
     },
     /**
     Calculates the fee used for this transaction in ether

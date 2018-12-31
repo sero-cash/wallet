@@ -253,7 +253,7 @@ Template['elements_executeContract_function'].helpers({
                 localStorage.setItem('executeData', result);
             }
             this.inputs.push(cb);
-            this.contractInstance[this.name].getData();
+            this.contractInstance[this.name].getData(this.inputs);
             // TemplateVar.set('executeData', this.contractInstance[this.name].getData());
         }
 

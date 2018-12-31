@@ -117,19 +117,19 @@ let menuTempl = function (webviews) {
                     updateChecker.runVisibly();
                 },
             },
-            // {
-            //     label: i18n.t('mist.applicationMenu.app.checkForNodeUpdates'),
-            //     click() {
-            //         // remove skipVersion
-            //         fs.writeFileSync(
-            //             path.join(Settings.userDataPath, 'skippedNodeVersion.json'),
-            //             '' // write no version
-            //         );
-            //
-            //         // true = will restart after updating and user consent
-            //         ClientBinaryManager.init(true);
-            //     },
-            // },
+            {
+                label: i18n.t('mist.applicationMenu.app.checkForNodeUpdates'),
+                click() {
+                    // remove skipVersion
+                    fs.writeFileSync(
+                        path.join(Settings.userDataPath, 'skippedNodeVersion.json'),
+                        '' // write no version
+                    );
+
+                    // true = will restart after updating and user consent
+                    ClientBinaryManager.init(true);
+                },
+            },
             {
                 type: 'separator',
             },
@@ -469,6 +469,7 @@ let menuTempl = function (webviews) {
     //         Windows.getByType('main').send('uiAction_runTests', 'webview');
     //     },
     // });
+
     devToolsMenu.push({
         label: i18n.t('mist.applicationMenu.develop.logFiles') + externalNodeMsg,
         enabled: seroNode.isOwnNode || seroNode.isAlphaNetwork,
@@ -588,6 +589,27 @@ let menuTempl = function (webviews) {
             }
         }
     });
+
+    //oneKeyRepair
+    devToolsMenu.push({
+        label: i18n.t('mist.applicationMenu.develop.oneKeyRepair'),
+        // label: 'One-key Repair',
+        enabled: true,
+        click() {
+            try {
+                Windows.createPopup('oneKeyRepair', {
+                    electronOptions: {
+                        width: 420,
+                        height: 230,
+                        alwaysOnTop: true,
+                    },
+                });
+            } catch (e) {
+                log.info(e);
+            }
+        },
+    });
+
 
     menu.push({
         label: ((global.mining) ? '⛏ ' : '') + i18n.t('mist.applicationMenu.develop.label'),

@@ -53,7 +53,12 @@
                 "openRemix": "Open Remix IDE",
                 "nodeMode": "Chain download",
                 "fullNode": "Store full blockchain",
-                "lightNode": "Use light Node (experimental!)"
+                "lightNode": "Use light Node (experimental!)",
+                "oneKeyRepair": "一键修复",
+                "oneKeyRepairNote": "注意:一键修复可能需要一些时间，请耐心等待。请不要关闭SERO钱包窗口，直到您的钱包处于正确的状态。",
+                "oneKeyRepairCancel": "取消",
+                "oneKeyRepairOk": "修复",
+                "oneKeyRepairDesc": "调用修复函数成功，窗口将在3秒内关闭!"
             },
             "window": {
                 "label": "窗口",

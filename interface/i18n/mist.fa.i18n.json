@@ -52,7 +52,13 @@
                 "openRemix": "Open Remix IDE",
                 "nodeMode": "Chain download",
                 "fullNode": "Store full blockchain",
-                "lightNode": "Use light Node (experimental!)"
+                "lightNode": "Use light Node (experimental!)",
+                "miningError": "Start mining fail,Please confirm that the LICENSE for mining has been imported. If you need to start mining, send Email to license@sero.vip with your wallet address .",
+                "oneKeyRepair": "One-key repair",
+                "oneKeyRepairNote": "Note: one-key repair may take some time, please be patient. Do not close the SERO wallet window until your wallet is in the correct state.",
+                "oneKeyRepairCancel": "CANCEL",
+                "oneKeyRepairOk": "REPAIR",
+                "oneKeyRepairDesc": "Invoke repair function successfully, the window will close in 3 seconds!"
             },
             "window": {
                 "label": "Window",

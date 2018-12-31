@@ -8,7 +8,7 @@ const Settings = require('./settings');
 const Windows = require('./windows');
 const ClientBinaryManager = require('./seroClientBinaries').Manager;
 const EventEmitter = require('events').EventEmitter;
-const spawn = require('child_process').spawn;
+// const spawn = require('child_process').spawn;
 
 const log = require('./utils/logger').create('ClientBinaryManager');
 
