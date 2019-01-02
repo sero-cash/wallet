@@ -81,7 +81,7 @@ reload@1.1.11
 retry@1.0.9
 routepolicy@1.0.12
 sacha:spin@2.3.1
-serocash:accounts@0.2.13
+serocash:accounts@0.2.14
 serocash:blocks@0.2.1
 serocash:elements@0.2.2
 serocash:tools@0.2.3
