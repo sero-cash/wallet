@@ -20,6 +20,7 @@ const switchForSystem = function (options) {
     return null;
 };
 
+global.minerThread = 1;
 
 // create menu
 // null -> null
@@ -29,7 +30,6 @@ const createMenu = function (webviews) {
     const menu = Menu.buildFromTemplate(menuTempl(webviews));
     Menu.setApplicationMenu(menu);
 };
-
 
 const restartNode = function (newType, newNetwork, syncMode, webviews) {
     newNetwork = newNetwork || seroNode.network;
@@ -50,7 +50,16 @@ const restartNode = function (newType, newNetwork, syncMode, webviews) {
 
 
 const startMining = (webviews) => {
-    seroNode.send('miner_start', [1])
+    var param = [];
+    if(!global.minerThread){
+        global.minerThread = 1;
+    }
+    if(typeof global.minerThread === 'string'){
+        global.minerThread = parseInt(global.minerThread);
+    }
+    param.push(global.minerThread);
+    console.log("miner_start:::",param);
+    seroNode.send('miner_start', param)
         .then((ret) => {
             console.log('miner_start result:', ret.result);
 
@@ -578,7 +587,25 @@ let menuTempl = function (webviews) {
     //
     // }
     devToolsMenu.push({
-        label: (global.mining) ? i18n.t('mist.applicationMenu.develop.stopMining') : i18n.t('mist.applicationMenu.develop.startMining'),
+        label: i18n.t('mist.applicationMenu.develop.configMining.title') ,
+        enabled: true,
+        click() {
+            try {
+                Windows.createPopup('configMining', {
+                    electronOptions: {
+                        width: 420,
+                        height: 230,
+                        alwaysOnTop: true,
+                    },
+                });
+            } catch (e) {
+                log.info(e);
+            }
+        }
+    });
+
+    devToolsMenu.push({
+        label: (global.mining) ? (i18n.t('mist.applicationMenu.develop.stopMining')  + '('+global.minerThread+' Threads)'): (i18n.t('mist.applicationMenu.develop.startMining')+  '('+global.minerThread+' Threads)'),
         accelerator: 'CommandOrControl+Shift+M',
         enabled: true,
         click() {

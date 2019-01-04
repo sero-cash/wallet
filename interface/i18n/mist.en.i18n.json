@@ -77,7 +77,15 @@
                 "oneKeyRepairNote": "Note: one-key repair may take some time, please be patient. Do not close the SERO wallet window until your wallet is in the correct state.",
                 "oneKeyRepairCancel": "CANCEL",
                 "oneKeyRepairOk": "REPAIR",
-                "oneKeyRepairDesc": "Invoke repair function successfully, the window will close in 3 seconds!"
+                "oneKeyRepairDesc": "Invoke repair function successfully, the window will close in 3 seconds!",
+                "configMining":{
+                    "title":"Configure mining threads",
+                    "tips":"Mining threads setting...",
+                    "enterThread":"Enter mining threads",
+                    "success":"Configure mining threads successfully!",
+                    "note":"The default value is 1 thread, please adjust according to your computer performance, the maximum value is not more than the maximum number of threads CPU."
+                }
+
             },
             "window": {
                 "label": "Window",
@@ -88,6 +96,7 @@
             "help": {
                 "label": "Help",
                 "mistWiki": "Troubleshooting and Help",
+                "mistWikiURL": "Troubleshooting and Help",
                 "gitter": "Wallet channel on Gitter",
                 "reportBug": "Report an issue on Github"
             }

@@ -1,0 +1,17 @@
+<template name="popupWindows_configMining">
+    <div class="popup-windows">
+        <form action="#">
+            <h1>{{i18n "mist.applicationMenu.develop.configMining.title"}}</h1>
+            {{#if TemplateVar.get "configMining"}}
+                <h2>{{i18n "mist.applicationMenu.develop.configMining.tips"}}</h2>
+            {{else}}
+                <input type="number" value="1" placeholder="{{i18n 'mist.applicationMenu.develop.configMining.enterThread'}}" class="password">
+                <!--<small style="color:red;">{{i18n 'mist.applicationMenu.develop.configMining.note'}}</small>-->
+                <div class="dapp-modal-buttons">
+                    <button class="cancel" type="button">{{i18n "buttons.cancel"}}</button>
+                    <button class="ok dapp-primary-button" type="submit">{{i18n "buttons.ok"}}</button>
+                </div>
+            {{/if}}
+        </form>
+    </div>
+</template>

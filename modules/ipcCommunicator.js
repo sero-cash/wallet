@@ -306,6 +306,7 @@ ipc.on('backendAction_reloadSelectedTab', (event) => {
 // one key repair
 ipc.on('backendAction_oneKeyRepair', (event) => {
 
+    log.info('backendAction_oneKeyRepair: ');
     let statePath = Settings.userHomePath;
 
     if (process.platform === 'darwin') statePath += '/Library/Sero/state1';
@@ -313,7 +314,7 @@ ipc.on('backendAction_oneKeyRepair', (event) => {
         process.platform === 'linux' ||
         process.platform === 'sunos') statePath += '/.Sero/state1';
     if (process.platform === 'win32') statePath = `${Settings.appDataPath}\\Sero\\state1`;
-
+    log.info('backendAction_oneKeyRepair: ',statePath);
     var files = fs.readdirSync(statePath);
     files.forEach(function(file){
         var filetemp = statePath+'/'+file;
@@ -322,9 +323,16 @@ ipc.on('backendAction_oneKeyRepair', (event) => {
         }else{
             filetemp = statePath+'/'+file;
         }
-        console.log("delete file: ",filetemp)
+        log.info("delete file: ",filetemp)
         fs.unlinkSync(filetemp);
-        console.log("delete file success: ",filetemp)
+        log.info("delete file success: ",filetemp)
     });
     event.sender.send('uiAction_oneKeyRepair','One-key repair success!');
+});
+
+// configMining
+ipc.on('backendAction_configMining', (event,nums) => {
+    global.minerThread = nums;
+    appMenu(global.webviews);
+    event.sender.send('uiAction_configMining','success!');
 });
