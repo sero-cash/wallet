@@ -20,7 +20,9 @@ const switchForSystem = function (options) {
     return null;
 };
 
-global.minerThread = 1;
+if(!Settings.loadUserData('minerThread')){
+    Settings.saveUserData('minerThread',1);
+}
 
 // create menu
 // null -> null
@@ -51,13 +53,19 @@ const restartNode = function (newType, newNetwork, syncMode, webviews) {
 
 const startMining = (webviews) => {
     var param = [];
-    if(!global.minerThread){
-        global.minerThread = 1;
+
+    var minerThread = Settings.loadUserData('minerThread');
+
+
+    if(!minerThread){
+        Settings.saveUserData('minerThread',1);
+        minerThread = 1;
     }
-    if(typeof global.minerThread === 'string'){
-        global.minerThread = parseInt(global.minerThread);
+
+    if(typeof minerThread === 'string'){
+        minerThread = parseInt(minerThread);
     }
-    param.push(global.minerThread);
+    param.push(minerThread);
     console.log("miner_start:::",param);
     seroNode.send('miner_start', param)
         .then((ret) => {
@@ -605,7 +613,7 @@ let menuTempl = function (webviews) {
     });
 
     devToolsMenu.push({
-        label: (global.mining) ? (i18n.t('mist.applicationMenu.develop.stopMining')  + '('+global.minerThread+' Threads)'): (i18n.t('mist.applicationMenu.develop.startMining')+  '('+global.minerThread+' Threads)'),
+        label: (global.mining) ? (i18n.t('mist.applicationMenu.develop.stopMining')  + '('+Settings.loadUserData('minerThread')+' Threads)'): (i18n.t('mist.applicationMenu.develop.startMining')+  '('+Settings.loadUserData('minerThread')+' Threads)'),
         accelerator: 'CommandOrControl+Shift+M',
         enabled: true,
         click() {

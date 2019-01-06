@@ -100,9 +100,13 @@ exports.runVisibly = () => {
 
     wnd.on('ready', () => {
         check().then((update) => {
-            wnd.send({
-                uiAction_checkUpdateDone: update,
-            });
+            console.log('update:::',update)
+            if (update){
+                wnd.send({
+                    uiAction_checkUpdateDone: update,
+                });
+            }
+            wnd.send('uiAction_checkUpdateDone');
         }).catch((err) => {
             log.error(err);
 

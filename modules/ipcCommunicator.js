@@ -332,7 +332,8 @@ ipc.on('backendAction_oneKeyRepair', (event) => {
 
 // configMining
 ipc.on('backendAction_configMining', (event,nums) => {
-    global.minerThread = nums;
+    // LocalStore.set('minerThread',nums);
+    Settings.saveUserData('minerThread',nums);
     appMenu(global.webviews);
     event.sender.send('uiAction_configMining','success!');
 });
