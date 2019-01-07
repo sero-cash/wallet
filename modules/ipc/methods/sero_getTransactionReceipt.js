@@ -43,8 +43,6 @@ module.exports = class extends BaseProcessor {
         const nonce = parseInt(transactionInfo.result.result.nonce, 16);
         const possibleContractAddress = `0x${eth.generateAddress(fromAddress, nonce).toString('hex')}`;
 
-
-
         // 2. GET CODE FROM ADDRESS
         const contractCode = await conn.socket.send({
             jsonrpc: '2.0',

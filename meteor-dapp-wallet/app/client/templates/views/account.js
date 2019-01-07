@@ -78,7 +78,9 @@ Template['views_account'].onRendered(function(){
 Template['views_account'].onDestroyed(function(){
     // stop watching custom events, on destroy
     if(this.customEventFilter) {
-        this.customEventFilter.stopWatching();
+        this.customEventFilter.stopWatching(function (result) {
+            console.log(result);
+        });
         this.customEventFilter = null;
         TemplateVar.set('watchEvents', false);
     }
@@ -412,7 +414,9 @@ Template['views_account'].events({
         e.preventDefault();
 
         if(template.customEventFilter) {
-            template.customEventFilter.stopWatching();
+            template.customEventFilter.stopWatching(function (result) {
+                console.log(result);
+            });
             template.customEventFilter = null;
             TemplateVar.set('watchEvents', false);
         } else {

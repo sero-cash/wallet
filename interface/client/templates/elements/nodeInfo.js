@@ -109,7 +109,9 @@ Template['elements_nodeInfo'].onDestroyed(function() {
     Meteor.clearInterval(this.peerCountIntervalId);
 
     if (this.syncFilter) {
-        this.syncFilter.stopWatching();
+        this.syncFilter.stopWatching(function (result) {
+            console.log(result);
+        });
     }
 });
 

@@ -241,7 +241,9 @@ var setupContractFilters = function (newDocument, checkFromCreationBlock) {
 
     // stop all running events
     _.each(contractInstance.walletEvents, function (event) {
-        event.stopWatching();
+        event.stopWatching(function (result) {
+            console.log(result);
+        });
         contractInstance.walletEvents.shift();
     });
 
@@ -758,7 +760,9 @@ observeWallets = function () {
 
             // stop all running events
             _.each(contractInstance.walletEvents, function (event) {
-                event.stopWatching();
+                event.stopWatching(function (result) {
+                    console.log(result);
+                });
                 contractInstance.walletEvents.shift();
             });
 

@@ -41,47 +41,44 @@
                     {{> elements_balance balance=balance changeUnit=true showAllDecimals=true}}
                 </header>
 
-                {{#with tkns}}
-                    <table class="token-list dapp-zebra">
-                        <tbody>
-                        {{#each this}}
-                            {{#if $neq currency 'SERO'}}
-                                <tr>
-                                    <td>{{> dapp_identicon identity=address class="dapp-tiny"}}
-                                        <strong>{{currency}}</strong></td>
-                                    <td>{{formattedTknsBalance}}</td>
-                                    <td>
-                                        <a href="{{pathFor route='sendToken' from=../../address token=address}}">
-                                            <i class="icon-arrow-up"></i>
-                                            {{i18n "wallet.app.buttons.send"}}
-                                        </a>
-                                    </td>
-                                </tr>
-                            {{/if}}
-                        {{/each}}
-                        </tbody>
-                    </table>
-                {{/with}}
 
-                {{#with tokens}}
                     <table class="token-list dapp-zebra">
                         <tbody>
-                        {{#each this}}
-                            <tr>
-                                <td>{{> dapp_identicon identity=address class="dapp-tiny"}}
-                                    <strong>{{name}}</strong></td>
-                                <td>{{formattedTokenBalance}}</td>
-                                <td>
-                                    <a href="{{pathFor route='sendToken' from=../../address token=address}}">
-                                        <i class="icon-arrow-up"></i>
-                                        {{i18n "wallet.app.buttons.send"}}
-                                    </a>
-                                </td>
-                            </tr>
-                        {{/each}}
+                            {{#with tkns}}
+                                {{#each this}}
+                                    {{#if $neq currency 'SERO'}}
+                                        <tr>
+                                            <td>{{> dapp_identicon identity=address class="dapp-tiny"}}
+                                                <strong>{{currency}}</strong></td>
+                                            <td>{{formattedTknsBalance}}</td>
+                                            <td>
+                                                <a href="{{pathFor route='sendToken' from=../../address token=address}}">
+                                                    <i class="icon-arrow-up"></i>
+                                                    {{i18n "wallet.app.buttons.send"}}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {{/if}}
+                                {{/each}}
+                            {{/with}}
+
+                            {{#with tokens}}
+                                {{#each this}}
+                                    <tr>
+                                        <td>{{> dapp_identicon identity=address class="dapp-tiny"}}
+                                            <strong>{{name}}</strong></td>
+                                        <td>{{formattedTokenBalance}}</td>
+                                        <td>
+                                            <a href="{{pathFor route='sendToken' from=../../address token=address}}">
+                                                <i class="icon-arrow-up"></i>
+                                                {{i18n "wallet.app.buttons.send"}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                            {{/with}}
                         </tbody>
                     </table>
-                {{/with}}
 
 
                 {{#with isVulnerable}}
@@ -169,7 +166,7 @@
 
                         {{#if $eq ($.Session.get "network") "main"}}
                         <li>
-                            <a href="https://etherscan.io/address/{{address}}">
+                            <a href="https://explorer.web.sero.cash/accountInfo.html?&miner=false&hash={{address}}">
                                 <i class="icon-info"></i>
                                 {{i18n "wallet.accounts.buttons.viewOnExplorer"}}
                             </a>

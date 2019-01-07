@@ -463,23 +463,23 @@ Template['views_send'].helpers({
             selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value')),
             token = Tokens.findOne({address: TemplateVar.get('selectedToken')});
 
-        // if((!token&&TemplateVar.get('selectedTkn') !== 'tkn') || !selectedAccount)
-        //     return;
 
         var tkn = getTkn(selectedAccount);
-
         var returnText;
-        if(token){
-            returnText = Spacebars.SafeString(TAPi18n.__('wallet.send.texts.sendToken', {
-                amount: Helpers.formatNumberByDecimals(amount, token.decimals),
-                name: token.name,
-                symbol: token.symbol
-            }));
-        }else if(tkn){
+
+        //Priority to judge tkn
+        if(tkn){
             returnText = Spacebars.SafeString(TAPi18n.__('wallet.send.texts.sendToken', {
                 amount: Helpers.formatNumberByDecimals(amount, tkn.decimals),
                 name: tkn.currency,
                 symbol: tkn.currency
+            }));
+
+        } else if(token){
+            returnText = Spacebars.SafeString(TAPi18n.__('wallet.send.texts.sendToken', {
+                amount: Helpers.formatNumberByDecimals(amount, token.decimals),
+                name: token.name,
+                symbol: token.symbol
             }));
         }
         console.log("returnText:::",returnText);
@@ -655,7 +655,7 @@ Template['views_send'].events({
             var tkn = getTkn(selectedAccount);
 
 
-            if(tokenAddress === 'sero' || tkn) {
+            if(tokenAddress === 'sero') {
 
                 if((_.isEmpty(amount) || amount === '0' || !_.isFinite(amount)) && !data)
                     return GlobalNotification.warning({
@@ -669,7 +669,19 @@ Template['views_send'].events({
                         duration: 2
                     });
 
-            } else { // Token transfer
+            }else if(tkn){
+                if((_.isEmpty(amount) || amount === '0' || !_.isFinite(amount)) && !data)
+                    return GlobalNotification.warning({
+                        content: 'i18n:wallet.send.error.noAmount',
+                        duration: 2
+                    });
+
+                if(new BigNumber(amount, 10).gt(new BigNumber(tkn.value, 10)))
+                    return GlobalNotification.warning({
+                        content: 'i18n:wallet.send.error.notEnoughFunds',
+                        duration: 2
+                    });
+            }else { // Token transfer
 
                 if(!to) {
                     return GlobalNotification.warning({

@@ -30,12 +30,12 @@ const check = exports.check = () => {
     })
     .then((res) => {
         const releases = _.filter(res.body, (release) => {
+
             return (
                 !_.get(release, 'draft')
-                && _.get(release, 'name', '').toLowerCase().indexOf(str) >= 0
+                && _.get(release, 'name', '').toLowerCase().length > 0
             );
         });
-
         if (!releases.length) {
             log.debug('No releases available to check against.');
 
@@ -43,7 +43,6 @@ const check = exports.check = () => {
         }
 
         const latest = releases[0];
-
         if (semver.gt(latest.tag_name, Settings.appVersion)) {
             log.info(`App (${Settings.appVersion}) is out of date. New ${latest.tag_name} found.`);
 
