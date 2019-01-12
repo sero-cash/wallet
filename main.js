@@ -20,9 +20,7 @@ Q.config({
 // logging setup
 const log = logger.create('main');
 
-console.log("Settings.init begin ===== ");
 Settings.init();
-console.log("Settings.init end ===== ");
 // log.info(Settings);
 
 
@@ -69,7 +67,6 @@ global.i18n = i18n;
 
 // INTERFACE PATHS
 // - WALLET
-console.log('Settings.uiMode:::',Settings.uiMode);
 if (Settings.uiMode === 'wallet') {
     log.info('Starting in Wallet mode');
 

@@ -77,7 +77,7 @@ class Manager extends EventEmitter {
         .then((latestConfig) => {
             if (!latestConfig) return;
 
-            console.log('latestConfig:::',latestConfig);
+            log.info('latestConfig:::',latestConfig);
             let localConfig;
             let skipedVersion;
             const nodeVersion = latestConfig.clients[nodeType].version;
@@ -107,7 +107,7 @@ class Manager extends EventEmitter {
                 log.info('No "skippedNodeVersion.json" found.');
             }
 
-            console.log('process.getSystemMemoryInfo():::',process.getSystemMemoryInfo());
+            log.info('process.getSystemMemoryInfo():::',process.getSystemMemoryInfo());
 
             // prepare node info
             const platform = process.platform.replace('darwin', 'mac').replace('win32', 'win').replace('freebsd', 'linux').replace('sunos', 'linux');
@@ -232,7 +232,7 @@ class Manager extends EventEmitter {
                 _.each(mgr.clients, (client) => {
                     if (client.state.available) {
                         const idlcase = client.id.toLowerCase();
-                        console.log('Settings[`${idlcase}Path`:::',idlcase);
+                        log.info('Settings[`${idlcase}Path`:::',idlcase);
                         this._availableClients[idlcase] = {
                             binPath: Settings[`${idlcase}Path`] || client.activeCli.fullPath,
                             version: client.version,

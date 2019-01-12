@@ -36,7 +36,9 @@ Template['popupWindows_onboardingScreen'].onCreated(function () {
         if (!error) {
 
             if (syncing === true) {
-                web3.reset(true);
+                // web3.reset(true,function (result) {
+                //     console.log(result);
+                // });
             } else if (_.isObject(syncing)) {
                 // loads syncing data and adds it to old by using 'extend'
                 oldData = TemplateVar.get(template, 'syncing');
@@ -277,33 +279,33 @@ Template['popupWindows_onboardingScreen_importAccount'].events({
 
             ipc.on('uiAction_checkedWalletFile', function (ev, error, type) {
                 switch (type) {
-                case 'license':
-                    console.log(`Imported ${type}`);
-                    GlobalNotification.info({
-                        content: TAPi18n.__('mist.popupWindows.onboarding.importSuccess'),
-                        duration: 5
-                    });
-                    setTimeout(function () {
-                        ipc.send('backendAction_closePopupWindow');
-                    }, 3000);
-                    break;
-                case 'web3':
-                    console.log(`Imported ${type} account`);
-                    TemplateVar.set(template, 'filePath', files[0].path);
-                    TemplateVar.set(template, 'importing', true);
-                    GlobalNotification.info({
-                        content: TAPi18n.__('mist.popupWindows.onboarding.importSuccess'),
-                        duration: 5
-                    });
-                    setTimeout(function () {
-                        ipc.send('backendAction_closePopupWindow');
-                    }, 3000);
-                    break;
-                default:
-                    GlobalNotification.warning({
-                        content: TAPi18n.__('mist.popupWindows.onboarding.errors.unknownFile'),
-                        duration: 4
-                    });
+                    case 'license':
+                        console.log(`Imported ${type}`);
+                        GlobalNotification.info({
+                            content: TAPi18n.__('mist.popupWindows.onboarding.importSuccess'),
+                            duration: 5
+                        });
+                        // setTimeout(function () {
+                        //     ipc.send('backendAction_closePopupWindow');
+                        // }, 3000);
+                        break;
+                    case 'web3':
+                        console.log(`Imported ${type} account`);
+                        // TemplateVar.set(template, 'filePath', files[0].path);
+                        // TemplateVar.set(template, 'importing', true);
+                        GlobalNotification.info({
+                            content: TAPi18n.__('mist.popupWindows.onboarding.importSuccess'),
+                            duration: 5
+                        });
+                        // setTimeout(function () {
+                        //     ipc.send('backendAction_closePopupWindow');
+                        // }, 3000);
+                        break;
+                    default:
+                        GlobalNotification.warning({
+                            content: TAPi18n.__('mist.popupWindows.onboarding.errors.unknownFile'),
+                            duration: 4
+                        });
                 }
             });
         }

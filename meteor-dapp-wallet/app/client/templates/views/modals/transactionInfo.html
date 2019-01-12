@@ -58,14 +58,16 @@
                 <tr>
                     <td>{{i18n "wallet.transactions.from"}}</td>
                     <td>
-                        {{> elements_account_link address=from}}
+                        {{> elements_account_link address=from}}<br/>
+                        <small>{{shortenAddress from }}</small>
                     </td>
                 </tr>
                 <tr>
                     <td>{{i18n "wallet.transactions.to"}}</td>
                     <td>
                         {{#if to}}
-                            {{> elements_account_link address=to}}
+                            {{> elements_account_link address=to}}<br/>
+                            <small>{{shortenAddress to }}</small>
                         {{else}}
                             {{> elements_createdContractAt contractAddress=contractAddress deployedData=deployedData}}
                         {{/if}}
@@ -73,7 +75,7 @@
                 </tr>
                 <tr>
                     <td>{{i18n "wallet.transactions.feePaid"}}</td>
-                    <td>{{formatTransactionBalance fee exchangeRates}}</td>
+                    <td>{{dapp_formatBalance txFee "0,0.[000000000000000000] UNIT" "sero"}}</td>
                 </tr>
                 <tr>
                     <td>{{i18n "wallet.transactions.gasUsed"}}</td>
@@ -81,31 +83,17 @@
                 </tr>
                 <tr>
                     <td>{{i18n "wallet.transactions.gasPrice"}}</td>
-                    <td>{{formatTransactionBalance gasPricePerMillion exchangeRates}} {{i18n "wallet.transactions.perMillionGas"}}</td>
+                    <td>{{dapp_formatBalance gasPricePerMillion "0,0.[000000000000000000] UNIT" "gta"}} ({{dapp_formatBalance gasPricePerMillion "0,0.[000000000000000000] UNIT" "sero"}} )</td>
                 </tr>
                 {{#if blockHash}}
                     <tr>
                         <td>{{i18n "wallet.transactions.block"}}</td>
                         <td>
-                           {{#if $eq ($.Session.get "network") "main"}}
                             <a href="https://explorer.web.sero.cash/blockInfo.html?hash={{blockHash}}" title="{{blockHash}}" target="_blank" class="dapp-shorten-text">
                                 {{blockNumber}}
                                 <br>
                                 {{blockHash.substr 0 40}}...
                             </a>
-                            {{else}}
-                                {{#if $eq ($.Session.get "network") "alpha"}}
-                                <a href="http://118.25.146.113/blockInfo.html?hash={{blockHash}}" title="{{blockHash}}" target="_blank" class="dapp-shorten-text">
-                                    {{blockNumber}}
-                                    <br>
-                                    {{blockHash.substr 0 40}}...
-                                </a>
-                                {{else}}
-                                    {{blockNumber}}
-                                    <br>
-                                    {{blockHash.substr 0 40}}...
-                                {{/if}}
-                            {{/if}}
                         </td>
                     </tr>
                 {{/if}}

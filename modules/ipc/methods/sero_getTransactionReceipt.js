@@ -35,7 +35,7 @@ module.exports = class extends BaseProcessor {
             params: [txHash]
         }, { fullResult: true });
 
-        if (!transactionInfo && !transactionInfo.result &&  !transactionInfo.result.result) {
+        if (!transactionInfo || !transactionInfo.result ||  !transactionInfo.result.result ) {
             return transactionInfo.result;
         }
 

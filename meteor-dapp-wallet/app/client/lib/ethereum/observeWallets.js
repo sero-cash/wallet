@@ -328,7 +328,7 @@ var setupContractFilters = function (newDocument, checkFromCreationBlock) {
 
         // delete the last tx and pc until block -500
         _.each(Transactions.find({_id: {$in: newDocument.transactions || []}, blockNumber: {$exists: true, $gt: blockToCheckBack}}).fetch(), function (tx) {
-            if (tx) { Transactions.remove({_id: tx._id}); }
+            // if (tx) { Transactions.remove({_id: tx._id}); }
         });
         _.each(PendingConfirmations.find({from: newDocument.address, blockNumber: {$exists: true, $gt: blockToCheckBack}}).fetch(), function (pc) {
             if (pc) { PendingConfirmations.remove({_id: pc._id}); }
@@ -362,7 +362,7 @@ var setupContractFilters = function (newDocument, checkFromCreationBlock) {
 
                 if (log.event === 'Deposit') {
                     if (log.removed) {
-                        Transactions.remove({_id: Helpers.makeId('tx', log.transactionHash)});
+                        // Transactions.remove({_id: Helpers.makeId('tx', log.transactionHash)});
                         return;
                     }
 
@@ -394,7 +394,7 @@ var setupContractFilters = function (newDocument, checkFromCreationBlock) {
                 }
                 if (log.event === 'SingleTransact' || log.event === 'MultiTransact') {
                     if (log.removed) {
-                        Transactions.remove({_id: Helpers.makeId('tx', log.transactionHash)});
+                        // Transactions.remove({_id: Helpers.makeId('tx', log.transactionHash)});
                         return;
                     }
 
@@ -470,7 +470,7 @@ var setupContractFilters = function (newDocument, checkFromCreationBlock) {
                             // remove pending transactions, as they now have to be approved
                             const extistingTxId = Helpers.makeId('tx', log.transactionHash);
                             Meteor.setTimeout(function () {
-                                Transactions.remove(extistingTxId);
+                                // Transactions.remove(extistingTxId);
                             }, 500);
                         }
 

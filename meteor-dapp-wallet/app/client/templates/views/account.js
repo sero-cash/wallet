@@ -314,6 +314,7 @@ Template['views_account'].events({
             var $el = $(e.currentTarget);
             var text = $el.text();
 
+            console.log('edit-name:::',text);
 
             if(_.isEmpty(text)) {
                 text = TAPi18n.__('wallet.accounts.defaultName');
@@ -332,6 +333,7 @@ Template['views_account'].events({
 
             // make it non-editable
             $el.attr('contenteditable', null);
+            $el.text('');
         }
     },
     /**

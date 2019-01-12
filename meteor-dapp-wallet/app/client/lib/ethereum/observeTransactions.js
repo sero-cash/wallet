@@ -346,14 +346,14 @@ observeTransactions = function(){
                                     // if still not mined, remove tx
                                     if(!transaction || !transaction.blockNumber) {
 
-                                        var warningText = TAPi18n.__('wallet.transactions.error.outOfGas', {from: Helpers.getAccountNameByAddress(tx.from), to: Helpers.getAccountNameByAddress(tx.to)});
-                                        Helpers.eventLogs(warningText);
-                                        GlobalNotification.warning({
-                                            content: warningText,
-                                            duration: 10
-                                        });
+                                        // var warningText = TAPi18n.__('wallet.transactions.error.outOfGas', {from: Helpers.getAccountNameByAddress(tx.from), to: Helpers.getAccountNameByAddress(tx.to)});
+                                        // Helpers.eventLogs(warningText);
+                                        // GlobalNotification.warning({
+                                        //     content: warningText,
+                                        //     duration: 10
+                                        // });
 
-                                        Transactions.remove(tx._id);
+                                        //Transactions.remove(tx._id);
                                         filter.stopWatching(function (result) {
                                             console.log(result);
                                         });
@@ -378,7 +378,7 @@ observeTransactions = function(){
 
                                                 // remove if the parent block is not in the chain anymore.
                                                 } else {
-                                                    Transactions.remove(tx._id);
+                                                    //Transactions.remove(tx._id);
                                                 }
 
                                                 filter.stopWatching(function (result) {

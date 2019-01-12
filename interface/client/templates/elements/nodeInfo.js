@@ -60,7 +60,9 @@ Template['elements_nodeInfo'].onCreated(function(){
 
             if(syncing === true) {
                 console.log('Node started syncing, stopping app operation');
-                web3.reset(true);
+                // web3.reset(true,function (result) {
+                //     console.log(result);
+                // });
 
             } else if(_.isObject(syncing)) {
 

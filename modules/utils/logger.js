@@ -9,6 +9,9 @@ const log4js = require('log4js');
  * @param  {String} [options.logfile] File to write logs to (default: no file logging).
  */
 exports.setup = function (options) {
+
+    console.log("options:::",options);
+
     options = _.extend({
         logfile: null,
         loglevel: null,
@@ -33,6 +36,7 @@ exports.setup = function (options) {
             }
         );
     }
+    console.log("log4jsOptions:::",log4jsOptions);
     log4js.configure(log4jsOptions);
 };
 

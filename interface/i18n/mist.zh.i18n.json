@@ -61,7 +61,7 @@
                 "oneKeyRepairDesc": "调用修复函数成功，窗口将在3秒内关闭!",
                 "configMining":{
                     "title":"设置挖矿线程数",
-                    "tips":"正则设置...",
+                    "tips":"正在设置...",
                     "enterThread":"请输入挖矿线程数",
                     "success":"设置挖矿线程数成功!",
                     "note":"默认值是1个线程，请根据您的电脑性能进行调整，最大值不超过CPU的最大线程数。"
@@ -225,7 +225,7 @@
                 "dropFilesHere": "文件拖入此处",
                 "creating": "正在创建……",
                 "importing": "正在导入……",
-                "importSuccess": "导入成功,该窗口将在3秒后自动关闭。",
+                "importSuccess": "导入成功",
                 "skip": "跳过该步骤",
                 "next": "下一步",
                 "protectTitle": "保护你的账户",

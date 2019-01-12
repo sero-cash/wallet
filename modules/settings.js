@@ -100,6 +100,7 @@ const argv = require('yargs')
         },
         logfile: {
             demand: false,
+            default:app.getPath('userData') + '/logs/app.log',
             describe: 'Logs will be written to this file in addition to the console.',
             requiresArg: true,
             nargs: 1,
@@ -108,7 +109,7 @@ const argv = require('yargs')
         },
         loglevel: {
             demand: false,
-            default: 'warn',
+            default: 'info',
             describe: 'Minimum logging threshold: info, debug, error, trace (shows all logs, including possible passwords over IPC!).',
             requiresArg: true,
             nargs: 1,
@@ -158,6 +159,8 @@ for (const optIdx in argv) {
         if (argv[optIdx] !== true) {
             argv.nodeOptions.push(argv[optIdx]);
         }
+
+        console.log('optIdx:::',optIdx);
     }
 }
 
@@ -172,13 +175,41 @@ if (argv.nodeOptions && argv.nodeOptions.syncmode) {
 
 class Settings {
     init() {
+
         logger.setup(argv);
 
         this._log = logger.create('Settings');
+
     }
 
     get userDataPath() {
         return app.getPath('userData');
+    }
+
+    get nodeDatadir() {
+        this._log.info('argv.nodeDatadir: ',argv.nodeDatadir);
+        if(argv.nodeDatadir){
+            return argv.nodeDatadir;
+
+        }else {
+            var dataDir = this.userHomePath;
+
+            if (process.platform === 'darwin') {
+                dataDir += '/Library/Sero';
+            } else if (process.platform === 'freebsd' ||
+                process.platform === 'linux' ||
+                process.platform === 'sunos') {
+                dataDir += '/.sero';
+            } else if (process.platform === 'win32') {
+                dataDir += '\\Sero';
+            }
+            this._log.info('nodeDatadir: ',dataDir);
+            return dataDir;
+        }
+    }
+
+    get logFile() {
+        return argv.logfile;
     }
 
     get dbFilePath() {

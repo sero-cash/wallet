@@ -242,9 +242,9 @@ class IpcProviderBackend {
         log.trace('sendRequest', isSync ? 'sync' : 'async', ownerId, payload);
 
         const originalPayloadStr = payload;
-        if (originalPayloadStr.indexOf("sero_syncing")<0 && originalPayloadStr.indexOf("net_peerCount")<0){
-            console.log('originalPayloadStr:::'+originalPayloadStr);
-        }
+        // if (originalPayloadStr.indexOf("sero_syncing")<0 && originalPayloadStr.indexOf("net_peerCount")<0){
+        //     console.log('originalPayloadStr:::'+originalPayloadStr);
+        // }
 
 
         return Q.try(() => {

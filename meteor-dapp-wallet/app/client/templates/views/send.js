@@ -90,14 +90,12 @@ var getDataField = function(callback){
             var tokenInstance = TokenContract.at(selectedToken);
             // var txData = tokenInstance.transfer.getData( mainRecipient, amount,  {});
             tokenInstance.transfer.getData( mainRecipient, amount,  {},function (result) {
-                console.log('result::::',result);
                 localStorage.setItem('txData',result);
                 // callback(result);
             });
         }
     }
 
-    console.log('txData::::',localStorage.getItem('txData'));
     // return TemplateVar.getFrom('.compile-contract', 'txData');
     return localStorage.getItem('txData')=='undefined'?'':localStorage.getItem('txData');
     // return  Session.get('txData')=='undefined'?'':Session.get('txData');
@@ -111,8 +109,6 @@ var getDataField = function(callback){
  */
 var estimationCallback = function(e, res){
     var template = this;
-
-    console.log('Estimated gas: ', res, e);
 
     if(!e && res) {
         TemplateVar.set(template, 'estimatedGas', res);
@@ -132,7 +128,7 @@ Template['views_send'].onCreated(function(){
 
     // SET THE DEFAULT VARIABLES
     TemplateVar.set('amount', '0');
-    TemplateVar.set('estimatedGas', 1000000);
+    TemplateVar.set('estimatedGas', 250000);
     TemplateVar.set('sendAll', false);
 
     // Deploy contract
@@ -364,20 +360,21 @@ Template['views_send'].helpers({
      @method (total)
      */
     'total': function(sero){
-        var selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value'));
+        // var selectedAccount = Helpers.getAccountByAddress(TemplateVar.getFrom('.dapp-select-account.send-from', 'value'));
         var amount = TemplateVar.get('amount');
         if(!_.isFinite(amount))
             return '0';
 
         // ether
-        var gasInTa = TemplateVar.getFrom('.dapp-select-gas-price', 'gasInTa') || '0';
+        // var gasInTa = TemplateVar.getFrom('.dapp-select-gas-price', 'gasInTa') || '0';
 
         if (TemplateVar.get('selectedToken') === 'sero' ) {
-            amount = (selectedAccount && selectedAccount.owners)
-                ? amount
-                : new BigNumber(amount, 10).plus(new BigNumber(gasInTa, 10));
+            // amount = (selectedAccount && selectedAccount.owners)
+            //     ? amount
+            //     : new BigNumber(amount, 10).plus(new BigNumber(gasInTa, 10));
         } else {
-            amount = new BigNumber(gasInTa, 10);
+            // amount = new BigNumber(gasInTa, 10);
+            amount = '0';
         }
         return amount;
     },
@@ -482,7 +479,7 @@ Template['views_send'].helpers({
                 symbol: token.symbol
             }));
         }
-        console.log("returnText:::",returnText);
+        log.info("returnText:::",returnText);
         return returnText;
 
 
@@ -630,9 +627,6 @@ Template['views_send'].events({
             if(sendAll && (selectedAccount.owners || tokenAddress !== 'sero'))
                 sendAll = false;
 
-
-            console.log('Providing gas: ', estimatedGas , sendAll ? '' : ' + 100000');
-
             if(TemplateVar.get('selectedAction') === 'deploy-contract' && !data)
                 return GlobalNotification.warning({
                     content: 'i18n:wallet.contracts.error.noDataProvided',
@@ -712,7 +706,6 @@ Template['views_send'].events({
 
                 // use gas set in the input field
                 estimatedGas = estimatedGas || Number($('.send-transaction-info input.gas').val());
-                console.log('Finally choosen gas', estimatedGas);
 
                 // CONTRACT TX
                 if(contracts['ct_'+ selectedAccount._id]) {
@@ -725,9 +718,7 @@ Template['views_send'].events({
 
                         TemplateVar.set(template, 'sending', false);
 
-                        console.log(error, txHash);
                         if(!error) {
-                            console.log('SEND from contract', amount);
 
                             data = (!to && contract)
                                 ? {contract: contract, data: data}
@@ -753,9 +744,6 @@ Template['views_send'].events({
 
                     // SIMPLE TX
                 } else {
-
-                    console.log('Gas Price: '+ gasPrice);
-                    console.log('Amount:', amount);
 
                     var params = {
                         from: selectedAccount.address,
@@ -796,9 +784,7 @@ Template['views_send'].events({
 
                         TemplateVar.set(template, 'sending', false);
 
-                        console.log(error, txHash);
                         if(!error) {
-                            console.log('SEND simple');
 
                             data = (!to && contract)
                                 ? {contract: contract, data: data}

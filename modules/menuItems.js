@@ -238,17 +238,17 @@ let menuTempl = function (webviews) {
                             // geth
                             } else {
                                 if (process.platform === 'darwin') {
-                                    userPath += '/Library/Sero/keystore';
+                                    userPath = Settings.nodeDatadir + '/keystore';
                                 }
 
                                 if (process.platform === 'freebsd' ||
                                 process.platform === 'linux' ||
                                 process.platform === 'sunos') {
-                                    userPath += '/.ethereum/keystore';
+                                    userPath = Settings.nodeDatadir + '/.sero/keystore';
                                 }
 
                                 if (process.platform === 'win32') {
-                                    userPath = `${Settings.appDataPath}\\Sero\\keystore`;
+                                    userPath = `${Settings.nodeDatadir}\\keystore`;
                                 }
                             }
 

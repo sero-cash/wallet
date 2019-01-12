@@ -27,20 +27,19 @@
                 <header class="{{ensClass}}">
                     <h1>
                         {{#if ens}}
-                        <span>{{displayName}}</span>
+                            <span>{{displayName}}</span>
                         {{else}}
-                        <em class="edit-name">{{displayName}}</em>
-                        <i class="edit-icon icon-pencil"></i>
+                            <em class="edit-name">{{displayName}}</em>
+                            <i class="edit-icon icon-pencil"></i>
                         {{/if}}
                     </h1>
                     <h2 class="copyable-address">{{walletIcon}}
                         <!-- <input type="text" value="{{toChecksumAddress address}}" readonly class=""> -->
-                        <span>{{toChecksumAddress address}}</span>
+                        <span style="font-size:12px;">{{toChecksumAddress address}}</span>
                     </h2>
                     <div class="clear"></div>
                     {{> elements_balance balance=balance changeUnit=true showAllDecimals=true}}
                 </header>
-
 
                     <table class="token-list dapp-zebra">
                         <tbody>

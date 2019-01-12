@@ -88,9 +88,9 @@ reload@1.1.8
 retry@1.0.7
 routepolicy@1.0.10
 sacha:spin@2.3.1
-serocash:accounts@0.2.20
-serocash:blocks@0.2.1
-serocash:elements@0.2.2
+serocash:accounts@0.2.22
+serocash:blocks@0.2.3
+serocash:elements@0.2.7
 serocash:tools@0.2.3
 serocash:web3@0.2.20
 session@1.1.5

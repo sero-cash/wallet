@@ -104,7 +104,6 @@ ipc.on('backendAction_getLanguage', (e) => {
 });
 
 ipc.on('backendAction_stopWebviewNavigation', (e, id) => {
-    console.log('webcontent ID', id);
     const webContent = webContents.fromId(id);
 
     if (webContent && !webContent.isDestroyed()) {
@@ -118,16 +117,18 @@ ipc.on('backendAction_stopWebviewNavigation', (e, id) => {
 ipc.on('backendAction_checkWalletFile', (e, path) => {
     fs.readFile(path, 'utf8', (event, data) => {
         try {
-            console.log('path:::',path);
+            log.info('path:::',path);
             if(path.lastIndexOf('BLIC.DATA')>-1){
-                console.log('imort mining license:::',path);
-                let licensePath = Settings.userHomePath;
 
-                if (process.platform === 'darwin') licensePath += '/Library/Sero/keystore/license/';
+                let licensePath =  Settings.nodeDatadir;
+
+                if (process.platform === 'darwin') licensePath += (seroNode.network=='beta'?'/keystore':('/'+seroNode.network+'/keystore')) + '/license/';
+
                 if (process.platform === 'freebsd' ||
                     process.platform === 'linux' ||
-                    process.platform === 'sunos') licensePath += '/.Sero/keystore/license/';
-                if (process.platform === 'win32') licensePath = `${Settings.appDataPath}\\Sero\\keystore\\license\\`;
+                    process.platform === 'sunos') licensePath += (seroNode.network=='beta'?'/keystore':('/'+seroNode.network+'/keystore')) + '/license/';
+
+                if (process.platform === 'win32') licensePath = `${Settings.nodeDatadir}\\${(seroNode.network=='beta'?'\\keystore\\license\\':('\\'+seroNode.network+'\\keystore\\license\\'))}`;
 
                 if (!fs.existsSync(licensePath)) {
                     fs.mkdirSync(licensePath);
@@ -143,6 +144,7 @@ ipc.on('backendAction_checkWalletFile', (e, path) => {
                         throw new Error("Can't write file to disk,err");
                     e.sender.send('uiAction_checkedWalletFile', null, 'license');
                 });
+
                 return;
             }
 
@@ -161,15 +163,17 @@ ipc.on('backendAction_checkWalletFile', (e, path) => {
             if (type === 'web3') {
                 e.sender.send('uiAction_checkedWalletFile', null, 'web3');
 
-                let keystorePath = Settings.userHomePath;
+                // let keystorePath = Settings.userHomePath;
 
-                if (process.platform === 'darwin') keystorePath += '/Library/Sero/' + (seroNode.network=='beta'?'keystore':(seroNode.network+'/keystore'));
+                let keystorePath =  Settings.nodeDatadir;
+
+                if (process.platform === 'darwin') keystorePath += (seroNode.network=='beta'?'/keystore':('/'+seroNode.network+'/keystore'));
 
                 if (process.platform === 'freebsd' ||
                     process.platform === 'linux' ||
-                    process.platform === 'sunos') keystorePath += '/.Sero/'+ (seroNode.network=='beta'?'keystore':(seroNode.network+'/keystore'));
+                    process.platform === 'sunos') keystorePath += (seroNode.network=='beta'?'/keystore':('/'+seroNode.network+'/keystore'));
 
-                if (process.platform === 'win32') keystorePath = `${Settings.appDataPath}\\Sero\\${(seroNode.network=='beta'?'keystore':(seroNode.network+'\\keystore'))}`;
+                if (process.platform === 'win32') keystorePath = `${Settings.nodeDatadir}\\${(seroNode.network=='beta'?'\\keystore':('\\'+seroNode.network+'\\keystore'))}`;
 
                 // if (!/^[0-9a-fA-F]{40}$/.test(keyfile.address)) {
                 //     throw new Error('Invalid Address format.');
@@ -312,7 +316,7 @@ ipc.on('backendAction_oneKeyRepair', (event) => {
     if (process.platform === 'darwin') statePath += '/Library/Sero/state1';
     if (process.platform === 'freebsd' ||
         process.platform === 'linux' ||
-        process.platform === 'sunos') statePath += '/.Sero/state1';
+        process.platform === 'sunos') statePath += '/.sero/state1';
     if (process.platform === 'win32') statePath = `${Settings.appDataPath}\\Sero\\state1`;
     log.info('backendAction_oneKeyRepair: ',statePath);
     var files = fs.readdirSync(statePath);

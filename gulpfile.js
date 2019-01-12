@@ -40,12 +40,12 @@ console.log('Wallet version:', require('./package.json').version);
 console.log('Electron version:', require('electron/package.json').version);
 
 if (_.isEmpty(_.intersection(args, ['--wallet']))) {
-    console.log('Many gulp tasks can be run in wallet mode using:  --wallet');
+    log.info('Many gulp tasks can be run in wallet mode using:  --wallet');
 }
 
 const platformFlags = platforms.map((platform) => { return `--${platform}`; });
 if (_.isEmpty(_.intersection(args, platformFlags))) {
-    console.log(`To specify a platform (default: all) use:  ${platformFlags.join(' ')}`);
+    log.info(`To specify a platform (default: all) use:  ${platformFlags.join(' ')}`);
     _.each(platforms, (platform) => { options[platform] = true; }); // activate all platform flags
 }
 

@@ -52,7 +52,7 @@ gulp.task('upload-binaries', (cb) => {
     // personal access token (public_repo) must be set using travis' ENVs
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
-    console.info('Checking Github releases...');
+    console.info('Checking Github releases...GITHUB_TOKEN:::',GITHUB_TOKEN);
 
     // query github releases
     got(`https://api.github.com/repos/sero-cash/wallet/releases?access_token=${GITHUB_TOKEN}`, { json: true })

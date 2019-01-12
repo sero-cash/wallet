@@ -74,12 +74,9 @@ Template['elements_compileContract'].onCreated(function() {
             });
 
             var cb = function (result) {
-
-                console.log('result:::'+result);
-                localStorage.setItem('txData', result);
-
                 // TemplateVar.set(template,'txData', result);
                 // Session.set('txData', result);
+                localStorage.setItem('txData', result);
             }
 
             constructorInputs.push(cb);

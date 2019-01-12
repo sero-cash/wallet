@@ -28,8 +28,8 @@ var setupContractFilters = function(newDocument){
 
     // delete old events
     _.each(Transactions.find({tokenId: newDocument._id, blockNumber: {$exists: true, $gt: blockToCheckBack}}).fetch(), function(tx){
-        if(tx)
-            Transactions.remove({_id: tx._id});
+        // if(tx)
+        //     Transactions.remove({_id: tx._id});
     });
 
     // SETUP FILTERS

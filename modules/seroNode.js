@@ -28,7 +28,7 @@ const STATES = {
 };
 
 /**
- * Serouem nodes manager.
+ * Sero nodes manager.
  */
 class SeroNode extends EventEmitter {
     constructor() {
@@ -258,7 +258,6 @@ class SeroNode extends EventEmitter {
      */
     _start(nodeType, network, syncMode) {
         log.info(`Start node: ${nodeType} ${network} ${syncMode}`);
-        console.log(`Start node: ${nodeType} ${network} ${syncMode}`);
         const isAlphaNet = (network === 'alpha');
 
         if (isAlphaNet) {
@@ -278,7 +277,6 @@ class SeroNode extends EventEmitter {
             })
             .then((proc) => {
                 log.info(`Started node successfully: ${nodeType} ${network} ${syncMode}`);
-                console.log(`Started node successfully: ${nodeType} ${network} ${syncMode}`)
                 this._node = proc;
                 this.state = STATES.STARTED;
 
@@ -289,7 +287,7 @@ class SeroNode extends EventEmitter {
                     timeout: 30000, /* 30s */
                 })
                     .then(() => {
-                        console.log('STATES.CONNECTED:::',STATES.CONNECTED);
+                        log.info('STATES.CONNECTED:::',STATES.CONNECTED);
                         this.state = STATES.CONNECTED;
                     })
                     .catch((err) => {
@@ -325,22 +323,22 @@ class SeroNode extends EventEmitter {
      */
     __startNode(nodeType, network, syncMode) {
         this.state = STATES.STARTING;
-        console.log('__startNode(nodeType, network, syncMode)',nodeType, network, syncMode);
+        log.info('__startNode(nodeType, network, syncMode)',nodeType, network, syncMode);
         this._network = network;
         this._type = nodeType;
         this._syncMode = syncMode;
 
         const client = ClientBinaryManager.getClient(nodeType);
         let binPath;
-        console.log('client:::',client);
+        log.info('client:::',client);
         if (client) {
             binPath = client.binPath;
         } else {
-            console.log(`Node "${nodeType}" binPath is not available.`);
+            log.info(`Node "${nodeType}" binPath is not available.`);
             throw new Error(`Node "${nodeType}" binPath is not available.`);
         }
 
-        console.log(`Start node using ${binPath}`);
+        log.info(`Start node using ${binPath}`);
 
         return new Q((resolve, reject) => {
             this.__startProcess(nodeType, network, binPath, syncMode)
@@ -397,7 +395,8 @@ class SeroNode extends EventEmitter {
                     args = [
                         '--syncmode', syncMode,
                         '--cache', ((process.arch === 'x64') ? '1024' : '512'),
-                        '--ipcpath', Settings.rpcIpcPath
+                        '--ipcpath', Settings.rpcIpcPath,
+                        '--maxpeers',50
                     ];
                         break;
 
@@ -431,9 +430,9 @@ class SeroNode extends EventEmitter {
                             'PATH': dylbwin
                         }
                     }
-                    log.info(`Node runEnv: ${runEnv}`);
+                    log.info('Node runEnv: ',binPath, args,runEnv);
 
-                    console.log('runEnv:::',runEnv);
+                    log.info('',log.info)
                 }
 
                 const proc = spawn(binPath, args,runEnv);
@@ -442,7 +441,7 @@ class SeroNode extends EventEmitter {
 
                 // node has a problem starting
                 proc.once('error', (error) => {
-                    console.log(error)
+                    log.info(error)
                     if (STATES.STARTING === this.state) {
                         this.state = STATES.ERROR;
 
@@ -455,7 +454,7 @@ class SeroNode extends EventEmitter {
                     }
                 });
 
-                console.log(Settings.constructUserDataPath('node.log'));
+                log.info(Settings.constructUserDataPath('node.log'));
                 // we need to read the buff to prevent node from not working
                 proc.stderr.pipe(
                     fs.createWriteStream(Settings.constructUserDataPath('node.log'), { flags: 'a' })
@@ -464,7 +463,7 @@ class SeroNode extends EventEmitter {
                 // when proc outputs data
                 proc.stdout.on('data', (data) => {
                     log.trace('Got stdout data');
-
+                    log.info(data.toString());
                     this.emit('data', data);
 
                     // check for startup errors
@@ -489,7 +488,7 @@ class SeroNode extends EventEmitter {
                 // when proc outputs data in stderr
                 proc.stderr.on('data', (data) => {
                     log.trace('Got stderr data');
-
+                    log.info(data.toString());
                     this.emit('data', data);
                 });
 
