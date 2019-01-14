@@ -517,6 +517,7 @@ class Manager {
 
             return this._spawn(command, args)
                 .then((output) => {
+                    this._logger.info(output);
                     const systemPath = _.get(output, 'stdout', '').trim();
 
                     if (_.get(systemPath, 'length')) {
@@ -528,6 +529,7 @@ class Manager {
                     this._logger.debug(`Command ${binName} not found in path.`);
                 })
                 .then(() => {
+                    this._logger.info(options);
                     // now let's search additional folders
                     if (_.get(options, 'folders.length')) {
                         options.folders.forEach((folder) => {
@@ -623,7 +625,7 @@ class Manager {
             .then((output) => {
                 const haystack = output.stdout + output.stderr;
 
-                console.log(`Sanity check output: ${haystack}`);
+                this._logger.info(`Sanity check output: ${haystack}`);
 
                 const needles = sanityCheck.output || [];
 
@@ -652,12 +654,12 @@ class Manager {
     _spawn(cmd, args) {
         args = args || [];
 
-        console.log(`Exec: "${cmd} ${args.join(' ')}"`);
+        this._logger.info(`Exec: "${cmd} ${args.join(' ')}"`);
 
         if (cmd.indexOf('gero')>-1){
             var dylb = cmd.substring(0,cmd.lastIndexOf('gero'))+'geropkg/czero/lib';
             var dylbwin = cmd.substring(0,cmd.lastIndexOf('gero'))+'geropkg\\czero\\lib';
-            console.log(cmd, args,{
+            this._logger.info(cmd, args,{
                 env: {
                     'DYLD_LIBRARY_PATH': dylb,
                     'LD_LIBRARY_PATH': dylb,

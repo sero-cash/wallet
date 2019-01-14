@@ -84,6 +84,7 @@ const argv = require('yargs')
         },
         'ignore-gpu-blacklist': {
             demand: false,
+            default: true,
             describe: 'Ignores GPU blacklist (needed for some Linux installations).',
             requiresArg: false,
             nargs: 0,

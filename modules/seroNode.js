@@ -463,7 +463,7 @@ class SeroNode extends EventEmitter {
                 // when proc outputs data
                 proc.stdout.on('data', (data) => {
                     log.trace('Got stdout data');
-                    log.info(data.toString());
+                    // log.info(data.toString());
                     this.emit('data', data);
 
                     // check for startup errors
@@ -488,7 +488,7 @@ class SeroNode extends EventEmitter {
                 // when proc outputs data in stderr
                 proc.stderr.on('data', (data) => {
                     log.trace('Got stderr data');
-                    log.info(data.toString());
+                    // log.info(data.toString());
                     this.emit('data', data);
                 });
 
