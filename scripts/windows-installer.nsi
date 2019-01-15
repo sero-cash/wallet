@@ -29,7 +29,7 @@ RequestExecutionLevel admin
 !define GROUPNAME "Sero"
 !define HELPURL "https://github.com/sero-cash/wallet/releases/issues"
 !define UPDATEURL "https://github.com/sero-cash/wallet/releases"
-!define ABOUTURL "https://ethereum.org"
+!define ABOUTURL "https://sero.cash"
 !define /date NOW "%Y%m%d"
 
 ## These must be integers and can be set on the command line by NSIS with "/DMAJORVERSION=0 /DMINORVERSION=8 /DBUILDVERSION=7"
@@ -87,6 +87,14 @@ ${EndIf}
 
 function .onInit
   !insertmacro VerifyUserIsAdmin
+  Start:
+  killer::IsProcessRunning "SERO Wallet.exe"
+  Pop $R0
+  StrCpy $R1 "$R0"
+  StrCmp $R1 "0" Stop
+  killer::KillProcess "SERO Wallet.exe"
+  Goto Start
+  Stop:
   call setenv
 functionEnd
 
@@ -209,7 +217,7 @@ FunctionEnd
 
 function un.onInit
   call un.setenv
-  !insertmacro VerifyUserIsAdmin
+      !insertmacro VerifyUserIsAdmin
 functionEnd
 
 # uninstaller section start

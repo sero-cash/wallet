@@ -115,6 +115,7 @@ let killedSocketsAndNodes = false;
 
 app.on('before-quit', (event) => {
     if (!killedSocketsAndNodes) {
+        log.info("mainWindow,shouldQuit888");
         log.info('Defer quitting until sockets and node are shut down');
 
         event.preventDefault();
@@ -145,18 +146,45 @@ let splashWindow;
 let onReady;
 let startMainWindow;
 
+log.info("app::::",app);
+
+log.info("mainWindow,shouldQuit000:");
+var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
+
+    log.info("mainWindow,shouldQuit333:",commandLine,workingDirectory);
+
+    // 当另一个实例运行的时候，这里将会被调用，我们需要激活应用的窗口
+    if (mainWindow) {
+        log.info("mainWindow,shouldQuit555");
+        mainWindow.focus();
+        log.info("mainWindow,shouldQuit666");
+    }
+    log.info("mainWindow,shouldQuit444:");
+    return true;
+});
+
+log.info("mainWindow,shouldQuit111:",shouldQuit);
+
+// 这个实例是多余的实例，需要退出
+if (shouldQuit) {
+    log.info("app.quit():",shouldQuit);
+    // app.quit();
+}
+
+// Create myWindow, load the rest of the app, etc...
 // This method will be called when Electron has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', () => {
+    log.info("mainWindow,shouldQuit777");
     // if using HTTP RPC then inform user
     if (Settings.rpcMode === 'http') {
         dialog.showErrorBox('Insecure RPC connection', `
-WARNING: You are connecting to an SERO node via: ${Settings.rpcHttpPath}
-
-This is less secure than using local IPC - your passwords will be sent over the wire in plaintext.
-
-Only do this if you have secured your HTTP connection or you know what you are doing.
-`);
+                WARNING: You are connecting to an SERO node via: ${Settings.rpcHttpPath}
+                
+                This is less secure than using local IPC - your passwords will be sent over the wire in plaintext.
+                
+                Only do this if you have secured your HTTP connection or you know what you are doing.
+                `);
     }
 
     // initialise the db
@@ -169,7 +197,12 @@ Only do this if you have secured your HTTP connection or you know what you are d
 // Allows the Swarm protocol to behave like http
 protocol.registerStandardSchemes(['bzz']);
 
+
+log.info("mainWindow,shouldQuit222:",shouldQuit);
+
+
 onReady = () => {
+
     global.config = db.getCollection('SYS_config');
 
     // setup DB sync to backend
@@ -230,7 +263,7 @@ onReady = () => {
             },
         });
 
-    // WALLET
+        // WALLET
     } else {
         mainWindow = Windows.create('main', {
             primary: true,
@@ -269,6 +302,9 @@ onReady = () => {
             },
         });
     }
+
+
+
 
     // Checks time sync
     // if (!Settings.skiptimesynccheck) {
