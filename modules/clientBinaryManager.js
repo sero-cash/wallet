@@ -13,9 +13,9 @@ const EventEmitter = require('events').EventEmitter;
 const log = require('./utils/logger').create('ClientBinaryManager');
 
 // should be       'https://raw.githubusercontent.com/ethereum/mist/master/clientBinaries.json'
-// const BINARY_URL = 'http://sero-media.s3-website-ap-southeast-1.amazonaws.com/clients/clientBinaries.json';
+const BINARY_URL = 'http://sero-media.s3-website-ap-southeast-1.amazonaws.com/clients/clientBinaries.json';
 
-const BINARY_URL = 'https://sero-media-1256272584.cos.ap-shanghai.myqcloud.com/wallet/clientBinaries.json';
+// const BINARY_URL = 'https://sero-media-1256272584.cos.ap-shanghai.myqcloud.com/wallet/clientBinaries.json';
 
 // const ALLOWED_DOWNLOAD_URLS_REGEX =
 //     /^https:\/\/(?:(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)?ethereum\.org\/|gethstore\.blob\.core\.windows\.net\/|bintray\.com\/artifact\/download\/karalabe\/ethereum\/)(?:.+)/;  // eslint-disable-line max-len
