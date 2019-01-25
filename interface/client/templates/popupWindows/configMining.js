@@ -49,6 +49,8 @@ Template['popupWindows_configMining'].events({
 
         ipc.send('backendAction_configMining' , nums);
 
+        localStorage.setItem('showThreads', nums);
+
         template.find('input[type="number"]').value = '';
         nums = null;
 
@@ -59,5 +61,13 @@ Template['popupWindows_configMining'].events({
         setTimeout(function () {
             ipc.send('backendAction_closePopupWindow');
         }, 3000);
+    }
+});
+
+
+Template['popupWindows_configMining'].helpers({
+
+    'showThreads': function () {
+        return localStorage.getItem('showThreads')?localStorage.getItem('showThreads'):1;
     }
 });

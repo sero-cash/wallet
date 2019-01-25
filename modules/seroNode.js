@@ -284,7 +284,7 @@ class SeroNode extends EventEmitter {
                 Settings.saveUserData('network', this._network);
                 Settings.saveUserData('syncmode', this._syncMode);
                 return this._socket.connect(Settings.rpcConnectConfig, {
-                    timeout: 30000, /* 30s */
+                    timeout: 60000, /* 30s */
                 })
                     .then(() => {
                         log.info('STATES.CONNECTED:::',STATES.CONNECTED);
@@ -395,8 +395,7 @@ class SeroNode extends EventEmitter {
                     args = [
                         '--syncmode', syncMode,
                         '--cache', ((process.arch === 'x64') ? '1024' : '512'),
-                        '--ipcpath', Settings.rpcIpcPath,
-                        '--maxpeers',50
+                        '--ipcpath', Settings.rpcIpcPath
                     ];
                         break;
 

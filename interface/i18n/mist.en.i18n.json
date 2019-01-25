@@ -73,16 +73,16 @@
                 "startMining": "⛏ Start mining",
                 "stopMining": "⛏ Stop mining",
                 "miningError": "Start mining fail,Please confirm that the LICENSE for mining has been imported. If you need to start mining, send Email to license@sero.vip with your wallet address .",
-                "oneKeyRepair": "One-key repair",
+                "oneKeyRepair": "One-key Repair(Caution!)",
                 "oneKeyRepairNote": "Note: one-key repair may take some time, please be patient. Do not close the SERO wallet window until your wallet is in the correct state.",
                 "oneKeyRepairCancel": "CANCEL",
                 "oneKeyRepairOk": "REPAIR",
                 "oneKeyRepairDesc": "Invoke repair function successfully, the window will close in 3 seconds!",
                 "configMining":{
-                    "title":"Configure mining threads",
-                    "tips":"Mining threads setting...",
+                    "title":"⛏ Start mining",
+                    "tips":"Starting mining ...",
                     "enterThread":"Enter mining threads",
-                    "success":"Configure mining threads successfully!",
+                    "success":"Start mining successfully!",
                     "note":"The default value is 1 thread, please adjust according to your computer performance, the maximum value is not more than the maximum number of threads CPU."
                 }
 
@@ -174,7 +174,7 @@
             "nodeSyncing": "SERO node needs to sync, please wait...",
             "nodeSyncInfo": "Downloading block __displayBlock__ of __highestBlock__",
             "nodeSyncInfoStates": "Downloading block __displayBlock__ of __highestBlock__, <br> Downloading chain structure __displayState__ of __displayKnownStates__",
-            "nodeSyncConnecting": "Looking for peers...",
+            "nodeSyncConnecting": "Looking for peers...<br/>(Check your computer's clock in sync with the network)",
             "nodeSyncFoundPeers": "Connecting to __peers__ peers...",
             "peerSearchTimeout": "Skip peer search",
             "launchApp": "Launch Application",

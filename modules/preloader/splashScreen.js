@@ -10,7 +10,7 @@ require('./include/setBasePath')('interface');
 ipcRenderer.send('backendAction_setLanguage');
 
 // disable pinch zoom
-webFrame.setZoomLevelLimits(1, 1);
+webFrame.setVisualZoomLevelLimits(1, 1);
 
 window.ipc = ipcRenderer;
 window.mist = mist();

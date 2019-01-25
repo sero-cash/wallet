@@ -8,7 +8,7 @@ const got = require('got'),
     mkdirp = require('mkdirp'),
     unzip = require('node-unzip-2'),
     spawn = require('buffered-spawn');
-
+const EventEmitter = require('events').EventEmitter;
 const _ = {
     isEmpty: require('lodash.isempty'),
     get: require('lodash.get'),
@@ -65,7 +65,7 @@ const DUMMY_LOGGER = {
 const DefaultConfig = {};
 
 
-class Manager {
+class Manager extends EventEmitter{
     /**
      * Construct a new instance.
      *
@@ -73,6 +73,7 @@ class Manager {
      * default configuration (`DefaultConfig`) will be used.
      */
     constructor (config) {
+        super();
         this._config = config || DefaultConfig;
 
         this._logger = DUMMY_LOGGER;
@@ -149,6 +150,11 @@ class Manager {
         return this._scan(options);
     }
 
+    _showProgress(received, total) {
+        const percentage = (received * 100) / total;
+
+        this.emit('progress', percentage);
+    };
 
     /**
      * Download a particular client.
@@ -236,6 +242,16 @@ class Manager {
                 const writeStream = fs.createWriteStream(downloadFile);
 
                 const stream = got.stream(downloadCfg.url);
+
+                let totalBytes = 0 ,receivedBytes = 0 ;
+                stream.on('response', (data) => {
+                    totalBytes = parseInt(data.headers['content-length'], 10);
+                });
+
+                stream.on('data', (chunk) => {
+                    receivedBytes += chunk.length;
+                    this._showProgress(receivedBytes, totalBytes);
+                });
 
                 // stream.pipe(progress({
                 //   time: 100
@@ -680,3 +696,4 @@ class Manager {
 
 
 exports.Manager = Manager;
+// module.exports = new Manager();

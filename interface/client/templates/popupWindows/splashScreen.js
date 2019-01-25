@@ -34,10 +34,18 @@ Template['popupWindows_splashScreen'].onCreated(function () {
         }
     });
 
-    ipc.on('uiAction_clientBinaryStatus', function (e, status) {
-        TemplateVar.set(template, 'text', TAPi18n.__('mist.startScreen.clientBinaries.' + status));
+    ipc.on('uiAction_clientBinaryStatus', function (e, status,data ,progress ) {
+
+        if("downloading" === status){
+            TemplateVar.set(template, 'text', TAPi18n.__('mist.startScreen.clientBinaries.' + status) + `${(progress).toFixed(2)}%`);
+            TemplateVar.set(template, 'showProgressBar', true);
+            TemplateVar.set(template, 'progress', progress);
+        }else{
+            TemplateVar.set(template, 'text', TAPi18n.__('mist.startScreen.clientBinaries.' + status));
+            TemplateVar.set(template, 'showProgressBar', false);
+        }
+
         TemplateVar.set(template, 'showNetworkIndicator', status === 'done');
-        TemplateVar.set(template, 'showProgressBar', false);
         TemplateVar.set(template, 'showStartAppButton', false);
         TemplateVar.set(template, 'logText', null);
     });

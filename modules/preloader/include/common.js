@@ -6,7 +6,7 @@ module.exports = (windowType) => {
     }
 
     // disable pinch zoom
-    webFrame.setZoomLevelLimits(1, 1);
+    webFrame.setVisualZoomLevelLimits(1, 1);
 
     require('./consoleLogCapture')(windowType); // !!!
     require('./suppressWindowPrompt')();

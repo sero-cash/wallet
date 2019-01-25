@@ -13,7 +13,6 @@ const EventEmitter = require('events').EventEmitter;
 const log = require('./utils/logger').create('ClientBinaryManager');
 
 // should be       'https://raw.githubusercontent.com/ethereum/mist/master/clientBinaries.json'
-// const BINARY_URL = "https://raw.githubusercontent.com/ethereum/mist/master/clientBinaries.json";
 // const BINARY_URL = 'http://sero-media.s3-website-ap-southeast-1.amazonaws.com/clients/clientBinaries.json';
 
 const BINARY_URL = 'https://sero-media-1256272584.cos.ap-shanghai.myqcloud.com/wallet/clientBinaries.json';
@@ -193,6 +192,10 @@ class Manager extends EventEmitter {
             // scan for node
             const mgr = new ClientBinaryManager(localConfig);
 
+            mgr.on('progress',(progress) => {
+                var that = this;
+                that._emit('downloading', 'Downloading binaries' ,progress);
+            })
 
             mgr.logger = log;
 
@@ -280,11 +283,13 @@ class Manager extends EventEmitter {
     }
 
 
-    _emit(status, msg) {
-        log.debug(`Status: ${status} - ${msg}`);
+    _emit(status, msg ,progress) {
+        log.debug(`Status: ${status} - ${msg} - ${progress}`);
 
-        this.emit('status', status, msg);
+        this.emit('status', status, msg ,progress);
     }
+
+
 
 }
 

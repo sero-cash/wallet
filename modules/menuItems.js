@@ -199,7 +199,9 @@ let menuTempl = function (webviews) {
                 click() {
                     Windows.createPopup('requestAccount', {
                         electronOptions: {
-                            width: 420, height: 230, alwaysOnTop: true,
+                            width: 420,
+                            height: 230,
+                            alwaysOnTop: true,
                         },
                     });
                 },
@@ -595,35 +597,40 @@ let menuTempl = function (webviews) {
     //
     // }
     devToolsMenu.push({
-        label: i18n.t('mist.applicationMenu.develop.configMining.title') ,
-        enabled: true,
-        click() {
-            try {
-                Windows.createPopup('configMining', {
-                    electronOptions: {
-                        width: 420,
-                        height: 230,
-                        alwaysOnTop: true,
-                    },
-                });
-            } catch (e) {
-                log.info(e);
-            }
-        }
-    });
-
-    devToolsMenu.push({
         label: (global.mining) ? (i18n.t('mist.applicationMenu.develop.stopMining')  + '('+Settings.loadUserData('minerThread')+' Threads)'): (i18n.t('mist.applicationMenu.develop.startMining')+  '('+Settings.loadUserData('minerThread')+' Threads)'),
         accelerator: 'CommandOrControl+Shift+M',
         enabled: true,
         click() {
             if (global.mining) {
                 stopMining(webviews);
-            } else {
-                startMining(webviews);
+            }else {
+                try {
+                    Windows.createPopup('configMining', {
+                        electronOptions: {
+                            width: 420,
+                            height: 230,
+                            alwaysOnTop: true,
+                        },
+                    });
+                } catch (e) {
+                    log.info(e);
+                }
             }
         }
     });
+    //
+    // devToolsMenu.push({
+    //     label: (global.mining) ? (i18n.t('mist.applicationMenu.develop.stopMining')  + '('+Settings.loadUserData('minerThread')+' Threads)'): (i18n.t('mist.applicationMenu.develop.startMining')+  '('+Settings.loadUserData('minerThread')+' Threads)'),
+    //     accelerator: 'CommandOrControl+Shift+M',
+    //     enabled: true,
+    //     click() {
+    //         if (global.mining) {
+    //             stopMining(webviews);
+    //         } else {
+    //             startMining(webviews);
+    //         }
+    //     }
+    // });
 
     //oneKeyRepair
     devToolsMenu.push({

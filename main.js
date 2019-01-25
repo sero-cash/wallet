@@ -115,7 +115,6 @@ let killedSocketsAndNodes = false;
 
 app.on('before-quit', (event) => {
     if (!killedSocketsAndNodes) {
-        log.info("mainWindow,shouldQuit888");
         log.info('Defer quitting until sockets and node are shut down');
 
         event.preventDefault();
@@ -146,60 +145,46 @@ let splashWindow;
 let onReady;
 let startMainWindow;
 
-log.info("app::::",app);
+const gotTheLock = app.requestSingleInstanceLock()
+log.info("gotTheLock::::",gotTheLock);
 
-log.info("mainWindow,shouldQuit000:");
-var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
+if (!gotTheLock) {
+    app.on('second-instance', (event, commandLine, workingDirectory) => {
+        // Someone tried to run a second instance, we should focus our window.
+        if (mainWindow) {
+            if (mainWindow.isMinimized()) mainWindow.restore()
+            mainWindow.focus()
+        }
+    })
+} else {
 
-    log.info("mainWindow,shouldQuit333:",commandLine,workingDirectory);
-
-    // 当另一个实例运行的时候，这里将会被调用，我们需要激活应用的窗口
-    if (mainWindow) {
-        log.info("mainWindow,shouldQuit555");
-        mainWindow.focus();
-        log.info("mainWindow,shouldQuit666");
-    }
-    log.info("mainWindow,shouldQuit444:");
-    return true;
-});
-
-log.info("mainWindow,shouldQuit111:",shouldQuit);
-
-// 这个实例是多余的实例，需要退出
-if (shouldQuit) {
-    log.info("app.quit():",shouldQuit);
-    // app.quit();
-}
-
-// Create myWindow, load the rest of the app, etc...
-// This method will be called when Electron has done everything
-// initialization and ready for creating browser windows.
-app.on('ready', () => {
-    log.info("mainWindow,shouldQuit777");
-    // if using HTTP RPC then inform user
-    if (Settings.rpcMode === 'http') {
-        dialog.showErrorBox('Insecure RPC connection', `
+    // Create myWindow, load the rest of the app, etc...
+    // This method will be called when Electron has done everything
+    // initialization and ready for creating browser windows.
+    app.on('ready', () => {
+        // if using HTTP RPC then inform user
+        if (Settings.rpcMode === 'http') {
+            dialog.showErrorBox('Insecure RPC connection', `
                 WARNING: You are connecting to an SERO node via: ${Settings.rpcHttpPath}
                 
                 This is less secure than using local IPC - your passwords will be sent over the wire in plaintext.
                 
                 Only do this if you have secured your HTTP connection or you know what you are doing.
                 `);
-    }
+        }
 
-    // initialise the db
-    global.db.init().then(onReady).catch((err) => {
-        log.error(err);
-        app.quit();
+        // initialise the db
+        global.db.init().then(onReady).catch((err) => {
+            log.error(err);
+            app.quit();
+        });
     });
-});
+}
+
+
 
 // Allows the Swarm protocol to behave like http
 protocol.registerStandardSchemes(['bzz']);
-
-
-log.info("mainWindow,shouldQuit222:",shouldQuit);
-
 
 onReady = () => {
 
@@ -307,29 +292,29 @@ onReady = () => {
 
 
     // Checks time sync
-    // if (!Settings.skiptimesynccheck) {
-    //     timesync.checkEnabled((err, enabled) => {
-    //         if (err) {
-    //             log.error('Couldn\'t infer if computer automatically syncs time.', err);
-    //             return;
-    //         }
-    //
-    //         if (!enabled) {
-    //             dialog.showMessageBox({
-    //                 type: 'warning',
-    //                 buttons: ['OK'],
-    //                 message: global.i18n.t('mist.errors.timeSync.title'),
-    //                 detail: `${global.i18n.t('mist.errors.timeSync.description')}\n\n${global.i18n.t(`mist.errors.timeSync.${process.platform}`)}`,
-    //             }, () => {
-    //             });
-    //         }
-    //     });
-    // }
+    if (!Settings.skiptimesynccheck) {
+        timesync.checkEnabled((err, enabled) => {
+            if (err) {
+                log.error('Couldn\'t infer if computer automatically syncs time.', err);
+                return;
+            }
+
+            if (!enabled) {
+                dialog.showMessageBox({
+                    type: 'warning',
+                    buttons: ['OK'],
+                    message: global.i18n.t('mist.errors.timeSync.title'),
+                    detail: `${global.i18n.t('mist.errors.timeSync.description')}\n\n${global.i18n.t(`mist.errors.timeSync.${process.platform}`)}`,
+                }, () => {
+                });
+            }
+        });
+    }
 
     const kickStart = () => {
         // client binary stuff
-        ClientBinaryManager.on('status', (status, data) => {
-            Windows.broadcast('uiAction_clientBinaryStatus', status, data);
+        ClientBinaryManager.on('status', (status, data ,progress) => {
+            Windows.broadcast('uiAction_clientBinaryStatus', status, data ,progress);
         });
 
         // node connection stuff

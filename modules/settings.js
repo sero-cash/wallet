@@ -5,6 +5,7 @@ const logger = require('./utils/logger');
 const packageJson = require('../package.json');
 const _ = require('./utils/underscore');
 const lodash = require('lodash');
+const logRotate = require('log-rotate');
 
 
 // try loading in config file
@@ -16,6 +17,12 @@ try {
     _.extend(defaultConfig, require('../config.json'));
 } catch (err) {
 }
+
+logRotate((app.getPath('userData') + '/logs/app.log'), { count: 5 }, (err) => {
+    if (err) {
+        log.error('Log rotation problems', err);
+    }
+});
 
 
 const argv = require('yargs')

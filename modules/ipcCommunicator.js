@@ -10,6 +10,7 @@ const { app, ipcMain: ipc, shell, webContents } = require('electron');
 const Windows = require('./windows');
 const logger = require('./utils/logger');
 const appMenu = require('./menuItems');
+
 const Settings = require('./settings');
 const seroNode = require('./seroNode.js');
 const keyfileRecognizer = require('ethereum-keyfile-recognizer');
@@ -102,7 +103,7 @@ ipc.on('backendAction_setLanguage', (e) => {
 ipc.on('backendAction_getLanguage', (e) => {
     e.returnValue = Settings.language;
 });
-
+``
 ipc.on('backendAction_stopWebviewNavigation', (e, id) => {
     const webContent = webContents.fromId(id);
 
@@ -331,13 +332,44 @@ ipc.on('backendAction_oneKeyRepair', (event) => {
         fs.unlinkSync(filetemp);
         log.info("delete file success: ",filetemp)
     });
-    event.sender.send('uiAction_oneKeyRepair','One-key repair success!');
+    event.sender.send('uiAction_oneKeyRepair','One-key Repair successful!');
 });
 
 // configMining
 ipc.on('backendAction_configMining', (event,nums) => {
     // LocalStore.set('minerThread',nums);
     Settings.saveUserData('minerThread',nums);
-    appMenu(global.webviews);
-    event.sender.send('uiAction_configMining','success!');
+
+    var param = [];
+
+    if(typeof nums === 'string'){
+        nums = parseInt(nums);
+    }
+    param.push(nums);
+
+    seroNode.send('miner_start', param)
+        .then((ret) => {
+            console.log('miner_start result:', ret.result);
+
+            if (ret.result === null) {
+                global.mining = true;
+                appMenu(global.webviews);
+                event.sender.send('uiAction_configMining','success!');
+            } else {
+                Windows.createPopup('mining', {
+                    electronOptions: {
+                        width: 420,
+                        height: 230,
+                        alwaysOnTop: true,
+                    },
+                });
+            }
+        })
+        .catch((err) => {
+            console.error('miner_start err:', err);
+        });
+});
+
+ipc.on('backendAction_getThreads', (e) => {
+    e.returnValue = Settings.loadUserData('minerThread');
 });

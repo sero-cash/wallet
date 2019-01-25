@@ -60,11 +60,11 @@
                 "oneKeyRepairOk": "修复",
                 "oneKeyRepairDesc": "调用修复函数成功，窗口将在3秒内关闭!",
                 "configMining":{
-                    "title":"设置挖矿线程数",
-                    "tips":"正在设置...",
-                    "enterThread":"请输入挖矿线程数",
-                    "success":"设置挖矿线程数成功!",
-                    "note":"默认值是1个线程，请根据您的电脑性能进行调整，最大值不超过CPU的最大线程数。"
+                    "title":"⛏ 开启挖矿",
+                    "tips":"正在开启挖矿...",
+                    "enterThread":"请设置挖矿线程数",
+                    "success":"开启挖矿成功!",
+                    "note":"默认值是1个线程，请根据您的电脑CPU进行调整，最大值不超过CPU的最大线程数。"
                 }
             },
             "window": {
@@ -84,7 +84,7 @@
             "timeSync": {
                 "title": "你的计算机时间同步不准确！",
                 "description": "为了和超零网络保持同步，你的计算机时间和服务器时间需要保持同步。",
-                "win32": "从系统选项中打开网络时间设置并勾选。详细信息参考：http://www.guidingtech.com/3119/windows-clock-sync/",
+                "win32": "从系统选项中打开自动设置时间,并确保同步到最新的网络时间。",
                 "linux": "为开启时间同步服务器，请通过\"apt-get install ntp\"安装\"ntp\"。",
                 "darwin": "为开启时间同步，打开时间选项并勾选\"Set the time and date automatically\"."
             },
@@ -136,7 +136,7 @@
             "nodeBinaryNotFound": "找不到超零节点安装文件！<br><small> <a href='https://www.seroeum.org/cli#geth' class='button' target='_blank'> 请事先手动开启一个节点 </a> </small>",
             "nodeSyncing": "需要同步超零节点，请等待……",
             "nodeSyncInfo": "正在下载第__displayBlock__块，共__highestBlock__。",
-            "nodeSyncConnecting": "正在查找节点……",
+            "nodeSyncConnecting": "正在查找节点……<br/>(请检查电脑时间和网络时间是否同步)",
             "peerSearchTimeout": "跳过节点搜索",
             "stoppingNode": "Stopping SERO node...",
             "nodeStarting": "SERO node starting up...",
@@ -221,7 +221,7 @@
                 "gotoMainnet": "使用公测网络（Beta Net）",
                 "gotoMainnetDescription": "您需要SERO币来创建和执行智能合约。不用担心！您可以通过SERO钱包来进行挖矿。",
                 "doYouHaveAWalletFile": "导入账户或挖矿LICENSE",
-                "walletFileDescription": "<p>1，导入账户：如果您以前通过SERO钱包备份过账户，你可以导入备份文件（JSON格式）还原账户；<br/>2，导入LICENSE：SERO挖矿需要授权，如果您有授权文件，请导入。如果您没有申请过，请在生成账号以后，将钱包地址发送邮件到 license@sero vip。</p>",
+                "walletFileDescription": "<p>1，导入账户：如果您以前通过SERO钱包备份过账户，你可以导入备份文件（JSON格式）还原账户；<br/>2，导入LICENSE：SERO挖矿需要授权，如果您有授权文件，请导入。如果您没有申请过，请在生成账号以后，将钱包地址发送邮件到 license@sero.vip。</p>",
                 "dropFilesHere": "文件拖入此处",
                 "creating": "正在创建……",
                 "importing": "正在导入……",
