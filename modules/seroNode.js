@@ -393,6 +393,7 @@ class SeroNode extends EventEmitter {
                 // Starts beta network
                 case 'beta':
                     args = [
+                        '--config',  Settings.constructUserDataPath('walletGeroConfig.toml'),
                         '--syncmode', syncMode,
                         '--cache', ((process.arch === 'x64') ? '1024' : '512'),
                         '--ipcpath', Settings.rpcIpcPath

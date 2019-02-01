@@ -1,0 +1,9 @@
+{
+    "title": "SERO Wallet",
+    "icon": "icon.icns",
+    "background": "backgroud.png",
+    "contents": [
+        { "x": 600, "y": 300, "type": "link", "path": "/Applications" },
+        { "x": 160, "y": 300, "type": "file", "path": "../../dist_wallet/dist/mac/SERO Wallet.app" }
+    ]
+}

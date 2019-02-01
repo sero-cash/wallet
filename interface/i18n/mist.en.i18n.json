@@ -84,6 +84,17 @@
                     "enterThread":"Enter mining threads",
                     "success":"Start mining successfully!",
                     "note":"The default value is 1 thread, please adjust according to your computer performance, the maximum value is not more than the maximum number of threads CPU."
+                },
+                "hashrate":{
+                    "title":"Hashrate metrics",
+                    "desc":"working...",
+                    "tips":"Hashrate metrics has some influence on mining efficiency , Please close it after completion of metrics.",
+                    "error":"Start hashrate metrics need to start mining first.",
+                    "start":"Start",
+                    "startSuccess":"Start Hashrate metrics successful",
+                    "stopSuccess":"Stop Hashrate metrics successful",
+                    "stop":"Stop",
+                    "help":"<a href=\"https://wiki.sero.cash/en/index.html?file=Tutorial/how-to-evaluate-node-hashrate\" target=\"_blank\">more detail</a>"
                 }
 
             },

@@ -14,7 +14,6 @@ const log = require('./utils/logger').create('ClientBinaryManager');
 
 // should be       'https://raw.githubusercontent.com/ethereum/mist/master/clientBinaries.json'
 const BINARY_URL = 'http://sero-media.s3-website-ap-southeast-1.amazonaws.com/clients/clientBinaries.json';
-
 // const BINARY_URL = 'https://sero-media-1256272584.cos.ap-shanghai.myqcloud.com/wallet/clientBinaries.json';
 
 // const ALLOWED_DOWNLOAD_URLS_REGEX =
@@ -278,7 +277,12 @@ class Manager extends EventEmitter {
 
                 // throw so the main.js can catch it
                 throw err;
+            }else if(err.message.indexOf('locked') > -1){
+                log.info('Restarting app ...');
+                app.relaunch();
+                app.quit();
             }
+
         });
     }
 

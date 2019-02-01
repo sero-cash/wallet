@@ -1,0 +1,16 @@
+<template name="popupWindows_hashrate">
+    <div class="popup-windows">
+        <form action="#">
+            <h1>{{i18n "mist.applicationMenu.develop.hashrate.title"}}</h1>
+            <span>Hashrate : <strong>{{showHashrate}}</strong>{{#if TemplateVar.get "hashrating"}} ({{i18n "mist.applicationMenu.develop.hashrate.desc"}}){{/if}}</span><br>
+            <small>{{i18n "mist.applicationMenu.develop.hashrate.tips"}} {{{i18n "mist.applicationMenu.develop.hashrate.help"}}}</small>
+            <div class="dapp-modal-buttons">
+                {{#if TemplateVar.get "hashrating"}}
+                    <button class="cancel" type="button">{{i18n "mist.applicationMenu.develop.hashrate.stop"}}</button>
+                {{else}}
+                    <button class="ok dapp-primary-button" type="button">{{i18n "mist.applicationMenu.develop.hashrate.start"}}</button>
+                {{/if}}
+            </div>
+        </form>
+    </div>
+</template>

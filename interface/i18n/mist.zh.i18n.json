@@ -65,6 +65,17 @@
                     "enterThread":"请设置挖矿线程数",
                     "success":"开启挖矿成功!",
                     "note":"默认值是1个线程，请根据您的电脑CPU进行调整，最大值不超过CPU的最大线程数。"
+                },
+                "hashrate":{
+                    "title":"算力统计",
+                    "desc":"统计中...",
+                    "tips":"算力统计对挖矿效率有轻微影响，建议统计完成后关闭。",
+                    "error":"启动算力统计需要先开启挖矿。",
+                    "start":"开始统计",
+                    "startSuccess":"你已开始统计算力",
+                    "stopSuccess":"你已停止统计算力",
+                    "stop":"停止统计",
+                    "help":"<a href=\"https://wiki.sero.cash/zh/index.html?file=Tutorial/how-to-evaluate-node-hashrate\" target=\"_blank\">查看更多</a>"
                 }
             },
             "window": {
@@ -148,7 +159,7 @@
             "unableToBindPort": "SERO node cannot run. Is another instance already running?",
             "nodeSyncInfoStates": "Downloading block __displayBlock__ of __highestBlock__, <br> Downloading chain structure __displayState__ of __displayKnownStates__",
             "nodeSyncFoundPeers": "Connecting to __peers__ peers...",
-            "launchApp": "Launch Application",
+            "launchApp": "启动应用",
             "clientBinaries": {
                 "scanning": "Checking for node update...",
                 "downloading": "Downloading new node...",

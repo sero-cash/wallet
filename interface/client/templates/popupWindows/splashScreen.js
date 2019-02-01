@@ -118,8 +118,6 @@ Template['popupWindows_splashScreen'].onCreated(function () {
         TemplateVar.set(template, 'smallClass', 'small');
 
         if (status === 'inProgress') {
-            TemplateVar.set(template, 'showStartAppButton', true);
-            TemplateVar.set(template, 'startAppButtonText', TAPi18n.__('mist.startScreen.launchApp'));
 
             if (data !== false) {
                 // if state is "in progress" and we have data
@@ -128,6 +126,8 @@ Template['popupWindows_splashScreen'].onCreated(function () {
 
                 // add the data received to the object lastSyncData
                 lastSyncData = _.extend(lastSyncData, data || {});
+
+                console.log('lastSyncData:::',lastSyncData);
 
                 // Select the appropriate message
                 if (web3.net.peerCount > 0) {
@@ -155,6 +155,13 @@ Template['popupWindows_splashScreen'].onCreated(function () {
 
                 // saves to template
                 TemplateVar.set(template, 'lastSyncData', lastSyncData);
+
+
+                console.log(data.highestBlock , data.currentBlock,(data.highestBlock - data.currentBlock))
+                if((data.highestBlock - data.currentBlock) < 10){
+                    TemplateVar.set(template, 'showStartAppButton', true);
+                    TemplateVar.set(template, 'startAppButtonText', TAPi18n.__('mist.startScreen.launchApp'));
+                }
 
             } else {
                 // It's not connected anymore

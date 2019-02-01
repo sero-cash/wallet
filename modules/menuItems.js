@@ -618,6 +618,25 @@ let menuTempl = function (webviews) {
             }
         }
     });
+
+    devToolsMenu.push({
+        label: i18n.t('mist.applicationMenu.develop.hashrate.title'),
+        enabled: true,
+        click() {
+            try {
+                Windows.createPopup('hashrate', {
+                    electronOptions: {
+                        width: 420,
+                        height: 260,
+                        alwaysOnTop: true,
+                    },
+                });
+            } catch (e) {
+                log.info(e);
+            }
+        }
+    });
+
     //
     // devToolsMenu.push({
     //     label: (global.mining) ? (i18n.t('mist.applicationMenu.develop.stopMining')  + '('+Settings.loadUserData('minerThread')+' Threads)'): (i18n.t('mist.applicationMenu.develop.startMining')+  '('+Settings.loadUserData('minerThread')+' Threads)'),
