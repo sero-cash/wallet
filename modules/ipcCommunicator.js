@@ -119,7 +119,7 @@ ipc.on('backendAction_checkWalletFile', (e, path) => {
     fs.readFile(path, 'utf8', (event, data) => {
         try {
             log.info('path:::',path);
-            if(path.lastIndexOf('BLIC.DATA')>-1 || data.startWith("000000000000000000000000000000000000")){
+            if(path.lastIndexOf('BLIC.DATA')>-1 || data.indexOf("000000000000000000000000000000000000")>-1){
 
                 let licensePath =  Settings.nodeDatadir;
 
