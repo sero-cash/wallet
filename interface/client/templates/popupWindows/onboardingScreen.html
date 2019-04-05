@@ -116,6 +116,7 @@
             {{#if TemplateVar.get 'readyToLaunch'}}
                 <button class="launch-app"> {{i18n "mist.popupWindows.onboarding.buttons.launchApp"}} </button>
             {{else}}
+                <button class="launch-app"> {{i18n "mist.popupWindows.onboarding.buttons.launchApp"}} </button>
                 {{#with TemplateVar.get "syncing"}}
                     <div class="status"> {{i18n "mist.popupWindows.onboarding.downloadingBlocks"}} ({{TemplateVar.get "peerCount"}} {{i18n 'mist.nodeInfo.peers'}})</div>
                     <div class="blocks">  {{syncStatusMessage}}  </div>

@@ -133,7 +133,7 @@ Template['popupWindows_sendTransactionConfirmation'].onCreated(function () {
             }
 
             // check if to is a contract
-            if (data.to) {
+            if (data.to &&web3.isAddress(data.to)) {
                 web3.sero.getCode(data.to, function (e, res) {
                     if (!e && res && res.length > 2) {
                         TemplateVar.set(template, 'toIsContract', true);

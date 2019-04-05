@@ -33,51 +33,58 @@
                             <i class="edit-icon icon-pencil"></i>
                         {{/if}}
                     </h1>
-                    <h2 class="copyable-address">{{walletIcon}}
+                    <h2 class="copyable-address">{{i18n "wallet.accounts.addressPk"}}{{walletIcon}}
                         <!-- <input type="text" value="{{toChecksumAddress address}}" readonly class=""> -->
                         <span style="font-size:12px;">{{toChecksumAddress address}}</span>
                     </h2>
+                    <div class="copyable-address-pkr" style="padding: 0;
+    margin-bottom: 0;
+    background-color: transparent;
+    color: #c20e25;
+    text-transform: none;">{{i18n "wallet.accounts.addressPkr"}}{{walletIcon}}
+                        <span style="font-size:12px;">{{addressPkr}}</span>
+                    </div>
                     <div class="clear"></div>
                     {{> elements_balance balance=balance changeUnit=true showAllDecimals=true}}
                 </header>
 
-                    <table class="token-list dapp-zebra">
-                        <tbody>
-                            {{#with tkns}}
-                                {{#each this}}
-                                    {{#if $neq currency 'SERO'}}
-                                        <tr>
-                                            <td>{{> dapp_identicon identity=address class="dapp-tiny"}}
-                                                <strong>{{currency}}</strong></td>
-                                            <td>{{formattedTknsBalance}}</td>
-                                            <td>
-                                                <a href="{{pathFor route='sendToken' from=../../address token=address}}">
-                                                    <i class="icon-arrow-up"></i>
-                                                    {{i18n "wallet.app.buttons.send"}}
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    {{/if}}
-                                {{/each}}
-                            {{/with}}
+                <table class="token-list dapp-zebra">
+                    <tbody>
+                    {{#with tkns}}
+                        {{#each this}}
+                            {{#if $neq currency 'SERO'}}
+                                <tr>
+                                    <td>{{> dapp_identicon identity=address class="dapp-tiny"}}
+                                        <strong>{{currency}}</strong></td>
+                                    <td>{{formattedTknsBalance}}</td>
+                                    <td>
+                                        <a href="{{pathFor route='sendToken' from=../../address token=address}}">
+                                            <i class="icon-arrow-up"></i>
+                                            {{i18n "wallet.app.buttons.send"}}
+                                        </a>
+                                    </td>
+                                </tr>
+                            {{/if}}
+                        {{/each}}
+                    {{/with}}
 
-                            {{#with tokens}}
-                                {{#each this}}
-                                    <tr>
-                                        <td>{{> dapp_identicon identity=address class="dapp-tiny"}}
-                                            <strong>{{name}}</strong></td>
-                                        <td>{{formattedTokenBalance}}</td>
-                                        <td>
-                                            <a href="{{pathFor route='sendToken' from=../../address token=address}}">
-                                                <i class="icon-arrow-up"></i>
-                                                {{i18n "wallet.app.buttons.send"}}
-                                            </a>
-                                        </td>
-                                    </tr>
-                                {{/each}}
-                            {{/with}}
-                        </tbody>
-                    </table>
+                    {{#with tokens}}
+                        {{#each this}}
+                            <tr>
+                                <td>{{> dapp_identicon identity=address class="dapp-tiny"}}
+                                    <strong>{{name}}</strong></td>
+                                <td>{{formattedTokenBalance}}</td>
+                                <td>
+                                    <a href="{{pathFor route='sendToken' from=../../address token=address}}">
+                                        <i class="icon-arrow-up"></i>
+                                        {{i18n "wallet.app.buttons.send"}}
+                                    </a>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    {{/with}}
+                    </tbody>
+                </table>
 
 
                 {{#with isVulnerable}}
@@ -93,8 +100,11 @@
                         {{#if showDailyLimit}}
                             <div class="col col-4 mobile-full">
                                 {{#if $gte version 1}}
-                                    <h3>{{i18n "wallet.accounts.dailyLimit"}} <span style="font-weight: 200;">{{dapp_formatBalance dailyLimit "0,0.00 unit"}}</span></h3>
-                                    {{dapp_formatBalance availableToday "0,0.00 unit"}} {{i18n "wallet.accounts.dailyLimitRemaining"}}
+                                    <h3>{{i18n "wallet.accounts.dailyLimit"}} <span
+                                        style="font-weight: 200;">{{dapp_formatBalance dailyLimit "0,0.00 unit"}}</span>
+                                    </h3>
+                                    {{dapp_formatBalance availableToday "0,0.00 unit"}} {{i18n
+                                    "wallet.accounts.dailyLimitRemaining"}}
                                 {{else}}
                                     <h3>{{i18n "wallet.accounts.dailyLimit"}}</h3>
                                     {{dapp_formatBalance dailyLimit "0,0.00 unit"}}
@@ -109,7 +119,8 @@
                         <div class="col col-4 mobile-full">
                             <h3>{{i18n "wallet.accounts.owners"}}</h3>
                             {{#each owners}}
-                                <span data-tooltip="{{accountNameOrAddress this}}" class="simptip-position-bottom simptip-movable">
+                                <span data-tooltip="{{accountNameOrAddress this}}"
+                                      class="simptip-position-bottom simptip-movable">
                                     {{> dapp_identicon identity=this class="dapp-tiny" link=ownerLink}}
                                 </span>
                             {{/each}}
@@ -124,78 +135,92 @@
                 {{/if}}
 
                 <!--{{#if $eq type "account"}}-->
-                    <!--&lt;!&ndash; Account infos &ndash;&gt;-->
-                    <!--<div class="account-info">-->
-                        <!--<h3>{{i18n "wallet.app.texts.note"}}</h3>-->
-                        <!--<p>{{{i18n "wallet.accounts.accountNote"}}}</p>-->
-                        <!--<p><strong>{{i18n "wallet.accounts.outOfSyncNote"}}</strong></p>-->
-                    <!--</div>-->
+                <!--&lt;!&ndash; Account infos &ndash;&gt;-->
+                <!--<div class="account-info">-->
+                <!--<h3>{{i18n "wallet.app.texts.note"}}</h3>-->
+                <!--<p>{{{i18n "wallet.accounts.accountNote"}}}</p>-->
+                <!--<p><strong>{{i18n "wallet.accounts.outOfSyncNote"}}</strong></p>-->
+                <!--</div>-->
                 <!--{{/if}}-->
 
             </div>
 
             {{#unless isVulnerable}}
-            <aside class="dapp-actionbar">
-                <nav>
-                    <ul>
-                        <li>
-                            <a href="{{pathFor route='sendTo' address=(toChecksumAddress address)}}" title="{{toChecksumAddress address}}">
-                                <i class="icon-arrow-down"></i>
-                                {{i18n "wallet.accounts.buttons.deposit"}}
-                            </a>
-                        </li>
-
-                        {{#if $eq ($.Session.get "network") "main"}}
+                <aside class="dapp-actionbar">
+                    <nav>
+                        <ul>
                             <li>
-                                <a href="https://shapeshift.io/shifty.html?destination={{address}}&amp;output=ETH&amp;apiKey=ef8312d8c9b9dda64fb852e8683eac6c33123f8743ff11383fb3bab29a364c01c27343fced4e628db8d5d66d763565763f8699c0fc903ec23db31cb908a944c8" target="_popup" data-popup-width="" data-popup-height="">
-                                    <i class="icon-bitcoin"></i>
-                                    {{i18n "wallet.accounts.buttons.depositBitcoin"}}
+                                <a href="{{pathFor route='sendTo' address=(toChecksumAddress address)}}"
+                                   title="{{toChecksumAddress address}}">
+                                    <i class="icon-arrow-down"></i>
+                                    {{i18n "wallet.accounts.buttons.deposit"}}
                                 </a>
                             </li>
-                        {{/if}}
 
-                        {{#if $eq ($.Session.get "network") "main"}}
+                            {{#if $eq ($.Session.get "network") "main"}}
+                                <li>
+                                    <a href="https://shapeshift.io/shifty.html?destination={{address}}&amp;output=ETH&amp;apiKey=ef8312d8c9b9dda64fb852e8683eac6c33123f8743ff11383fb3bab29a364c01c27343fced4e628db8d5d66d763565763f8699c0fc903ec23db31cb908a944c8"
+                                       target="_popup" data-popup-width="" data-popup-height="">
+                                        <i class="icon-bitcoin"></i>
+                                        {{i18n "wallet.accounts.buttons.depositBitcoin"}}
+                                    </a>
+                                </li>
+                            {{/if}}
+
+                            {{#if $eq ($.Session.get "network") "main"}}
+                                <li>
+                                    <button class="deposit-using-coinbase">
+                                        <i class="icon-credit-card"></i>
+                                        {{i18n "wallet.accounts.buttons.depositUsingCreditCard"}}
+                                    </button>
+                                </li>
+                            {{/if}}
+
+                            {{#if $eq ($.Session.get "network") "main"}}
+                                <li>
+                                    <a href="https://explorer.web.sero.cash/accountInfo.html?&miner=false&hash={{address}}">
+                                        <i class="icon-info"></i>
+                                        {{i18n "wallet.accounts.buttons.viewOnExplorer"}}
+                                    </a>
+                                </li>
+                            {{/if}}
+
                             <li>
-                                <button class="deposit-using-coinbase">
-                                    <i class="icon-credit-card"></i>
-                                    {{i18n "wallet.accounts.buttons.depositUsingCreditCard"}}
+                                <button class="copy-to-clipboard-button">
+                                    <i class="icon-docs"></i>
+                                    {{i18n "wallet.accounts.buttons.copyAddress"}}
                                 </button>
                             </li>
-                        {{/if}}
-
-                        {{#if $eq ($.Session.get "network") "main"}}
-                        <li>
-                            <a href="https://explorer.web.sero.cash/accountInfo.html?&miner=false&hash={{address}}">
-                                <i class="icon-info"></i>
-                                {{i18n "wallet.accounts.buttons.viewOnExplorer"}}
-                            </a>
-                        </li>
-                        {{/if}}
-
-                        <li>
-                            <button class="copy-to-clipboard-button">
-                                <i class="icon-docs"></i>
-                                {{i18n "wallet.accounts.buttons.copyAddress"}}
-                            </button>
-                        </li>
-                        <li>
-                            <button class="qrcode-button">
-                                <i class="icon-camera"></i>
-                                {{i18n "wallet.accounts.buttons.scanQRCode"}}
-                            </button>
-                        </li>
-                        {{#if jsonInterface}}
                             <li>
-                                <button class="interface-button">
-                                    <i class="icon-settings"></i>
-                                    {{i18n "wallet.accounts.buttons.showInterface"}}
+                                <button class="copy-to-clipboard-button-pkr">
+                                    <i class="icon-docs"></i>
+                                    {{i18n "wallet.accounts.buttons.copyPkrAddress"}}
                                 </button>
                             </li>
-                        {{/if}}
+                            <li>
+                                <button class="qrcode-button">
+                                    <i class="icon-camera"></i>
+                                    {{i18n "wallet.accounts.buttons.scanQRCode"}}
+                                </button>
+                            </li>
+                            <li>
+                                <button class="qrcode-button-pkr">
+                                    <i class="icon-camera"></i>
+                                    {{i18n "wallet.accounts.buttons.scanPkrQRCode"}}
+                                </button>
+                            </li>
+                            {{#if jsonInterface}}
+                                <li>
+                                    <button class="interface-button">
+                                        <i class="icon-settings"></i>
+                                        {{i18n "wallet.accounts.buttons.showInterface"}}
+                                    </button>
+                                </li>
+                            {{/if}}
 
-                    </ul>
-                </nav>
-            </aside>
+                        </ul>
+                    </nav>
+                </aside>
             {{/unless}}
 
             {{#if jsonInterface}}
@@ -222,8 +247,10 @@
                     <br>
 
                     <div>
-                        <input type="checkbox" id="watch-events-checkbox" class="toggle-watch-events" checked="{{TemplateVar.get 'watchEvents'}}">
-                        <label for="watch-events-checkbox">{{i18n "wallet.contracts.buttons.watchContractEvents"}}</label>
+                        <input type="checkbox" id="watch-events-checkbox" class="toggle-watch-events"
+                               checked="{{TemplateVar.get 'watchEvents'}}">
+                        <label for="watch-events-checkbox">{{i18n
+                            "wallet.contracts.buttons.watchContractEvents"}}</label>
                     </div>
 
                     {{#if (TemplateVar.get "watchEvents")}}

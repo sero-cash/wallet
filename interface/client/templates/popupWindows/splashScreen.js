@@ -158,10 +158,10 @@ Template['popupWindows_splashScreen'].onCreated(function () {
 
 
                 console.log(data.highestBlock , data.currentBlock,(data.highestBlock - data.currentBlock))
-                if((data.highestBlock - data.currentBlock) < 10){
-                    TemplateVar.set(template, 'showStartAppButton', true);
-                    TemplateVar.set(template, 'startAppButtonText', TAPi18n.__('mist.startScreen.launchApp'));
-                }
+                // if((data.highestBlock - data.currentBlock) < 10){
+                //     TemplateVar.set(template, 'showStartAppButton', true);
+                //     TemplateVar.set(template, 'startAppButtonText', TAPi18n.__('mist.startScreen.launchApp'));
+                // }
 
             } else {
                 // It's not connected anymore
@@ -175,6 +175,8 @@ Template['popupWindows_splashScreen'].onCreated(function () {
                 TemplateVar.set(template, 'lastSyncData', { 'peers': web3.net.peerCount });
 
             }
+            TemplateVar.set(template, 'showStartAppButton', true);
+            TemplateVar.set(template, 'startAppButtonText', TAPi18n.__('mist.startScreen.launchApp'));
 
             TemplateVar.set(template, 'logText', false);
             TemplateVar.set(template, 'text', TAPi18n.__('mist.startScreen.nodeSyncing'));

@@ -1,26 +1,29 @@
 /**
-Template Controllers
+ Template Controllers
 
-@module Templates
-*/
+ @module Templates
+ */
 
 /**
-Watches custom events
+ Watches custom events
 
-@param {Object} newDocument  the account object with .jsonInterface
-*/
-var addLogWatching = function(newDocument){
+ @param {Object} newDocument  the account object with .jsonInterface
+ */
+var addLogWatching = function (newDocument) {
     var contractInstance = web3.sero.contract(newDocument.jsonInterface).at(newDocument.address);
     var blockToCheckBack = (newDocument.checkpointBlock || 0) - ethereumConfig.rollBackBy;
 
-    if(blockToCheckBack < 0)
+    if (blockToCheckBack < 0)
         blockToCheckBack = 0;
 
-    console.log('EVENT LOG:  Checking Custom Contract Events for '+ newDocument.address +' (_id: '+ newDocument._id + ') from block # '+ blockToCheckBack);
+    console.log('EVENT LOG:  Checking Custom Contract Events for ' + newDocument.address + ' (_id: ' + newDocument._id + ') from block # ' + blockToCheckBack);
 
     // delete the last logs until block -500
-    _.each(Events.find({_id: {$in: newDocument.contractEvents || []}, blockNumber: {$exists: true, $gt: blockToCheckBack}}).fetch(), function(log){
-        if(log)
+    _.each(Events.find({
+        _id: {$in: newDocument.contractEvents || []},
+        blockNumber: {$exists: true, $gt: blockToCheckBack}
+    }).fetch(), function (log) {
+        if (log)
             Events.remove({_id: log._id});
     });
 
@@ -28,26 +31,28 @@ var addLogWatching = function(newDocument){
 
     // get past logs, to set the new blockNumber
     var currentBlock = SeroBlocks.latest.number;
-    filter.get(function(error, logs) {
-        if(!error) {
+    filter.get(function (error, logs) {
+        if (!error) {
             // update last checkpoint block
-            CustomContracts.update({_id: newDocument._id}, {$set: {
-                checkpointBlock: (currentBlock || SeroBlocks.latest.number) - ethereumConfig.rollBackBy
-            }});
+            CustomContracts.update({_id: newDocument._id}, {
+                $set: {
+                    checkpointBlock: (currentBlock || SeroBlocks.latest.number) - ethereumConfig.rollBackBy
+                }
+            });
         }
     });
 
-    filter.watch(function(error, log){
-        if(!error) {
+    filter.watch(function (error, log) {
+        if (!error) {
             var id = Helpers.makeId('log', web3.sha3(log.logIndex + 'x' + log.transactionHash + 'x' + log.blockHash));
 
-            if(log.removed) {
+            if (log.removed) {
                 Events.remove(id);
             } else {
 
-                _.each(log.args, function(value, key){
+                _.each(log.args, function (value, key) {
                     // if bignumber
-                    if((_.isObject(value) || value instanceof BigNumber) && value.toFormat) {
+                    if ((_.isObject(value) || value instanceof BigNumber) && value.toFormat) {
                         value = value.toString(10);
                         log.args[key] = value;
                     }
@@ -57,8 +62,8 @@ var addLogWatching = function(newDocument){
                 Events.upsert(id, log);
 
                 // update events timestamp
-                web3.sero.getBlock(log.blockHash, function(err, block){
-                    if(!err) {
+                web3.sero.getBlock(log.blockHash, function (err, block) {
+                    if (!err) {
                         Events.update(id, {$set: {timestamp: block.timestamp}});
                     }
                 });
@@ -70,14 +75,17 @@ var addLogWatching = function(newDocument){
 };
 
 
-
-Template['views_account'].onRendered(function(){
+Template['views_account'].onRendered(function () {
     console.timeEnd('renderAccountPage');
+    var address = FlowRouter.getParam('address');
+    web3.sero.genPKr(address, function (err, result) {
+        document.querySelector('.copyable-address-pkr span').innerHTML = result;
+    });
 });
 
-Template['views_account'].onDestroyed(function(){
+Template['views_account'].onDestroyed(function () {
     // stop watching custom events, on destroy
-    if(this.customEventFilter) {
+    if (this.customEventFilter) {
         this.customEventFilter.stopWatching(function (result) {
             console.log(result);
         });
@@ -92,16 +100,16 @@ Template['views_account'].helpers({
 
      @method (account)
      */
-    'account': function() {
+    'account': function () {
         return Helpers.getAccountByAddress(FlowRouter.getParam('address'));
     },
 
-    /**
+    /** dd
      Get the current selected account
 
      @method (account)
      */
-    'tkns': function() {
+    'tkns': function () {
         return Helpers.getAccountByAddress(FlowRouter.getParam('address')).tkns;
     },
 
@@ -110,92 +118,97 @@ Template['views_account'].helpers({
 
      @method (formattedTokenBalance)
      */
-    'formattedTknsBalance': function(e){
+    'formattedTknsBalance': function (e) {
         var account = Template.parentData(2);
 
-        return Helpers.formatNumberByDecimals(this.value, this.decimals) +' '+ this.currency;
+        return Helpers.formatNumberByDecimals(this.value, this.decimals) + ' ' + this.currency;
     },
 
     /**
-    Get the current jsonInterface, or use the wallet jsonInterface
+     Get the current jsonInterface, or use the wallet jsonInterface
 
-    @method (jsonInterface)
-    */
-    'jsonInterface': function() {
+     @method (jsonInterface)
+     */
+    'jsonInterface': function () {
         return (this.owners) ? _.clone(walletInterface) : _.clone(this.jsonInterface);
     },
     /**
-    Get the pending confirmations of this account.
+     Get the pending confirmations of this account.
 
-    @method (pendingConfirmations)
-    */
-    'pendingConfirmations': function(){
-        return _.pluck(PendingConfirmations.find({operation: {$exists: true}, confirmedOwners: {$ne: []}, from: this.address}).fetch(), '_id');
+     @method (pendingConfirmations)
+     */
+    'pendingConfirmations': function () {
+        return _.pluck(PendingConfirmations.find({
+            operation: {$exists: true},
+            confirmedOwners: {$ne: []},
+            from: this.address
+        }).fetch(), '_id');
     },
     /**
-    Return the daily limit available today.
+     Return the daily limit available today.
 
-    @method (availableToday)
-    */
-    'availableToday': function() {
+     @method (availableToday)
+     */
+    'availableToday': function () {
         return new BigNumber(this.dailyLimit || '0', 10).minus(new BigNumber(this.dailyLimitSpent || '0', '10')).toString(10);
     },
     /**
-    Show dailyLimit section
+     Show dailyLimit section
 
-    @method (showDailyLimit)
-    */
-    'showDailyLimit': function(){
+     @method (showDailyLimit)
+     */
+    'showDailyLimit': function () {
         return (this.dailyLimit && this.dailyLimit !== ethereumConfig.dailyLimitDefault);
     },
     /**
-    Show requiredSignatures section
+     Show requiredSignatures section
 
-    @method (showRequiredSignatures)
-    */
-    'showRequiredSignatures': function(){
+     @method (showRequiredSignatures)
+     */
+    'showRequiredSignatures': function () {
         return (this.requiredSignatures && this.requiredSignatures > 1);
     },
     /**
-    Link the owner either to send or to the account itself.
+     Link the owner either to send or to the account itself.
 
-    @method (ownerLink)
-    */
-    'ownerLink': function(){
+     @method (ownerLink)
+     */
+    'ownerLink': function () {
         var owner = String(this);
-        if(Helpers.getAccountByAddress(owner))
+        if (Helpers.getAccountByAddress(owner))
             return FlowRouter.path('account', {address: owner});
         else
             return FlowRouter.path('sendTo', {address: owner});
     },
     /**
-    Get all tokens
+     Get all tokens
 
-    @method (tokens)
-    */
-    'tokens': function(){
+     @method (tokens)
+     */
+    'tokens': function () {
         var query = {};
-        query['balances.'+ this._id] = {$exists: true};
+        query['balances.' + this._id] = {$exists: true};
         return Tokens.find(query, {sort: {name: 1}});
     },
-    /**
-    Get the tokens balance
 
-    @method (formattedTokenBalance)
-    */
-    'formattedTokenBalance': function(e){
+    /**
+     Get the tokens balance
+
+     @method (formattedTokenBalance)
+     */
+    'formattedTokenBalance': function (e) {
         var account = Template.parentData(2);
 
         return (this.balances && Number(this.balances[account._id]) > 0)
-            ? Helpers.formatNumberByDecimals(this.balances[account._id], this.decimals) +' '+ this.symbol
+            ? Helpers.formatNumberByDecimals(this.balances[account._id], this.decimals) + ' ' + this.symbol
             : false;
     },
     /**
-    Gets the contract events if available
+     Gets the contract events if available
 
-    @method (customContract)
-    */
-    'customContract': function(){
+     @method (customContract)
+     */
+    'customContract': function () {
         // return CustomContracts.findOne({address: this.address.toLowerCase()});
         return CustomContracts.findOne({address: this.address});
     },
@@ -204,13 +217,13 @@ Template['views_account'].helpers({
 
      @method (nameDisplay)
      */
-    'displayName': function(){
-         return this.ens ? this.name.split('.').slice(0, -1).reverse().join(' ▸ ') : this.name;
+    'displayName': function () {
+        return this.ens ? this.name.split('.').slice(0, -1).reverse().join(' ▸ ') : this.name;
     }
 
 });
 
-var accountClipboardEventHandler = function(e){
+var accountClipboardEventHandler = function (e) {
     if (Session.get('tmpAllowCopy') === true) {
         Session.set('tmpAllowCopy', false);
         return true;
@@ -219,7 +232,7 @@ var accountClipboardEventHandler = function(e){
         e.preventDefault();
     }
 
-    function copyAddress(){
+    function copyAddress() {
         var copyTextarea = document.querySelector('.copyable-address span');
         var selection = window.getSelection();
         var range = document.createRange();
@@ -231,8 +244,8 @@ var accountClipboardEventHandler = function(e){
             document.execCommand('copy');
 
             GlobalNotification.info({
-               content: 'i18n:wallet.accounts.addressCopiedToClipboard',
-               duration: 3
+                content: 'i18n:wallet.accounts.addressCopiedToClipboard',
+                duration: 3
             });
         } catch (err) {
             GlobalNotification.error({
@@ -251,7 +264,7 @@ var accountClipboardEventHandler = function(e){
     else {
         SeroElements.Modal.question({
             text: new Spacebars.SafeString(TAPi18n.__('wallet.accounts.modal.copyAddressWarning')),
-            ok: function(){
+            ok: function () {
                 Session.set('tmpAllowCopy', true);
                 copyAddress();
             },
@@ -262,20 +275,72 @@ var accountClipboardEventHandler = function(e){
     }
 };
 
+var accountPkrClipboardEventHandler = function (e) {
+    if (Session.get('tmpAllowCopyPkr') === true) {
+        Session.set('tmpAllowCopyPkr', false);
+        return true;
+    }
+    else {
+        e.preventDefault();
+    }
+
+    function copyAddressPkr() {
+        var copyTextarea = document.querySelector('.copyable-address-pkr span');
+
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(copyTextarea);
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        try {
+            document.execCommand('copy');
+            GlobalNotification.info({
+                content: 'i18n:wallet.accounts.addressCopiedToClipboard',
+                duration: 3
+            });
+        } catch (err) {
+            GlobalNotification.error({
+                content: 'i18n:wallet.accounts.addressNotCopiedToClipboard',
+                closeable: false,
+                duration: 3
+            });
+        }
+        selection.removeAllRanges();
+    }
+
+    if (Helpers.isOnMainNetwork()) {
+        Session.set('tmpAllowCopyPkr', true);
+        copyAddressPkr();
+    }
+    else {
+        SeroElements.Modal.question({
+            text: new Spacebars.SafeString(TAPi18n.__('wallet.accounts.modal.copyAddressWarning')),
+            ok: function () {
+                Session.set('tmpAllowCopyPkr', true);
+                copyAddressPkr();
+            },
+            cancel: true,
+            modalQuestionOkButtonText: TAPi18n.__('wallet.accounts.modal.buttonOk'),
+            modalQuestionCancelButtonText: TAPi18n.__('wallet.accounts.modal.buttonCancel')
+        });
+    }
+};
+
 Template['views_account'].events({
     /**
-    Clicking the delete button will show delete modal
+     Clicking the delete button will show delete modal
 
-    @event click button.delete
-    */
-    'click button.delete': function(e, template){
+     @event click button.delete
+     */
+    'click button.delete': function (e, template) {
         var data = this;
 
         SeroElements.Modal.question({
             text: new Spacebars.SafeString(TAPi18n.__('wallet.accounts.modal.deleteText') +
                 '<br><input type="text" class="deletionConfirmation" autofocus="true">'),
-            ok: function(){
-                if($('input.deletionConfirmation').val() === 'delete') {
+            ok: function () {
+                if ($('input.deletionConfirmation').val() === 'delete') {
                     Wallets.remove(data._id);
                     CustomContracts.remove(data._id);
 
@@ -287,49 +352,55 @@ Template['views_account'].events({
         });
     },
     /**
-    Clicking the name, will make it editable
+     Clicking the name, will make it editable
 
-    @event click .edit-name
-    */
-    'click .edit-name': function(e){
+     @event click .edit-name
+     */
+    'click .edit-name': function (e) {
         // make it editable
-        $(e.currentTarget).attr('contenteditable','true');
+        $(e.currentTarget).attr('contenteditable', 'true');
     },
     /**
-    Prevent enter
+     Prevent enter
 
-    @event keypress .edit-name
-    */
-    'keypress .edit-name': function(e){
-        if(e.keyCode === 13)
+     @event keypress .edit-name
+     */
+    'keypress .edit-name': function (e) {
+        if (e.keyCode === 13)
             e.preventDefault();
     },
     /**
-    Bluring the name, will save it
+     Bluring the name, will save it
 
-    @event blur .edit-name, keyup .edit-name
-    */
-    'blur .edit-name, keyup .edit-name': function(e){
-        if(!e.keyCode || e.keyCode === 13) {
+     @event blur .edit-name, keyup .edit-name
+     */
+    'blur .edit-name, keyup .edit-name': function (e) {
+        if (!e.keyCode || e.keyCode === 13) {
             var $el = $(e.currentTarget);
             var text = $el.text();
 
-            console.log('edit-name:::',text);
+            console.log('edit-name:::', text);
 
-            if(_.isEmpty(text)) {
+            if (_.isEmpty(text)) {
                 text = TAPi18n.__('wallet.accounts.defaultName');
             }
 
             // Save new name
-            Wallets.update(this._id, {$set: {
-                name: text
-            }});
-            SeroAccounts.update(this._id, {$set: {
-                name: text
-            }});
-            CustomContracts.update(this._id, {$set: {
-                name: text
-            }});
+            Wallets.update(this._id, {
+                $set: {
+                    name: text
+                }
+            });
+            SeroAccounts.update(this._id, {
+                $set: {
+                    name: text
+                }
+            });
+            CustomContracts.update(this._id, {
+                $set: {
+                    name: text
+                }
+            });
 
             // make it non-editable
             $el.attr('contenteditable', null);
@@ -337,25 +408,40 @@ Template['views_account'].events({
         }
     },
     /**
-    Click to copy the code to the clipboard
+     Click to copy the code to the clipboard
 
-    @event click a.create.account
-    */
+     @event click a.create.account
+     */
     'click .copy-to-clipboard-button': accountClipboardEventHandler,
 
     /**
-    Tries to copy account token.
+     Click to copy the code to the clipboard
 
-    @event copy .copyable-address span
-    */
+     @event click a.create.account
+     */
+    'click .copy-to-clipboard-button-pkr': accountPkrClipboardEventHandler,
+
+    /**
+     Tries to copy account token.
+
+     @event copy .copyable-address span
+     */
     'copy .copyable-address': accountClipboardEventHandler,
 
     /**
-    Click to launch Coinbase widget
+     Tries to copy account token.
 
-    @event click deposit-using-coinbase
-    */
-    'click .deposit-using-coinbase': function(e){
+     @event copy .copyable-address span
+     */
+    'copy .copyable-address-pkr': accountPkrClipboardEventHandler,
+
+
+    /**
+     Click to launch Coinbase widget
+
+     @event click deposit-using-coinbase
+     */
+    'click .deposit-using-coinbase': function (e) {
         e.preventDefault();
 
         (new CoinBaseWidget(e.currentTarget, {
@@ -368,11 +454,11 @@ Template['views_account'].events({
 
 
     /**
-    Click to reveal QR Code
+     Click to reveal QR Code
 
-    @event click a.create.account
-    */
-    'click .qrcode-button': function(e){
+     @event click a.create.account
+     */
+    'click .qrcode-button': function (e) {
         e.preventDefault();
 
         // Open a modal showing the QR Code
@@ -385,17 +471,40 @@ Template['views_account'].events({
 
 
     },
-    /**
-    Click to reveal the jsonInterface
 
-    @event click .interface-button
-    */
-    'click .interface-button': function(e){
+    /**
+     Click to reveal QR Code
+
+     @event click a.create.account
+     */
+    'click .qrcode-button-pkr': function (e) {
+        e.preventDefault();
+
+        web3.sero.genPKr(this.address, function (err, result) {
+            console.log(result)
+
+            // Open a modal showing the QR Code
+            SeroElements.Modal.show({
+                template: 'views_modals_qrCode',
+                data: {
+                    address: result
+                }
+            });
+        });
+
+
+    },
+    /**
+     Click to reveal the jsonInterface
+
+     @event click .interface-button
+     */
+    'click .interface-button': function (e) {
         e.preventDefault();
         var jsonInterface = (this.owners) ? _.clone(walletInterface) : _.clone(this.jsonInterface);
 
         //clean ABI from circular references
-        var cleanJsonInterface = _.map(jsonInterface, function(e, i) {
+        var cleanJsonInterface = _.map(jsonInterface, function (e, i) {
             return _.omit(e, 'contractInstance');
         })
 
@@ -408,14 +517,14 @@ Template['views_account'].events({
         });
     },
     /**
-    Click watch contract events
+     Click watch contract events
 
-    @event change button.toggle-watch-events
-    */
-    'change .toggle-watch-events': function(e, template){
+     @event change button.toggle-watch-events
+     */
+    'change .toggle-watch-events': function (e, template) {
         e.preventDefault();
 
-        if(template.customEventFilter) {
+        if (template.customEventFilter) {
             template.customEventFilter.stopWatching(function (result) {
                 console.log(result);
             });
