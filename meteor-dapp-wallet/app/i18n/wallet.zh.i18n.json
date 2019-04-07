@@ -93,7 +93,6 @@
             "walletsDescription": "把這些合约存储在区块链中，可以保存和保障超零的契約。他们可以被多个账户的所有者使用，而且所有的交易记录也会被保存起来。",
             "walletsDescriptionNotEnoughFunds": "只要你的超零币多于1个，你就可以创建更加成熟的合约。钱包只是一种基本的智能合约，让您的资金被多个账户所操控，而且想要的话可以设定每日的提现额度，以此来增加安全性。要创建自己的定制化合约到<em> 合约 </em> 分页。",
             "accountsDescription": "账户由密码保护，可以存储超零币，保障基于超零的代币或货币，也能够控制合约。账户无法显示进账中的交易。",
-            "accountsDescription": "Accounts are password protected keys that can hold sero, secure sero-based tokens or coins and control contracts. Accounts can't display incoming transactions.",
             "buttons": {
                 "deposit": "存入超零币",
                 "depositBitcoin": "使用比特币做存款",

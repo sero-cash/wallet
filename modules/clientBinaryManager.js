@@ -16,7 +16,7 @@ const log = require('./utils/logger').create('ClientBinaryManager');
 // const BINARY_URL = 'http://sero-media.s3-website-ap-southeast-1.amazonaws.com/clients/clientBinaries.json';
 const BINARY_URL = 'https://sero-media-1256272584.cos.ap-shanghai.myqcloud.com/wallet/clientBinaries.json';
 
-// const ALLOWED_DOWNLOAD_URLS_REGEX =
+// const ALLOWED_DOWNLOAD_URLSopen_REGEX =
 //     /^https:\/\/(?:(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)?ethereum\.org\/|gethstore\.blob\.core\.windows\.net\/|bintray\.com\/artifact\/download\/karalabe\/ethereum\/)(?:.+)/;  // eslint-disable-line max-len
 
 class Manager extends EventEmitter {
@@ -24,6 +24,7 @@ class Manager extends EventEmitter {
         super();
 
         this._availableClients = {};
+        this.BINARY_URL = '';
 
     }
 
@@ -32,13 +33,18 @@ class Manager extends EventEmitter {
 
         // check every hour
         setInterval(() => this._checkForNewConfig(true), 1000 * 60 * 60);
-
+        this.BINARY_URL = BINARY_URL;
         return this._checkForNewConfig(restart);
     }
 
     getClient(clientId) {
         return this._availableClients[clientId.toLowerCase()];
     }
+
+    getBINARYURL(){
+        return this.BINARY_URL
+    }
+
 
     _writeLocalConfig(json) {
         log.info('Write new client binaries local config to disk ...');
@@ -78,7 +84,7 @@ class Manager extends EventEmitter {
 
             log.info('latestConfig:::',latestConfig);
             let localConfig;
-            let skipedVersion;
+            // let skipedVersion;
             const nodeVersion = latestConfig.clients[nodeType].version;
 
             this._emit('loadConfig', 'Fetching local config');
@@ -100,13 +106,12 @@ class Manager extends EventEmitter {
                 }
             }
 
-            try {
-                skipedVersion = fs.readFileSync(path.join(Settings.userDataPath, 'skippedNodeVersion.json')).toString();
-            } catch (err) {
-                log.info('No "skippedNodeVersion.json" found.');
-            }
+            // try {
+            //     skipedVersion = fs.readFileSync(path.join(Settings.userDataPath, 'skippedNodeVersion.json')).toString();
+            // } catch (err) {
+            //     log.info('No "skippedNodeVersion.json" found.');
+            // }
 
-            log.info('process.getSystemMemoryInfo():::',process.getSystemMemoryInfo());
 
             // prepare node info
             const platform = process.platform.replace('darwin', 'mac').replace('win32', 'win').replace('freebsd', 'linux').replace('sunos', 'linux');
@@ -127,55 +132,57 @@ class Manager extends EventEmitter {
 
             if (latestConfig
                 && JSON.stringify(localConfig) !== JSON.stringify(latestConfig)
-                && nodeVersion !== skipedVersion) {
+                // && nodeVersion !== skipedVersion
+            ) {
 
                 return new Q((resolve) => {
 
                     log.debug('New client binaries config found, asking user if they wish to update...');
+                    resolve(latestConfig);
 
-                    const wnd = Windows.createPopup('clientUpdateAvailable', _.extend({
-                        useWeb3: false,
-                        electronOptions: {
-                            width: 600,
-                            height: 340,
-                            alwaysOnTop: false,
-                            resizable: false,
-                            maximizable: false,
-                        },
-                    }, {
-                        sendData: {
-                            uiAction_sendData: {
-                                name: nodeType,
-                                version: nodeVersion,
-                                checksum: `${algorithm}: ${hash}`,
-                                downloadUrl: binaryVersion.download.url,
-                                restart,
-                            },
-                        },
-                    }), (update) => {
-                        // update
-                        if (update === 'update') {
-                            this._writeLocalConfig(latestConfig);
-
-                            resolve(latestConfig);
-
-                        // skip
-                        } else if (update === 'skip') {
-                            fs.writeFileSync(
-                                path.join(Settings.userDataPath, 'skippedNodeVersion.json'),
-                                nodeVersion
-                            );
-
-                            resolve(localConfig);
-                        }
-
-                        wnd.close();
-                    });
-
-                    // if the window is closed, simply continue and as again next time
-                    wnd.on('close', () => {
-                        resolve(localConfig);
-                    });
+                    // const wnd = Windows.createPopup('clientUpdateAvailable', _.extend({
+                    //     useWeb3: false,
+                    //     electronOptions: {
+                    //         width: 600,
+                    //         height: 340,
+                    //         alwaysOnTop: false,
+                    //         resizable: false,
+                    //         maximizable: false,
+                    //     },
+                    // }, {
+                    //     sendData: {
+                    //         uiAction_sendData: {
+                    //             name: nodeType,
+                    //             version: nodeVersion,
+                    //             checksum: `${algorithm}: ${hash}`,
+                    //             downloadUrl: binaryVersion.download.url,
+                    //             restart,
+                    //         },
+                    //     },
+                    // }), (update) => {
+                    //     // update
+                    //     if (update === 'update') {
+                    //         this._writeLocalConfig(latestConfig);
+                    //
+                    //         resolve(latestConfig);
+                    //
+                    //     // skip
+                    //     } else if (update === 'skip') {
+                    //         // fs.writeFileSync(
+                    //         //     path.join(Settings.userDataPath, 'skippedNodeVersion.json'),
+                    //         //     nodeVersion
+                    //         // );
+                    //
+                    //         resolve(localConfig);
+                    //     }
+                    //
+                    //     wnd.close();
+                    // });
+                    //
+                    // // if the window is closed, simply continue and as again next time
+                    // wnd.on('close', () => {
+                    //     resolve(localConfig);
+                    // });
                 });
             }
 

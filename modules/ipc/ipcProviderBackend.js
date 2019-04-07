@@ -25,6 +25,7 @@ const ERRORS = {
     TX_DENIED: { code: -32603, message: 'Transaction denied' },
     BATCH_TX_DENIED: { code: -32603, message: 'Transactions denied, sendTransaction is not allowed in batch requests.' },
     BATCH_COMPILE_DENIED: { code: -32603, message: 'Compilation denied, compileSolidity is not allowed in batch requests.' },
+    TX_DENIED_INVALID_VERSION: { code: -32603, message: 'Transaction denied,please update the latest gero package.' },
 };
 
 
