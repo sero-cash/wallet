@@ -462,12 +462,15 @@ class SeroNode extends EventEmitter {
 
                 // when proc outputs data
                 proc.stdout.on('data', (data) => {
+
+                    log.info(data.toString());
+
                     log.trace('Got stdout data');
                     // log.info(data.toString());
                     this.emit('data', data);
 
                     // check for startup errors
-                    if (STATES.STARTING === this.state) {
+                    // if (STATES.STARTING === this.state) {
                         const dataStr = data.toString().toLowerCase();
                         if (nodeType === 'gero') {
                             if (dataStr.indexOf('fatal: error') >= 0) {
@@ -482,7 +485,7 @@ class SeroNode extends EventEmitter {
                                 return reject(error);
                             }
                         }
-                    }
+                    // }
                 });
 
                 // when proc outputs data in stderr
@@ -540,19 +543,21 @@ class SeroNode extends EventEmitter {
 
 
     _logNodeData(data) {
-        const cleanData = data.toString().replace(/[\r\n]+/, '');
+        // const cleanData = data.toString().replace(/[\r\n]+/, '');
+        const cleanData = data.toString();
+
         const nodeType = (this.type || 'node').toUpperCase();
 
         log.trace(`${nodeType}: ${cleanData}`);
 
-        if (!/^-*$/.test(cleanData) && !_.isEmpty(cleanData)) {
+        // if (!/^-*$/.test(cleanData) && !_.isEmpty(cleanData)) {
             this.emit('nodeLog', cleanData);
-        }
+        // }
     }
 
 
     _loadDefaults() {
-        log.trace('Load defaults');
+        log.trace('Load defaulqts');
 
         this.defaultNodeType = Settings.nodeType || Settings.loadUserData('node') || DEFAULT_NODE_TYPE;
         this.defaultNetwork = Settings.network || Settings.loadUserData('network') || DEFAULT_NETWORK;
