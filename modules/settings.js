@@ -49,7 +49,7 @@ const argv = require('yargs')
         },
         network: {
             demand: false,
-            default: 'beta',
+            default: 'main',
             describe: 'Network to connect to: dev,alpha,beta,main',
             requiresArg: true,
             nargs: 1,

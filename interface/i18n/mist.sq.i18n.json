@@ -97,7 +97,7 @@
             "blockNumber": "Numri i bllokut tuaj të fundit",
             "timeSinceBlock": "Koha e kaluar që nga blloku i fundit",
             "checkingWhichNetwork": "Duke kontrolluar rrjetin...",
-            "mainNetwork": "Beta-net",
+            "mainNetwork": "Main-net",
             "testNetwork": "Alpha-net",
             "privateNetwork": "Develop-net",
             "testnetExplain": "Jeni në një rrjet testimi, MOS DËRGONI asnjë sero të vërtetë në këto adresa",

@@ -378,6 +378,7 @@ class IpcProviderBackend {
     @param {Object|Array} payload The request payload.
     */
     _sanitizeRequestPayload(conn, payload) {
+        console.log("send Tx payload:",payload);
         if (_.isArray(payload)) {
             _.each(payload, (p) => {
                 if (p.method === 'sero_sendTransaction') {

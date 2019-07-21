@@ -12,7 +12,7 @@ const Sockets = require('./socketManager');
 const ClientBinaryManager = require('./clientBinaryManager');
 
 const DEFAULT_NODE_TYPE = 'gero';
-const DEFAULT_NETWORK = 'beta';
+const DEFAULT_NETWORK = 'main';
 const DEFAULT_SYNCMODE = 'full';
 
 const UNABLE_TO_BIND_PORT_ERROR = 'unableToBindPort';
@@ -284,7 +284,7 @@ class SeroNode extends EventEmitter {
                 Settings.saveUserData('network', this._network);
                 Settings.saveUserData('syncmode', this._syncMode);
                 return this._socket.connect(Settings.rpcConnectConfig, {
-                    timeout: 60000, /* 30s */
+                    timeout: 120000, /* 30s */
                 })
                     .then(() => {
                         log.info('STATES.CONNECTED:::',STATES.CONNECTED);
@@ -375,6 +375,8 @@ class SeroNode extends EventEmitter {
                 case 'dev':
                     args = [
                         '--dev',
+                        '--exchange',
+                        '--mineMode',
                         '--minerthreads', '1',
                         '--ipcpath',Settings.rpcIpcPath
                     ];
@@ -384,6 +386,8 @@ class SeroNode extends EventEmitter {
                 case 'alpha':
                     args = [
                         '--alpha',
+                        '--exchange',
+                        '--mineMode',
                         '--syncmode', syncMode,
                         '--cache', ((process.arch === 'x64') ? '1024' : '512'),
                         '--ipcpath', Settings.rpcIpcPath
@@ -391,10 +395,12 @@ class SeroNode extends EventEmitter {
                     break;
 
                 // Starts beta network
-                case 'beta':
+                case 'main':
                     args = [
                         '--config',  Settings.constructUserDataPath('walletGeroConfig.toml'),
                         '--syncmode', syncMode,
+                        '--exchange',
+                        '--mineMode',
                         '--cache', ((process.arch === 'x64') ? '1024' : '512'),
                         '--ipcpath', Settings.rpcIpcPath
                     ];
@@ -402,12 +408,14 @@ class SeroNode extends EventEmitter {
 
                     // Starts Main net
                 default:
-                    args = (nodeType === 'gero')
-                        ? [
-                            '--syncmode', syncMode,
-                            '--cache', ((process.arch === 'x64') ? '1024' : '512')
-                        ]
-                        : ['--unsafe-transactions'];
+                    args = [
+                        '--config',  Settings.constructUserDataPath('walletGeroConfig.toml'),
+                        '--syncmode', syncMode,
+                        '--exchange',
+                        '--mineMode',
+                        '--cache', ((process.arch === 'x64') ? '1024' : '512'),
+                        '--ipcpath', Settings.rpcIpcPath
+                    ];
                 }
 
                 const nodeOptions = Settings.nodeOptions;

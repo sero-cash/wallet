@@ -18,7 +18,7 @@ const applicationName = (options.wallet) ? 'SERO Wallet' : 'Mist';
 
 gulp.task('clean-dist', (cb) => {
     return del([
-        `./dist_${type}/**/*`
+        `./dist_${type}/app/*`,`./dist_${type}/build/*`,`./dist_${type}/dist/*`
     ], cb);
 });
 
@@ -31,6 +31,7 @@ gulp.task('copy-app-source-files', () => {
         './clientBinaries.json',
         './tests/**/*.*',
         '!./tests/wallet/*',
+        `./icons/*`,
         `./icons/${type}/*`,
         './sounds/*',
         './errorPages/*',
@@ -58,6 +59,7 @@ gulp.task('transpile-modules', () => {
 
 gulp.task('copy-build-folder-files', () => {
     return gulp.src([
+        `./icons/*`,
         `./icons/${type}/*`,
         './interface/public/images/dmg-background.jpg'
     ])
@@ -231,7 +233,7 @@ gulp.task('release-dist', (done) => {
             break;
         case 'mac':
             cp(
-                path.join('mac', `${applicationName}-${version}.dmg`),
+                `${applicationName}-${version}.dmg`,
                 `${appNameHypen}-macosx-${versionDashed}.dmg`);
             break;
         case 'linux':

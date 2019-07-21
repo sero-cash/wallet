@@ -289,8 +289,6 @@ onReady = () => {
     }
 
 
-
-
     // Checks time sync
     if (!Settings.skiptimesynccheck) {
         timesync.checkEnabled((err, enabled) => {
@@ -439,7 +437,7 @@ onReady = () => {
                     // change network types (mainnet, testnet)
                     ipcMain.on('onBoarding_changeNet', (e, testnet) => {
                         const newType = seroNode.type;
-                        const newNetwork = testnet ? 'alpha' : 'beta';
+                        const newNetwork = testnet ? 'alpha' : 'main';
 
                         log.debug('Onboarding change network', newType, newNetwork);
 

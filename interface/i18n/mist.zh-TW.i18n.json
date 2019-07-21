@@ -102,7 +102,7 @@
             "testnetExplain": "您正處於Testnet測試網路中，請勿發送真正的超零幣到這些地址中",
             "peers": "節點",
             "checkingWhichNetwork": "Checking network...",
-            "mainNetwork": "Beta-net",
+            "mainNetwork": "Main-net",
             "testNetwork": "Alpha-net",
             "privateNetwork": "Develop-net",
             "mainnetExplain": "You are on the main Sero global network",

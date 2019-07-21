@@ -85,7 +85,7 @@ serocash:accounts@0.2.23
 serocash:blocks@0.2.5
 serocash:elements@0.2.10
 serocash:tools@0.2.5
-serocash:web3@0.2.30
+serocash:web3@0.3.2
 session@1.1.7
 shell-server@0.2.1
 spacebars@1.0.13

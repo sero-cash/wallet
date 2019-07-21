@@ -32,9 +32,10 @@
                             <em class="edit-name">{{displayName}}</em>
                             <i class="edit-icon icon-pencil"></i>
                         {{/if}}
+
                     </h1>
-                    <h2 class="copyable-address">{{i18n "wallet.accounts.addressPk"}}{{walletIcon}}
-                        <!-- <input type="text" value="{{toChecksumAddress address}}" readonly class=""> -->
+                    <h2 class="copyable-address" style="line-height: 1.8em">{{i18n "wallet.accounts.process"}} <span class="balance-process"></span><br/>
+                        {{i18n "wallet.accounts.addressPk"}}{{walletIcon}}
                         <span style="font-size:12px;">{{toChecksumAddress address}}</span>
                     </h2>
                     <div class="copyable-address-pkr" style="padding: 0;

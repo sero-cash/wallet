@@ -91,6 +91,7 @@
             "owners": "Owners",
             "addressPk": "Public Address",
             "addressPkr": "Collect Address",
+            "process": "Account analysis progress ",
             "walletsDescription": "These contracts are stored on the blockchain and can hold and secure Sero. They can have multiple accounts as owners and keep a full log of all transactions.",
             "walletsDescriptionNotEnoughFunds": "Once you have more than 1 Sero you can create more sophisticated contracts. Wallets are smart contracts that allow your funds to be controlled by multiple accounts.  They can have an optional daily limit on withdrawals to increase security.  Create your own custom contracts on the <em>Contracts</em> tab.",
             "accountsDescription": "Accounts are password protected keys that can hold Sero and Sero-based tokens.  They can control contracts, but can't display incoming transactions.",

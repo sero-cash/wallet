@@ -546,9 +546,9 @@ let menuTempl = function (webviews) {
             //     },
             // },
             {
-                label: 'Beta Network',
+                label: 'Main Network',
                 accelerator: 'CommandOrControl+Alt+2',
-                checked: seroNode.isOwnNode && seroNode.isBetaNetwork,
+                checked: seroNode.isOwnNode && seroNode.isMainNetwork,
                 enabled: seroNode.isOwnNode,
                 type: 'checkbox',
                 click() {
@@ -652,24 +652,24 @@ let menuTempl = function (webviews) {
     // });
 
     //oneKeyRepair
-    devToolsMenu.push({
-        label: i18n.t('mist.applicationMenu.develop.oneKeyRepair'),
-        // label: 'One-key Repair',
-        enabled: true,
-        click() {
-            try {
-                Windows.createPopup('oneKeyRepair', {
-                    electronOptions: {
-                        width: 420,
-                        height: 230,
-                        alwaysOnTop: true,
-                    },
-                });
-            } catch (e) {
-                log.info(e);
-            }
-        },
-    });
+    // devToolsMenu.push({
+    //     label: i18n.t('mist.applicationMenu.develop.oneKeyRepair'),
+    //     // label: 'One-key Repair',
+    //     enabled: true,
+    //     click() {
+    //         try {
+    //             Windows.createPopup('oneKeyRepair', {
+    //                 electronOptions: {
+    //                     width: 420,
+    //                     height: 230,
+    //                     alwaysOnTop: true,
+    //                 },
+    //             });
+    //         } catch (e) {
+    //             log.info(e);
+    //         }
+    //     },
+    // });
 
 
     menu.push({

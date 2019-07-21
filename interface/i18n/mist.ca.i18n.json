@@ -117,7 +117,7 @@
             "blockNumber": "El teu últim número de bloc",
             "timeSinceBlock": "Temps transcorregut des de l'últim bloc",
             "checkingWhichNetwork": "Comprovant la xarxa...",
-            "mainNetwork": "Beta-net",
+            "mainNetwork": "Main-net",
             "testNetwork": "Alpha-net",
             "privateNetwork": "Develop-net",
             "mainnetExplain": "Ets a la xarxa gobal d'Sero principal",

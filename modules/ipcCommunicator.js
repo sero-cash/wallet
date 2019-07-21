@@ -123,13 +123,13 @@ ipc.on('backendAction_checkWalletFile', (e, path) => {
 
                 let licensePath =  Settings.nodeDatadir;
 
-                if (process.platform === 'darwin') licensePath += (seroNode.network=='beta'?'/keystore':('/'+seroNode.network+'/keystore')) + '/license/';
+                if (process.platform === 'darwin') licensePath += (seroNode.network=='main'?'/keystore':('/'+seroNode.network+'/keystore')) + '/license/';
 
                 if (process.platform === 'freebsd' ||
                     process.platform === 'linux' ||
-                    process.platform === 'sunos') licensePath += (seroNode.network=='beta'?'/keystore':('/'+seroNode.network+'/keystore')) + '/license/';
+                    process.platform === 'sunos') licensePath += (seroNode.network=='main'?'/keystore':('/'+seroNode.network+'/keystore')) + '/license/';
 
-                if (process.platform === 'win32') licensePath = `${Settings.nodeDatadir}\\${(seroNode.network=='beta'?'\\keystore\\license\\':('\\'+seroNode.network+'\\keystore\\license\\'))}`;
+                if (process.platform === 'win32') licensePath = `${Settings.nodeDatadir}\\${(seroNode.network=='main'?'\\keystore\\license\\':('\\'+seroNode.network+'\\keystore\\license\\'))}`;
 
                 if (!fs.existsSync(licensePath)) {
                     fs.mkdirSync(licensePath);
@@ -168,13 +168,13 @@ ipc.on('backendAction_checkWalletFile', (e, path) => {
 
                 let keystorePath =  Settings.nodeDatadir;
 
-                if (process.platform === 'darwin') keystorePath += (seroNode.network=='beta'?'/keystore':('/'+seroNode.network+'/keystore'));
+                if (process.platform === 'darwin') keystorePath += (seroNode.network=='main'?'/keystore':('/'+seroNode.network+'/keystore'));
 
                 if (process.platform === 'freebsd' ||
                     process.platform === 'linux' ||
-                    process.platform === 'sunos') keystorePath += (seroNode.network=='beta'?'/keystore':('/'+seroNode.network+'/keystore'));
+                    process.platform === 'sunos') keystorePath += (seroNode.network=='main'?'/keystore':('/'+seroNode.network+'/keystore'));
 
-                if (process.platform === 'win32') keystorePath = `${Settings.nodeDatadir}\\${(seroNode.network=='beta'?'\\keystore':('\\'+seroNode.network+'\\keystore'))}`;
+                if (process.platform === 'win32') keystorePath = `${Settings.nodeDatadir}\\${(seroNode.network=='main'?'\\keystore':('\\'+seroNode.network+'\\keystore'))}`;
 
                 // if (!/^[0-9a-fA-F]{40}$/.test(keyfile.address)) {
                 //     throw new Error('Invalid Address format.');

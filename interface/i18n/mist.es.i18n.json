@@ -103,7 +103,7 @@
             "testnetExplain": "Estás en la red de pruebas, NO ENVÍE ningún sero real a estas direcciones",
             "peers": "pares",
             "checkingWhichNetwork": "Checking network...",
-            "mainNetwork": "Beta-net",
+            "mainNetwork": "Main-net",
             "testNetwork": "Alpha-net",
             "privateNetwork": "Develop-net",
             "mainnetExplain": "You are on the main Sero global network",

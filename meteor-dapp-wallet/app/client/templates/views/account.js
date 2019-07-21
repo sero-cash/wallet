@@ -81,6 +81,41 @@ Template['views_account'].onRendered(function () {
     web3.sero.genPKr(address, function (err, result) {
         document.querySelector('.copyable-address-pkr span').innerHTML = result;
     });
+
+    web3.exchange.getPkSynced(address, function (err, result) {
+        if(result){
+            var confirmedBlock = parseFloat(result.confirmedBlock);
+            var currentBlock = parseFloat(result.currentBlock);
+            var currentPKBlock = parseFloat(result.currentPKBlock);
+            var percent = 0 ;
+            if (currentBlock - confirmedBlock > 0){
+                percent = currentPKBlock / (currentBlock - confirmedBlock) * 100;
+            }
+            if (percent>100){
+                percent = 100;
+            }
+            document.querySelector('.balance-process').innerHTML = percent.toFixed(2)+"%";
+        }
+    });
+
+    setTimeout(function () {
+        web3.exchange.getPkSynced(address, function (err, result) {
+            if(result){
+                var confirmedBlock = parseFloat(result.confirmedBlock);
+                var currentBlock = parseFloat(result.currentBlock);
+                var currentPKBlock = parseFloat(result.currentPKBlock);
+                var percent = 0 ;
+                if (currentBlock - confirmedBlock > 0){
+                    percent = currentPKBlock / (currentBlock - confirmedBlock) * 100;
+                }
+                if (percent>100){
+                    percent = 100;
+                }
+                document.querySelector('.balance-process').innerHTML = percent.toFixed(2)+"%";
+            }
+        });
+    },3000);
+
 });
 
 Template['views_account'].onDestroyed(function () {
