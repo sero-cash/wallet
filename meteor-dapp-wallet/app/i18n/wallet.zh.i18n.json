@@ -4,7 +4,7 @@
             "high": "更快",
             "low": "更便宜"
         },
-        "checksumAlert":"这个地址看起来有效，但它不具备一些防护错别字的安全功能，所以请仔细检查这个地址是否正确。如果有安全图标的话，请确认图标是否符合。",
+        "checksumAlert": "这个地址看起来有效，但它不具备一些防护错别字的安全功能，所以请仔细检查这个地址是否正确。如果有安全图标的话，请确认图标是否符合。",
         "identiconHelper": "这是一个安全图标，如果地址有任何不同，图标就会完全不一样"
     },
     "wallet": {
@@ -95,6 +95,7 @@
             "walletsDescriptionNotEnoughFunds": "只要你的超零币多于1个，你就可以创建更加成熟的合约。钱包只是一种基本的智能合约，让您的资金被多个账户所操控，而且想要的话可以设定每日的提现额度，以此来增加安全性。要创建自己的定制化合约到<em> 合约 </em> 分页。",
             "accountsDescription": "账户由密码保护，可以存储超零币，保障基于超零的代币或货币，也能够控制合约。账户无法显示进账中的交易。",
             "buttons": {
+                "unlockAccount": "解锁账户",
                 "deposit": "存入超零币",
                 "depositBitcoin": "使用比特币做存款",
                 "viewOnExplorer": "View on Seroscan",
@@ -110,7 +111,10 @@
                     "title": "备份您的钱包合约地址！",
                     "description": "请确保写下钱包合约地址："
                 }
-            }
+            },
+            "unlockAccountTitle": "解锁账户",
+            "unlockSuccess": "解锁成功",
+            "unlockFail": "解锁失败，密码不对"
         },
         "events": {
             "eventInfoTitle": "事件",
@@ -285,7 +289,7 @@
             "subTitle": "新增 代币",
             "admin": "__name__ (管理页面)",
             "description": "代币 是货币或者是其他基于超零平台的货币等价物。您需要添加代币地址到此列表，以便查看和发送代币 。您可以修改 <a href=\"https://remix.web.sero.cash\" target=\"_blank\">定制化代币的合约规范</a> 以创建定制化的代币，或者查看 <a href=\"https://remix.web.sero.cash\" target=\"_blank\">Sero Tokens</a> 进行深入学习。",
-             "deleteToken": "您确定要从列表中移除 代币么 <strong>__token__</strong> ？",
+            "deleteToken": "您确定要从列表中移除 代币么 <strong>__token__</strong> ？",
             "addedToken": "添加 __token__ 至您的查看列表",
             "editedToken": "编辑 代币 __token__",
             "error": {
@@ -293,7 +297,7 @@
             }
         },
         "contracts": {
-            "contractTitle" : "合约",
+            "contractTitle": "合约",
             "deployNewContract": "部署新合约",
             "addCustomContract": "新增观察合约",
             "customContracts": "定制化合约",

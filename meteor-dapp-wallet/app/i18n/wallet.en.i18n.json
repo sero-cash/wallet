@@ -96,6 +96,7 @@
             "walletsDescriptionNotEnoughFunds": "Once you have more than 1 Sero you can create more sophisticated contracts. Wallets are smart contracts that allow your funds to be controlled by multiple accounts.  They can have an optional daily limit on withdrawals to increase security.  Create your own custom contracts on the <em>Contracts</em> tab.",
             "accountsDescription": "Accounts are password protected keys that can hold Sero and Sero-based tokens.  They can control contracts, but can't display incoming transactions.",
             "buttons": {
+                "unlockAccount": "Unlock Account",
                 "deposit": "Transfer Sero & Tokens",
                 "depositBitcoin": "Fund with Bitcoin",
                 "depositUsingCreditCard": "Fund with a Credit Card (U.S. only)",
@@ -115,7 +116,10 @@
                 "copyAddressWarning": "<strong>Warning:</strong> you are on the Test Network. Be careful not to transfer real funds to this account.",
                 "buttonOk": "Copy anyway",
                 "buttonCancel": "Nevermind.."
-            }
+            },
+            "unlockAccountTitle": "Unlock Account",
+            "unlockSuccess": "Unlock Account Successful",
+            "unlockFail": "Unlock Account Failed, password is incorrect. "
         },
         "events": {
             "eventInfoTitle": "Event",

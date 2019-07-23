@@ -34,10 +34,12 @@
                         {{/if}}
 
                     </h1>
-                    <h2 class="copyable-address" style="line-height: 1.8em">{{i18n "wallet.accounts.process"}} <span class="balance-process"></span><br/>
+                    <h2 class="copyable-address" style="line-height: 1.8em">
                         {{i18n "wallet.accounts.addressPk"}}{{walletIcon}}
                         <span style="font-size:12px;">{{toChecksumAddress address}}</span>
+                        <br/>{{i18n "wallet.accounts.process"}} <span class="balance-process"></span><br/>
                     </h2>
+
                     <div class="copyable-address-pkr" style="padding: 0;
     margin-bottom: 0;
     background-color: transparent;
@@ -150,6 +152,13 @@
                 <aside class="dapp-actionbar">
                     <nav>
                         <ul>
+                            <li>
+                                <button class="unlock-account-button">
+                                    <i class="icon-lock-open"></i>
+                                    {{i18n "wallet.accounts.buttons.unlockAccount"}}
+                                </button>
+                            </li>
+
                             <li>
                                 <a href="{{pathFor route='sendTo' address=(toChecksumAddress address)}}"
                                    title="{{toChecksumAddress address}}">

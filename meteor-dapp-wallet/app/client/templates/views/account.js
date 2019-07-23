@@ -298,7 +298,7 @@ var accountClipboardEventHandler = function (e) {
     }
     else {
         SeroElements.Modal.question({
-            text: new Spacebars.SafeString(TAPi18n.__('wallet.accounts.modal.copyAddressWarning')),
+            template: new Spacebars.SafeString(TAPi18n.__('wallet.accounts.modal.copyAddressWarning')),
             ok: function () {
                 Session.set('tmpAllowCopy', true);
                 copyAddress();
@@ -457,6 +457,38 @@ Template['views_account'].events({
     'click .copy-to-clipboard-button-pkr': accountPkrClipboardEventHandler,
 
     /**
+     Click to copy the code to the clipboard
+
+     @event click a.create.account
+     */
+    'click .unlock-account-button': function () {
+        var address = this.address;
+        SeroElements.Modal.question({
+            template: 'views_modals_unlockAccount',
+            ok: function () {
+                var password = $('input[name="password"]').val();
+                web3.personal.unlockAccount(address,password,function (err, result) {
+                    if(err){
+                        GlobalNotification.error({
+                            content: 'i18n:wallet.accounts.unlockFail',
+                            duration: 3
+                        });
+                    }else{
+                        GlobalNotification.info({
+                            content: 'i18n:wallet.accounts.unlockSuccess',
+                            duration: 3
+                        });
+                    }
+                });
+            },
+            cancel: true
+        },{
+            class: 'modals-add-custom-contract'
+        });
+    },
+
+
+    /**
      Tries to copy account token.
 
      @event copy .copyable-address span
@@ -469,7 +501,6 @@ Template['views_account'].events({
      @event copy .copyable-address span
      */
     'copy .copyable-address-pkr': accountPkrClipboardEventHandler,
-
 
     /**
      Click to launch Coinbase widget
