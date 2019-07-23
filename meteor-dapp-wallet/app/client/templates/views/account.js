@@ -467,7 +467,7 @@ Template['views_account'].events({
             template: 'views_modals_unlockAccount',
             ok: function () {
                 var password = $('input[name="password"]').val();
-                web3.personal.unlockAccount(address,password,function (err, result) {
+                web3.personal.unlockAccount(address,password,0,function (err, result) {
                     if(err){
                         GlobalNotification.error({
                             content: 'i18n:wallet.accounts.unlockFail',
